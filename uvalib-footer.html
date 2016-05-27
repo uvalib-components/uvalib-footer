@@ -28,7 +28,9 @@ Example:
 -->
 
 <dom-module id="uvalib-footer">
+  <link rel="stylesheet" href="../bootstrap-css/css/bootstrap.min.css"/>
   <template>
+
     <style>
     .donate-btn {
       margin-top: 10px;
@@ -46,6 +48,7 @@ Example:
       background-color: #002359;
       font-family: 'Open Sans', sans-serif;
     }
+    ::content .footer a,
     .footer a {
       color: #fff;
       margin-bottom: 5px;
@@ -57,17 +60,20 @@ Example:
     .footer_wrap {
       padding: 25px 0;
     }
+    ::content .footer_wrap h4,
     .footer_wrap h4 {
       color: #fff;
       font-family: 'Open Sans', sans-serif;
       font-weight: 600;
       margin-bottom: 18px;
     }
+    ::content .footer_wrap ul,
     .footer_wrap ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
+    ::content .footer_wrap ul li,
     .footer_wrap ul li {
       color: #fff;
       padding: 5px 0;
