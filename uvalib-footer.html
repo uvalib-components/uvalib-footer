@@ -1,0 +1,193 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <uvalib-footer></uvalib-footer>
+
+Example:
+
+    <uvalib-footer>
+      <h2>Hello uvalib-footer</h2>
+    </uvalib-footer>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="uvalib-footer">
+  <template>
+    <style>
+    .donate-btn {
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .centered-img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 150px;
+    }
+
+    .footer {
+      background-color: #002359;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .footer a {
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .footer img {
+      padding-top: 25%;
+    }
+
+    .footer_wrap {
+      padding: 25px 0;
+    }
+    .footer_wrap h4 {
+      color: #fff;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .footer_wrap ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .footer_wrap ul li {
+      color: #fff;
+      padding: 5px 0;
+    }
+
+    .footer-extended {
+      background-color: #002F6C;
+      display: block;
+      width: 100%;
+      height: 60px;
+      bottom: 0;
+    }
+
+    .footer-extended-left {
+      margin-left: 40px;
+      float: left;
+      padding-top: 20px;
+      color: #fff;
+    }
+
+    .footer-extended-right {
+      margin-right: 40px;
+      float: right;
+    }
+    .footer-extended-right img {
+      width: 50px;
+    }
+
+    </style>
+
+    <section class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="footer_wrap">
+              <img src="http://www.virginia.edu/sites/all/themes/custom/uva/images/logo-stacked-retina.svg" class="centered-img">
+            </div>
+          </div>
+          <div class="col-sm-3 col-centered">
+            <div class="footer_wrap">
+              <h4>About the Library</h4>
+              <ul>
+                <li class="line_rv"><a href="http://www.library.virginia.edu/hours/#!/">Hours</a></li>
+                <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+                <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+                <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+                <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowships</a></li>
+              </ul>
+              <a class="btn btn-primary donate-btn" href="http://www.library.virginia.edu/support/" role="button">Give to the Library</a>
+            </div>
+          </div>
+          <div class="col-sm-3 col-centered">
+            <div class="footer_wrap">
+              <h4>Using the Library</h4>
+              <ul>
+                <li><a href="http://www.library.virginia.edu/policies/">Library Use Policies</a></li>
+                <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+                <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
+                <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility Services</a></li>
+                <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+                <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Op-out</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-sm-3 col-centered">
+            <div class="footer_wrap">
+              <content></content>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-extended">
+        <div class="footer-extended-left">
+          <a href="http://libra.virginia.edu/terms" class="footer-link">Libra Terms</a> &nbsp; | &nbsp;
+          <a href="mailto:libra@virginia.edu" class="footer-link">Libra Feedback</a>
+        </div>
+        <div class="footer-extended-right">
+          <img src="http://libra.virginia.edu/images/powered_by_hydra.png?1416414772">
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'uvalib-footer',
+
+      properties: {
+      },
+
+      // Element Lifecycle
+
+      ready: function() {
+        // `ready` is called after all elements have been configured, but
+        // propagates bottom-up. This element's children are ready, but parents
+        // are not.
+        //
+        // This is the point where you should make modifications to the DOM (when
+        // necessary), or kick off any processes the element wants to perform.
+      },
+
+      attached: function() {
+        // `attached` fires once the element and its parents have been inserted
+        // into a document.
+        //
+        // This is a good place to perform any work related to your element's
+        // visual state or active behavior (measuring sizes, beginning animations,
+        // loading resources, etc).
+      },
+
+      detached: function() {
+        // The analog to `attached`, `detached` fires when the element has been
+        // removed from a document.
+        //
+        // Use this to clean up anything you did in `attached`.
+      },
+
+      // Element Behavior
+
+    });
+  </script>
+</dom-module>
