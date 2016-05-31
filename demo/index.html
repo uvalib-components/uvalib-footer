@@ -15,37 +15,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>uvalib-footer Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../uvalib-footer.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
   </head>
   <body unresolved>
 
-    <uvalib-footer>
-      <h4>Other Sites</h4>
-      <ul>
-        <li class="line_rv"><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
-        <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
-        <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
-        <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
-        <li><a href="http://www.virginia.edu/">UVA Home</a></li>
-        <li><a href="http://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
-      </ul>
-    </uvalib-footer>
+    <demo-snippet>
+      <template>
+        <uvalib-footer></uvalib-footer>
+      </template>
+    </demo-snippet>
 
-    <script>
-      var seedElement = document.querySelector('uvalib-footer');
-
-      document.querySelector('#saybtn').addEventListener('click', function() {
-        alert(seedElement.sayHello('Hallo!'));
-      });
-
-      document.querySelector('#laserbtn').addEventListener('click', function() {
-        seedElement.fireLasers();
-      });
-
-      document.addEventListener("uvalib-footer-lasers", function(e) {
-        console.log(e.detail.sound);
-      });
-
-    </script>
+    <demo-snippet>
+      <template>
+        <uvalib-footer extended>
+          <div one>
+            <h4>About the Library</h4>
+            <ul>
+              <li class="line_rv"><a href="http://www.library.virginia.edu/hours/#!/">Hours</a></li>
+              <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+              <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+              <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+              <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowships</a></li>
+            </ul>
+            <a class="btn btn-primary donate-btn" href="http://www.library.virginia.edu/support/" role="button">Give to the Library</a>
+          </div>
+          <div two>
+            <h4>Using the Library</h4>
+            <ul>
+              <li><a href="http://www.library.virginia.edu/policies/">Library Use Policies</a></li>
+              <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+              <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
+              <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility Services</a></li>
+              <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+              <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Op-out</a></li>
+            </ul>
+          </div>
+          <div three>
+            <h4>Other Sites</h4>
+            <ul>
+              <li class="line_rv"><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
+              <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
+              <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
+              <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
+              <li><a href="http://www.virginia.edu/">UVA Home</a></li>
+              <li><a href="http://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
+            </ul>
+          </div>
+        </uvalib-footer>
+      </template>
+    </demo-snippet>
 
   </body>
 </html>
