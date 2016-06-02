@@ -105,6 +105,17 @@ Example:
       width: 50px;
     }
 
+    .footer-extended-center {
+      float: right;
+      position: relative;
+      left: -25%;
+      text-align: left;
+    }
+    .footer-extended ::content p {
+      color: #ffffff;
+      margin: 20px;
+    }
+
     </style>
 
     <section class="footer">
@@ -117,30 +128,84 @@ Example:
           </div>
           <div class="col-sm-3 col-centered">
             <div class="footer_wrap">
-              <content select="[one]"></content>
+              <template is="dom-if" if="{{!custom}}">
+                <h4>About the Library</h4>
+                <ul>
+                  <li class="line_rv"><a href="http://www.library.virginia.edu/hours/#!/">Hours</a></li>
+                  <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+                  <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+                  <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+                  <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowships</a></li>
+                </ul>
+                <a class="btn btn-primary donate-btn" href="http://www.library.virginia.edu/support/" role="button">Give to the Library</a>
+              </template>
+              <template is="dom-if" if="{{custom}}">
+                <content select="[one]"></content>
+              </template>
             </div>
           </div>
           <div class="col-sm-3 col-centered">
             <div class="footer_wrap">
-              <content select="[two]"></content>
+              <template is="dom-if" if="{{!custom}}">
+                <h4>Using the Library</h4>
+                <ul>
+                  <li><a href="http://www.library.virginia.edu/policies/">Library Use Policies</a></li>
+                  <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+                  <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
+                  <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility Services</a></li>
+                  <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+                  <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Op-out</a></li>
+                </ul>
+              </template>
+              <template is="dom-if" if="{{custom}}">
+                <content select="[two]"></content>
+              </template>
             </div>
           </div>
 
           <div class="col-sm-3 col-centered">
             <div class="footer_wrap">
-              <content select="[three]"></content>
+              <template is="dom-if" if="{{!custom}}">
+                <h4>Other Sites</h4>
+                <ul>
+                  <li class="line_rv"><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
+                  <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
+                  <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
+                  <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
+                  <li><a href="http://www.virginia.edu/">UVA Home</a></li>
+                  <li><a href="http://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
+                </ul>
+              </template>
+              <template is="dom-if" if="{{custom}}">
+                <content select="[three]"></content>
+              </template>
             </div>
           </div>
         </div>
       </div>
-      <template is="dom-if" if="[[extended]]">
+      <template is="dom-if" if="[[!noExtended]]">
         <div class="footer-extended">
+          <template is="dom-if" if="{{custom}}">
+            <div class="footer-extended-center">
+              <content select="[two-ext]"></content>
+            </div>
+          </template>
           <div class="footer-extended-left">
-            <a href="http://libra.virginia.edu/terms" class="footer-link">Libra Terms</a> &nbsp; | &nbsp;
-            <a href="mailto:libra@virginia.edu" class="footer-link">Libra Feedback</a>
+            <template is="dom-if" if="{{custom}}">
+              <content select="[one-ext]"></content>
+            </template>
+            <template is="dom-if" if="{{!custom}}">
+              <a href="http://libra.virginia.edu/terms" class="footer-link">Libra Terms</a> &nbsp; | &nbsp;
+              <a href="mailto:libra@virginia.edu" class="footer-link">Libra Feedback</a>
+            </template>
           </div>
           <div class="footer-extended-right">
-            <img src="http://libra.virginia.edu/images/powered_by_hydra.png?1416414772">
+            <template is="dom-if" if="{{custom}}">
+              <content select="[three-ext]"></content>
+            </template>
+            <template is="dom-if" if="{{!custom}}">
+              <img src="http://libra.virginia.edu/images/powered_by_hydra.png?1416414772">
+            </template>
           </div>
         </div>
       </template>
@@ -153,9 +218,16 @@ Example:
 
       properties: {
         /**
-         * When true adds an extended bar to the bottom of the footer
+         * When true excludes the extended bar at the bottom of the footer
          **/
-        extended: {
+        noExtended: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * When true, excludes the default content in the footer for child elements with attributes 'one','two','three','one-ext', and 'two-ext'.
+         **/
+        custom: {
           type: Boolean,
           value: false
         }
