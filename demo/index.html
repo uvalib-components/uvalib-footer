@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../uvalib-footer.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../uvalib-social-links/uvalib-social-links.html">
   </head>
   <body unresolved>
 
@@ -36,15 +37,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <uvalib-footer custom>
           <div two>
             <ul>
-              <li><a target="_blank" href="https://www.instagram.com/uvalibrary/" tabindex="-1">
-                <paper-icon-button icon="polymer-font-awesome:fa-instagram" title="UVa Library Instagram" style="width:50px; height:50px;"></paper-icon-button>
-              </a></li>
-              <li><a target="_blank" href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" tabindex="-1">
-                <paper-icon-button icon="polymer-font-awesome:fa-facebook-square" title="UVa Library Facebook" style="width:50px; height:50px;"></paper-icon-button>
-              </a></li>
-              <li><a target="_blank" href="https://twitter.com/UVaLibrary" tabindex="-1">
-                <paper-icon-button icon="polymer-font-awesome:fa-twitter-square" title="UVa Library Twitter" style="width:50px; height:50px;"></paper-icon-button>
-              </a></li>
+              <ul>
+                <li><uvalib-instagram-link class="sociallink"></uvalib-instagram-link></li>
+                <li><uvalib-facebook-link class="sociallink"></uvalib-facebook-link></li>
+                <li><uvalib-twitter-link class="sociallink"></uvalib-twitter-link></li>
+              </ul>
             </ul>
           </div>
           <div three>
