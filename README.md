@@ -2,6 +2,7 @@
 
 An element providing a starting point for your own reusable Polymer elements.
 
+_[Demo and API docs](https://uvalib-components.github.io/uvalib-footer)_
 
 ## Dependencies
 
