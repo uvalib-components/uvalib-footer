@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "bootstrap-css": "^3.3.6"
+    "uva-footer": "uva-components/uva-footer"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -28,6 +28,6 @@
     "uvalib-social-links": "uvalib-components/uvalib-social-links"
   },
   "resolutions": {
-    "polymer": "^1.2.1"
+    "polymer": "^1.5.0"
   }
 }
