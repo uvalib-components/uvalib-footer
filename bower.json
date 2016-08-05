@@ -20,7 +20,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "uva-footer": "uva-components/uva-footer#master",
-    "uvalib-theme": "uvalib-components/uvalib-theme#master"
+    "uvalib-theme": "uvalib-components/uvalib-theme#master",
+    "uvalib-logos": "uvalib-components/uvalib-logos#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
