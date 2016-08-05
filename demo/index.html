@@ -16,15 +16,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../uvalib-footer.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../uvalib-social-links/uvalib-social-links.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      #footer-demo {
+        --demo-snippet-demo: {
+          padding: 0px;
+        };
+      }
+    </style>
+
   </head>
   <body unresolved>
 
-    <demo-snippet>
-      <template>
-        <uvalib-footer></uvalib-footer>
-      </template>
-    </demo-snippet>
+    <div class="vertical-section-container centered" style="max-width: 95%;">
+      <h3>Standard (main site) uvalib-footer</h3>
+      <demo-snippet id="footer-demo">
+        <template>
+          <div style="height:250px"></div>
+          <uvalib-footer></uvalib-footer>
+        </template>
+      </demo-snippet>
+    </div>
 
   </body>
 </html>
