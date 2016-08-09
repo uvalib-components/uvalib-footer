@@ -11,7 +11,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uva-footer/uva-footer.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
-<link rel="import" href="../uvalib-logos/uvalib-centered-logo.html">
+<link rel="import" href="../uvalib-logos/uvalib-logo.html">
+<link rel="import" href="../uvalib-liame/uvalib-liame.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
 
 <!--
 An element providing a footer for library web pages and apps.
@@ -37,12 +39,14 @@ Example:
   <template>
   <style is="custom-style">
     .logo {
-      width: 150px;
+      width: 195px;
     }
     uva-footer a {
       color: var(--color-white) !important;
       margin-bottom: 5px;
-      text-decoration: none;
+    }
+    uvalib-liame {
+      color: var(--color-white) !important;
     }
     uva-footer ul {
       list-style: none;
@@ -55,7 +59,7 @@ Example:
     }
     uva-footer h4 {
       color: var(--color-white);
-      margin-bottom: 5px;
+      margin-bottom: 25px;
       font-style: normal;
       font-size: 18px;
       margin-top: 0;
@@ -69,9 +73,12 @@ Example:
         top: -23px;
       };
     }
+    #give-button {
+      margin-top: 20px;
+    }
   </style>
     <uva-footer logo-override drop-copyright>
-      <uvalib-centered-logo class="logo"></uvalib-centered-logo>
+      <uvalib-logo centered reverse class="logo"></uvalib-logo>
       <div class="column-1">
         <h4>About the Library</h4>
         <ul>
@@ -79,9 +86,9 @@ Example:
           <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
           <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
           <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
-          <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowships</a></li>
+          <li><uvalib-liame rid="kcabdeef-etis">Site Feedback</uvalib-liame></li>
         </ul>
-        <a href="http://www.library.virginia.edu/support/"><uvalib-button>Give to the Library</uvalib-button></a>
+        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
       </div>
       <div class="column-2">
         <h4>Using the Library</h4>
