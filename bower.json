@@ -23,7 +23,8 @@
     "uvalib-theme": "uvalib-components/uvalib-theme#master",
     "uvalib-logos": "uvalib-components/uvalib-logos#master",
     "uvalib-liame": "uvalib-components/uvalib-liame#master",
-    "uvalib-button": "uvalib-components/uvalib-button#master"
+    "uvalib-button": "uvalib-components/uvalib-button#master",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -33,6 +34,7 @@
   },
   "resolutions": {
     "polymer": "^1.5.0",
-    "uvalib-theme": "master"
+    "uvalib-theme": "master",
+    "iron-demo-helpers": "^1.2.3"
   }
 }

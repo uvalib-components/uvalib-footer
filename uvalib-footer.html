@@ -38,8 +38,11 @@ Example:
 <dom-module id="uvalib-footer">
   <template>
   <style is="custom-style">
-    .logo {
-      width: 195px;
+    .large-screen uvalib-logo {
+      width: 200px;
+    }
+    uvalib-logo {
+      width: 200px;
     }
     uva-footer a {
       color: var(--color-white) !important;
@@ -56,18 +59,21 @@ Example:
     uva-footer ul li {
       color: var(--color-white);
       padding: 0;
+      padding-bottom: 3px;
+      font-size: 1.1em;
     }
     uva-footer h4 {
       color: var(--color-white);
-      margin-bottom: 25px;
+      margin-bottom: 0px;
       font-style: normal;
       font-size: 18px;
       margin-top: 0;
     }
     uva-footer {
-      --uva-footer: {
-        height: 230px;
-      };
+      background-color: var(--color-secondary-blue);
+      height: 280px;
+      --uva-footer-tablet-height: 540px;
+      --uva-footer-mobile-height: 950px;
       --uva-footer-columns: {
         position: relative;
         top: -23px;
@@ -76,8 +82,41 @@ Example:
     #give-button {
       margin-top: 20px;
     }
+    #top-bar {
+      @apply(--layout-horizontal);
+      width: 100%;
+      height: 50px;
+      background-color: var(--color-medium-blue);
+    }
+    #top-bar div {
+      @apply(--layout-flex);
+      color: var(--color-white);
+      padding: 10px 0 10px 0;
+      font-size: 1.3em;
+      font-weight: 100;
+      @apply(--layout-center);
+    }
+    #top-bar div a {
+      color: var(--color-white);
+    }
+    #top-bar div#questions {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: 500;
+    }
+    #bottom-bar {
+      width: 100%;
+      height: 80px;
+      background-color: var(--color-primary-blue);
+    }
   </style>
-    <uva-footer logo-override drop-copyright>
+    <div id="top-bar">
+      <div id="questions">Have Questions? Need Help?</div>
+      <div>Phone: 434.924.3021</div>
+      <div>Email: <uvalib-liame rid="yrarbil"></uvalib-liame></div>
+      <div><a href="http://www.library.virginia.edu/askalibrarian/">Chat now</a></div>
+    </div>
+    <uva-footer class="lib" logo-override drop-copyright large-screen="{{largeScreen}}">
       <uvalib-logo centered reverse class="logo"></uvalib-logo>
       <div class="column-1">
         <h4>About the Library</h4>
@@ -113,6 +152,7 @@ Example:
         </ul>
       </div>
     </uva-footer>
+    <div id="bottom-bar"></div>
   </template>
 
   <script>
