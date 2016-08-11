@@ -43,13 +43,14 @@ Example:
     }
     uvalib-logo {
       width: 200px;
+      color: var(--color-text-gray);
     }
     uva-footer a {
-      color: var(--color-white) !important;
+      color: var(--color-text-gray) !important;
       margin-bottom: 5px;
     }
     uvalib-liame {
-      color: var(--color-white) !important;
+      color: var(--color-text-gray) !important;
     }
     uva-footer ul {
       list-style: none;
@@ -57,31 +58,35 @@ Example:
       padding: 0;
     }
     uva-footer ul li {
-      color: var(--color-white);
+      color: var(--color-text-gray);
       padding: 0;
       padding-bottom: 3px;
       font-size: 1.1em;
     }
     uva-footer h4 {
-      color: var(--color-white);
+      color: var(--color-text-gray);
       margin-bottom: 0px;
       font-style: normal;
       font-size: 18px;
       margin-top: 0;
     }
     uva-footer {
-      background-color: var(--color-secondary-blue);
-      height: 280px;
-      --uva-footer-tablet-height: 540px;
-      --uva-footer-mobile-height: 950px;
+      background-color: var(--color-light-gray);;
+      height: 350px;
+      --uva-footer-tablet-height: 610px;
+      --uva-footer-mobile-height: 1010px;
       --uva-footer-columns: {
         position: relative;
         top: -23px;
       };
     }
-    #give-button {
+    #give {
       margin-top: 20px;
     }
+    #give-button {
+      --uvalib-button-bkgrd-color: var(--color-text-gray);
+    }
+    /*
     #top-bar {
       @apply(--layout-horizontal);
       width: 100%;
@@ -109,15 +114,18 @@ Example:
       height: 80px;
       background-color: var(--color-primary-blue);
     }
+    */
   </style>
+<!--
     <div id="top-bar">
       <div id="questions">Have Questions? Need Help?</div>
       <div>Phone: 434.924.3021</div>
       <div>Email: <uvalib-liame rid="yrarbil"></uvalib-liame></div>
       <div><a href="http://www.library.virginia.edu/askalibrarian/">Chat now</a></div>
     </div>
+-->
     <uva-footer class="lib" logo-override drop-copyright large-screen="{{largeScreen}}">
-      <uvalib-logo centered reverse class="logo"></uvalib-logo>
+      <uvalib-logo centered class="logo"></uvalib-logo>
       <div class="column-1">
         <h4>About the Library</h4>
         <ul>
@@ -127,7 +135,9 @@ Example:
           <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
           <li><uvalib-liame rid="kcabdeef-etis">Site Feedback</uvalib-liame></li>
         </ul>
-        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+        <div id="give">
+          <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+        </div>
       </div>
       <div class="column-2">
         <h4>Using the Library</h4>
