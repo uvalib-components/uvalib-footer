@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-logos/uvalib-logo.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
+<link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 
 <!--
@@ -38,131 +39,146 @@ Example:
 <dom-module id="uvalib-footer">
   <template>
   <style is="custom-style">
-    .large-screen uvalib-logo {
-      width: 200px;
-    }
-    uvalib-logo {
-      width: 200px;
-      color: var(--color-text-gray);
-    }
-    uva-footer a {
-      color: var(--color-text-gray) !important;
+    uva-footer.lib3 a {
+      color: var(--color-light-blue);
       margin-bottom: 5px;
     }
-    uvalib-liame {
-      color: var(--color-text-gray) !important;
+    .lib3 uvalib-liame {
+      color: var(--color-light-blue);
     }
-    uva-footer ul {
+    uva-footer.lib3 ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    uva-footer ul li {
-      color: var(--color-text-gray);
+    uva-footer.lib3 ul li {
       padding: 0;
       padding-bottom: 3px;
       font-size: 1.1em;
+      color: var(--color-light-blue);
     }
-    uva-footer h4 {
-      color: var(--color-text-gray);
+    uva-footer.lib3 h3 {
+      font-family: var(--font-primary);
+      font-weight: var(--font-weight-book);
+      text-transform: none;
+      color: var(--color-white);
       margin-bottom: 0px;
       font-style: normal;
       font-size: 18px;
       margin-top: 0;
     }
-    uva-footer {
-      background-color: var(--color-light-gray);;
+    uva-footer.lib3 {
+      font-family: var(--font-primary);
+      background-color: var(--color-primary-blue);
       height: 350px;
       --uva-footer-tablet-height: 610px;
-      --uva-footer-mobile-height: 1010px;
+      --uva-footer-mobile-height: 1155px;
       --uva-footer-columns: {
         position: relative;
         top: -23px;
       };
+      color: var(--color-light-blue);
     }
-    #give {
+    .lib3 #give-button {
       margin-top: 20px;
     }
-    #give-button {
-      --uvalib-button-bkgrd-color: var(--color-text-gray);
-    }
-    /*
-    #top-bar {
+    .lib3 .social-links {
       @apply(--layout-horizontal);
-      width: 100%;
-      height: 50px;
-      background-color: var(--color-medium-blue);
     }
-    #top-bar div {
-      @apply(--layout-flex);
-      color: var(--color-white);
-      padding: 10px 0 10px 0;
-      font-size: 1.3em;
-      font-weight: 100;
-      @apply(--layout-center);
+    .lib3 .social-links[small] {
+      @apply(--layout-center-justified);
     }
-    #top-bar div a {
+    .lib3 address {
       color: var(--color-white);
     }
-    #top-bar div#questions {
-      text-align: center;
-      font-size: 1.4em;
-      font-weight: 500;
+    .lib3 uvalib-button {
+      --uvalib-button-bkgrd-color: var(--color-secondary-blue);
     }
-    #bottom-bar {
+    #bottom-bar a, #bottom-bar uvalib-liame, .lib3 a, .lib3 uvalib-liame {
+      text-decoration: none;
+    }
+    #bottom-bar.lib3 {
       width: 100%;
       height: 80px;
-      background-color: var(--color-primary-blue);
+      color: var(--color-white);
+      background-color: var(--color-secondary-blue);
     }
-    */
+    #bottom-bar uvalib-liame, #bottom-bar a {
+      color: var(--color-white);
+      padding: 0 10px 0 10px;
+      font-size: 1.1em;
+    }
+    #bottom-bar.lib3 div {
+      float: left;
+      padding: 25px 0 0 28px;
+    }
+    #bottom-bar.lib3 img {
+      float: right;
+      height: 85%;
+      padding-top: 5px;
+    }
+
   </style>
-<!--
-    <div id="top-bar">
-      <div id="questions">Have Questions? Need Help?</div>
-      <div>Phone: 434.924.3021</div>
-      <div>Email: <uvalib-liame rid="yrarbil"></uvalib-liame></div>
-      <div><a href="http://www.library.virginia.edu/askalibrarian/">Chat now</a></div>
+  <uva-footer class="lib3" drop-logo drop-copyright small-screen="{{smallScreen}}">
+    <div class="column-1">
+      <h3>Contact Us</h3>
+      <ul>
+        <li>(434) 924-3021</li>
+        <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
+        <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
+      </ul>
+      <div class="social-links" small$="{{smallScreen}}">
+        <uvalib-instagram-link></uvalib-instagram-link>
+        <uvalib-facebook-link></uvalib-facebook-link>
+        <uvalib-twitter-link></uvalib-twitter-link>
+      </div>
+      <address>
+        160 McCormic Rd.<br />
+        Charlottesville, VA 22903
+      </address>
     </div>
--->
-    <uva-footer class="lib" logo-override drop-copyright large-screen="{{largeScreen}}">
-      <uvalib-logo centered class="logo"></uvalib-logo>
-      <div class="column-1">
-        <h4>About the Library</h4>
-        <ul>
-          <li class="line_rv"><a href="http://www.library.virginia.edu/hours/#!/">Hours</a></li>
-          <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
-          <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
-          <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
-          <li><uvalib-liame rid="kcabdeef-etis">Site Feedback</uvalib-liame></li>
-        </ul>
-        <div id="give">
-          <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
-        </div>
-      </div>
-      <div class="column-2">
-        <h4>Using the Library</h4>
-        <ul>
-          <li><a href="http://www.library.virginia.edu/policies/">Library Use Policies</a></li>
-          <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
-          <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
-          <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility Services</a></li>
-          <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
-          <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Op-out</a></li>
-        </ul>
-      </div>
-      <div class="column-3">
-        <h4>Other Sites</h4>
-        <ul>
-          <li><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
-          <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
-          <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
-          <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
-          <li><a href="http://www.virginia.edu/">UVA Home</a></li>
-          <li><a href="http://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
-        </ul>
-      </div>
-    </uva-footer>
-    <div id="bottom-bar"></div>
+    <div class="column-2">
+      <h3>About the Library</h3>
+      <ul>
+        <li><a href="http://www.library.virginia.edu/hours/#!/">Hours</a></li>
+        <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+        <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+        <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+        <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
+      </ul>
+      <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+    </div>
+    <div class="column-3">
+      <h3>Help &amp; Assistance</h3>
+      <ul>
+        <li><a href="http://www.library.virginia.edu/askalibrarian/">FAQs</a></li>
+        <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+        <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
+        <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
+        <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+        <li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
+      </ul>
+    </div>
+    <div class="column-4">
+      <h3>Related Resources</h3>
+      <ul>
+        <li><a href="http://www.virginia.edu">UVA Home</a></li>
+        <li><a href="http://static.lib.virginia.edu/directory/">Library Staff</a></li>
+        <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
+        <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
+        <li><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
+        <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
+        <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Op-out</a></li>
+      </ul>
+    </div>
+  </uva-footer>
+  <div id="bottom-bar" class="lib3">
+    <div>
+      <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
+      <a href="???????" style="color:orange;">Copyright</a>
+    </div>
+    <a href="http://guides.lib.virginia.edu/findinggovinfo"><img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law."></a>
+  </div>
   </template>
 
   <script>
