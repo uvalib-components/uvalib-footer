@@ -39,25 +39,25 @@ Example:
 <dom-module id="uvalib-footer">
   <template>
   <style is="custom-style">
-    uva-footer.lib3 a {
+    a {
       color: var(--color-light-blue);
       margin-bottom: 5px;
     }
-    .lib3 uvalib-liame {
+    uvalib-liame {
       color: var(--color-light-blue);
     }
-    uva-footer.lib3 ul {
+    ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    uva-footer.lib3 ul li {
+    ul li {
       padding: 0;
       padding-bottom: 3px;
       font-size: 1.1em;
       color: var(--color-light-blue);
     }
-    uva-footer.lib3 h3 {
+    h3 {
       font-family: var(--font-primary);
       font-weight: var(--font-weight-book);
       text-transform: none;
@@ -67,10 +67,10 @@ Example:
       font-size: 18px;
       margin-top: 0;
     }
-    uva-footer.lib3 {
+    uva-footer {
       font-family: var(--font-primary);
       background-color: var(--color-primary-blue);
-      height: 350px;
+      height: 390px;
       --uva-footer-tablet-height: 610px;
       --uva-footer-mobile-height: 1155px;
       --uva-footer-columns: {
@@ -79,28 +79,28 @@ Example:
       };
       color: var(--color-light-blue);
     }
-    .lib3 #give-button {
+    #give-button {
       margin-top: 20px;
     }
-    .lib3 .social-links {
+    .social-links {
       @apply(--layout-horizontal);
     }
-    .lib3 .social-links[small] {
+    .social-links[small] {
       @apply(--layout-center-justified);
     }
-    .lib3 address {
+    address {
       color: var(--color-white);
       font-style: normal;
       line-height: 1.4;
     }
-    .lib3 uvalib-button {
+    uvalib-button {
       color: var(--color-white);
       --uvalib-button-bkgrd-color: var(--color-primary-orange);
     }
-    #bottom-bar a, #bottom-bar uvalib-liame, .lib3 a, .lib3 uvalib-liame {
+    #bottom-bar a, #bottom-bar uvalib-liame, a, uvalib-liame {
       text-decoration: none;
     }
-    #bottom-bar.lib3 {
+    #bottom-bar {
       width: 100%;
       height: 80px;
       color: var(--color-white);
@@ -111,18 +111,18 @@ Example:
       padding: 0 10px 0 10px;
       font-size: 1.1em;
     }
-    #bottom-bar.lib3 div {
+    #bottom-bar div {
       float: left;
       padding: 25px 0 0 28px;
     }
-    #bottom-bar.lib3 img {
+    #bottom-bar img {
       float: right;
       height: 85%;
       padding-top: 5px;
     }
 
   </style>
-  <uva-footer class="lib3" drop-logo drop-copyright small-screen="{{smallScreen}}">
+  <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}">
     <div class="column-1">
       <h3>Contact Us</h3>
       <ul>
@@ -155,7 +155,7 @@ Example:
     <div class="column-3">
       <h3>Help &amp; Assistance</h3>
       <ul>
-        <li><a href="http://www.library.virginia.edu/askalibrarian/">FAQs</a></li>
+        <li><a href="http://answers.lib.virginia.edu/">FAQs</a></li>
         <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
         <li><a href="http://its.virginia.edu/accounts/createacct.html">ITS Computing Acccounts</a></li>
         <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
@@ -167,7 +167,6 @@ Example:
       <h3>Related Resources</h3>
       <ul>
         <li><a href="http://www.virginia.edu">UVA Home</a></li>
-        <li><a href="http://static.lib.virginia.edu/directory/">Library Staff</a></li>
         <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
         <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
         <li><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
