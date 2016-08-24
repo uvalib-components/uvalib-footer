@@ -13,7 +13,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>uvalib-footer Demo</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script>
+      Polymer = {dom: 'shadow'};
+
+      (function() {
+        if ('registerElement' in document
+            && 'import' in document.createElement('link')
+            && 'content' in document.createElement('template')) {
+          // platform is good!
+        } else {
+          document.write( '<script src="../../webcomponentsjs/webcomponents-lite.min.js">\x3C/script>')
+        }
+      })();
+    </script>
+
     <link rel="import" href="../uvalib-footer.html">
 
     <style is="custom-style">
