@@ -28,7 +28,8 @@
     "uvalib-social-links": "uvalib-components/uvalib-social-links#master",
     "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
     "web-component-tester": "^4.3.3",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5",
+    "iron-dropdown": "PolymerElements/iron-dropdown#^1.5.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uva-footer/uva-footer.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
@@ -69,7 +70,7 @@ Example:
     uva-footer {
       font-family: var(--font-primary);
       background-color: var(--color-primary-blue);
-      height: 365px;
+      height: 390px;
       --uva-footer-tablet-height: 610px;
       --uva-footer-mobile-height: 1155px;
       --uva-footer-columns: {
@@ -77,6 +78,12 @@ Example:
         top: -23px;
       };
       color: var(--color-light-blue);
+    }
+    uva-footer[medium-screen] {
+      height: 675px !important;
+    }
+    uva-footer[small-screen] {
+      height: 1315px !important;
     }
     #give-button {
       margin-top: 20px;
@@ -120,9 +127,15 @@ Example:
       padding-top: 20px;
       padding-right: 20px;
     }
+    .copyright {
+      background-color: var(--color-white);
+      color: var(--color-text-gray);
+      padding: 10px !important;
+      border-radius: 3px;
+    }
 
   </style>
-  <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}">
+  <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}">
     <div class="column-1">
       <h3>Contact Us</h3>
       <ul>
@@ -179,7 +192,15 @@ Example:
   <div id="bottom-bar" class="lib3">
     <div>
       <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
-      <a href="???????">Copyright</a>
+      <iron-dropdown id="copydrop"
+        auto-fit-on-attach no-overlap
+        vertical-align="bottom"
+        horizontal-align="left">
+          <div class="dropdown-content">
+            <div class="copyright">© 2016 by the Rector and Visitors of the University of Virginia</div>
+          </div>
+      </iron-dropdown>
+      <a href="" on-tap="_copyrightDropup">Copyright</a>
     </div>
     <a href="http://guides.lib.virginia.edu/findinggovinfo"><img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law."></a>
   </div>
@@ -187,7 +208,13 @@ Example:
 
   <script>
     Polymer({
-      is: 'uvalib-footer'
+      is: 'uvalib-footer',
+      _copyrightDropup: function(evt){
+        console.log('foo');
+        this.$.copydrop.open();
+        evt.preventDefault();
+        return false;
+      }
     });
   </script>
 </dom-module>
