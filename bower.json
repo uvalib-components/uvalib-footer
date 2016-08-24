@@ -29,7 +29,8 @@
     "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
     "web-component-tester": "^4.3.3",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5",
-    "iron-dropdown": "PolymerElements/iron-dropdown#^1.5.1"
+    "iron-dropdown": "PolymerElements/iron-dropdown#^1.5.1",
+    "iron-media-query": "PolymerElements/iron-media-query#^1.0.8"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
