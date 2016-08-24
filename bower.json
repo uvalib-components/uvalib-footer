@@ -18,7 +18,7 @@
     "/test/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer": "polymer/polymer#^1.6.1",
     "uva-footer": "uva-components/uva-footer#master",
     "uvalib-theme": "uvalib-components/uvalib-theme#master",
     "uvalib-logos": "uvalib-components/uvalib-logos#master",
@@ -34,7 +34,7 @@
     "uvalib-social-links": "uvalib-components/uvalib-social-links"
   },
   "resolutions": {
-    "polymer": "^1.5.0",
+    "polymer": "^1.6.1",
     "uvalib-theme": "master",
     "iron-demo-helpers": "^1.2.3"
   }
