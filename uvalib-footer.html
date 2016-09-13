@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 
 <!--
 An element providing a footer for library web pages and apps.
@@ -134,6 +135,10 @@ Example:
       padding: 10px !important;
       border-radius: 3px;
     }
+    paper-tooltip {
+      --paper-tooltip-opacity: 1;
+      z-index: 2000;
+    }
 
     /* tablet */
     @media (min-width: 601px) and (max-width: 992px) {
@@ -220,7 +225,8 @@ Example:
       </iron-dropdown>
       <a href="" on-tap="_copyrightDropup">Copyright</a>
     </div>
-    <a href="http://guides.lib.virginia.edu/findinggovinfo"><img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law."></a>
+    <a href="http://guides.lib.virginia.edu/findinggovinfo" id="fdl"><img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law."></a>
+    <paper-tooltip for="fdl" position="right" offset="0" fit-to-visible-bounds>This library is a congressionally designated depository for U.S. Government documents. Public access to the government documents collection is guaranteed by public law. (Title 44 United States Code)</paper-tooltip>
   </div>
   </template>
 
