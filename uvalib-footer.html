@@ -119,12 +119,15 @@ Example:
       padding: 0 10px 0 10px;
       font-size: 1.1em;
     }
-    #bottom-bar div {
+    #bottom-bar div.links {
       float: left;
       padding: 30px 0 0 28px;
     }
-    #bottom-bar img {
+    #bottom-bar div.fdl {
       float: right;
+      height: 80px;
+    }
+    div.fdl img {
       height: 50%;
       padding-top: 20px;
       padding-right: 20px;
@@ -209,7 +212,7 @@ Example:
     </div>
   </uva-footer>
   <div id="bottom-bar" class="lib3">
-    <div>
+    <div class="links">
       <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
       <iron-dropdown id="copydrop"
         auto-fit-on-attach no-overlap
@@ -221,17 +224,19 @@ Example:
       </iron-dropdown>
       <a href="" on-tap="_copyrightDropup" aria-label="Copyright 2016 by the Rector and Visitors of the University of Virginia">Copyright</a>
     </div>
-    <iron-dropdown id="fdlpdrop"
-      auto-fit-on-attach no-overlap always-on-top
-      vertical-align="bottom"
-      horizontal-align="left">
-        <div class="dropdown-content">
-          <div class="copyright">This library is a congressionally designated depository for U.S. Government documents. Public access to the government documents collection is guaranteed by public law. (Title 44 United States Code)</div>
-        </div>
-    </iron-dropdown>
-    <a href="http://guides.lib.virginia.edu/findinggovinfo" id="fdl">
-      <img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law." on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown">
-    </a>
+    <div class="fdl">
+      <iron-dropdown id="fdlpdrop"
+        auto-fit-on-attach no-overlap always-on-top
+        vertical-align="bottom"
+        horizontal-align="right">
+          <div class="dropdown-content">
+            <div class="copyright">This library is a congressionally designated depository for U.S. Government documents. Public access to the government documents collection is guaranteed by public law. (Title 44 United States Code)</div>
+          </div>
+      </iron-dropdown>
+      <a href="http://guides.lib.virginia.edu/findinggovinfo" id="fdl">
+        <img src="../uvalib-logos/fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law." on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown">
+      </a>
+    </div>
   </div>
   </template>
 
