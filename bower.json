@@ -18,7 +18,34 @@
     "/test/"
   ],
   "dependencies": {
-    "uvalib-elements": "uvalib-components/uvalib-elements#latest",
-    "uva-footer": "uva-components/uva-footer#latest"
+    "uvalib-elements": "uvalib-components/uvalib-elements#master",
+    "uva-footer": "uva-components/uva-footer#master"
+  },
+  "resolutions": {
+    "uva-footer": "master",
+    "uvalib-elements": "master",
+    "polymer": "^1.9.0",
+    "uvalib-alerts": "master",
+    "uvalib-analytics": "master",
+    "uvalib-banner": "master",
+    "uvalib-events-card": "master",
+    "uvalib-models": "master",
+    "uvalib-button": "master",
+    "uvalib-card": "master",
+    "uvalib-helper-libs": "master",
+    "uvalib-header": "master",
+    "uvalib-hours-card": "master",
+    "uvalib-logos": "master",
+    "uvalib-liame": "master",
+    "uvalib-nav": "master",
+    "uvalib-skip-nav": "master",
+    "uvalib-news-section": "master",
+    "uvalib-theme": "master",
+    "uvalib-social-links": "master",
+    "uvalib-search-box": "master",
+    "app-storage": "^0.10.0",
+    "iron-icons": "^1.2.1",
+    "uvalib-footer": "master",
+    "lodash": "^4.17.4"
   }
 }

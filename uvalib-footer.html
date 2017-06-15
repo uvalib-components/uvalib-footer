@@ -11,8 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uva-footer/uva-footer.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
-<link rel="import" href="../iron-media-query/iron-media-query.html">
-<link rel="import" href="../uvalib-theme/uvalib-theme.html">
 
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
@@ -41,6 +39,9 @@ Example:
 <dom-module id="uvalib-footer">
   <template>
   <style is="custom-style" include="uvalib-theme">
+    :host {
+      text-align: left;
+    }
     a {
       color: var(--color-light-blue);
       margin-bottom: 5px;
@@ -114,6 +115,9 @@ Example:
       color: var(--color-white);
       background-color: var(--color-secondary-blue);
     }
+    #bottom-bar ::content {
+      @apply(--layout-horizontal);
+    }
     #bottom-bar uvalib-liame, #bottom-bar a {
       color: var(--color-white);
       padding: 0 10px 0 10px;
@@ -152,10 +156,6 @@ Example:
       }
     }
   </style>
-
-  <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
-  <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
-  <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
 
   <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}">
     <div class="column-1 column">
@@ -211,8 +211,11 @@ Example:
       </ul>
     </div>
   </uva-footer>
+
   <div id="bottom-bar" class="lib3">
-    <div class="links">
+
+    <content select="[bottom-bar]"></content>
+    <div class="links" hidden$="[[_hasCustomBottomBar()]]">
       <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
       <iron-dropdown id="copydrop"
         auto-fit-on-attach no-overlap
@@ -224,7 +227,7 @@ Example:
       </iron-dropdown>
       <a href="" on-tap="_copyrightDropup" aria-label="Copyright 2016 by the Rector and Visitors of the University of Virginia">Copyright</a>
     </div>
-    <div class="fdl">
+    <div class="fdl" hidden$="[[_hasCustomBottomBar()]]">
       <iron-dropdown id="fdlpdrop"
         auto-fit-on-attach no-overlap always-on-top
         vertical-align="bottom"
@@ -233,10 +236,9 @@ Example:
             <div class="copyright">This library is a congressionally designated depository for U.S. Government documents. Public access to the government documents collection is guaranteed by public law. (Title 44 United States Code)</div>
           </div>
       </iron-dropdown>
+
       <a href="http://guides.lib.virginia.edu/findinggovinfo" id="fdl">
-        <!--<img src="fdl-logo.svg" alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law." on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown">-->
         <svg alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law." on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown" width="50px" viewBox="0 0 76 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
             <title>fdlp-emblem-logo-text-cmyk</title>
             <desc>Created with Sketch.</desc>
             <defs></defs>
@@ -261,6 +263,7 @@ Example:
             </g>
         </svg>
       </a>
+
     </div>
   </div>
   </template>
@@ -271,21 +274,15 @@ Example:
       properties: {
         smallScreen: {
           type: Boolean,
-          notify: true,
-          value: false,
-          reflectToAttribute: true
+          value: false
         },
         mediumScreen: {
           type: Boolean,
-          notify: true,
-          value: false,
-          reflectToAttribute: true
+          value: false
         },
         largeScreen: {
           type: Boolean,
-          notify: true,
-          value: false,
-          reflectToAttribute: true
+          value: true
         }
       },
       _copyrightDropup: function(evt){
@@ -302,6 +299,9 @@ Example:
         this.$.fdlpdrop.close();
         evt.preventDefault();
         return false;
+      },
+      _hasCustomBottomBar: function(){
+        return (this.queryAllEffectiveChildren('[bottom-bar]').length > 0);
       }
     });
   </script>
