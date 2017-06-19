@@ -16,22 +16,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="uvalib-footer.html">
 
 <!--
-An element providing a footer for library web pages and apps.
+An element providing a standalone responsive and themed footer for library web pages and apps.
+If you want more flexability in theaming and setting responsive breakpoints, use the uvalib-footer element instead.
 
 Example:
 
-    <uvalib-footer></uvalib-footer>
+    <uvalib-footer-responsive></uvalib-footer-responsive>
 
-The Footer has three sections for content.
-Use the attributes `one`, `two`, and `three` to indicate that the element is the content of the section in the footer.
+The responsive Footer can host a custom bottom bar.
+Use the boolean attribute `bottom-bar` to to mark a block as a custom replacement for the standard bottom bar.
 
 Example:
 
-    <uvalib-footer>
-      <h2 one>Hello uvalib-footer</h2>
-    </uvalib-footer>
+    <uvalib-footer-responsive>
+      <div bottom-bar><a href="http://google.com">Here is a link to Google</a></div>
+    </uvalib-footer-responsive>
 
-@demo demo/index.html
+@demo demo/libra.html
 @hero hero.svg
 -->
 

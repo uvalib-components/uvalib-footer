@@ -18,19 +18,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!--
 An element providing a footer for library web pages and apps.
+This element is not responsive by default and must be notified via its boolean attributes
+small-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.
 
 Example:
 
     <uvalib-footer></uvalib-footer>
-
-The Footer has three sections for content.
-Use the attributes `one`, `two`, and `three` to indicate that the element is the content of the section in the footer.
-
-Example:
-
-    <uvalib-footer>
-      <h2 one>Hello uvalib-footer</h2>
-    </uvalib-footer>
+    <uvalib-footer small-screen></uvalib-footer>
 
 @demo demo/index.html
 @hero hero.svg
