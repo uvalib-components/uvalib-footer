@@ -7,19 +7,19 @@ addons:
   sauce_connect: true
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
-      - g++-4.8
+    - google-chrome-stable
+    - g++-4.8
 before_script:
 - npm install -g bower polymer web-component-tester
 - npm install -g gulp gulp-accessibility gulp-rename run-sequence
 - bower install
 env:
   global:
-    - secure: gZ5vpMlc9fuKSZeMmT6xf4+FIVWxET6f6Lkp6l5Qo9vL2X/KC/bMJF1v2w5xXFLFTdm/hPUDkeQRDUBBJhGcsXhJeWIvAXdPkObV9ZPRwpDnnN1qU5lOqVIy6gFjDm2Wm6UNXcRnyP1TrGpMwbG13EUtD0rF8LZqBm3B833sKS4=
-    - secure: DObDewETPYiIsASeC3UETPbQ6YBniRZdNV2eTM1xULvuFNDxXJD09KKyWOiMduublEIJRXLjBIXmD8cbVsgrbRUYA4bxcXffDeuc6q6HaQGU9HvIbLz6o3/oxi4fX2G9GwrZtijW2p2Rgw2l9koR3ovjcM97CSTWFUMh5rtXag8=
-    - CXX=g++-4.8
+  - CXX=g++-4.8
+  - secure: kvih+1Q2h+yGaaMLqI0cbX8WS0Q7eenV+v/xdhj7xowndY2714Lrc/UUvha44QTcxLxGQYXtFMRsm8bwwCq0Dt6GdVMvHdQZQYeYzkLlv7KMH3678cEvE1r0deHfa0c3Vn8AENW8+NXbvGNMVMyKc+lxHy0qJzhfl08UyDQ2aiHfjMknRox/bs35k1S8sp95VkGMkXNH3Ak09IhZm3yZPRr+tnEQUq9KhECb5+4q/qv5wKzWRtn/aJuxzX19AjzzMuEohGajQFEerbtvBQ4Mdvq+KOrdojXSpLR5R6FWNg2uIUECqIu438r4E33MvKLCVSL3JLqoxLY4cI4+xxK3pos2qNnqN54El7M9Ew8TWNIOeLCc8DKx45n0rXNGU1CSlXzgkoV6v7GA2e2fpHVnEp+DNOGNWmwMD0o4JdHeqEtalJnLm2MM4zkf2wZN6DyQpdyPYnVZ4filoau0IdTI7hDWsJ7uaDjuCaIjJnNczXUhDemyCAMN3GbMiCm3DaIyIriKzHISLtge3Ohzt+lf9QbhtlqEcev45Z1me+4DqxPDSedUzrP+JDQQo+G8smDiQNRVJznaKViI5VGo8wbe5pQ3BU+BtUeMhFKzR41tmnum1btd1s9HX2T0JYO+yUAOb28zjbMl1RKuV1/xVL6/5gkM+oVGx3KeLPNIgWNrmiE=
+  - secure: XH4nJYwD61x43o2f4eErjXMqEm+aRXy1Os9QlfjLoqsBR+ioZaZO1cv03qA0Zy9fzsSHf+V5dxNuvbvLgDmrSYmwfR+yuAUWQdjzYMioZj1Dpu81j/QdW9NqqKMdNadAsZehIxtgzU2WgeN94CQc6hOJr+P13wDzJkc1OMZ7e0Ym2ET69qYQTCAmtPuWxWQoonAzQzN7sa6QVd53krMf3yKRBb0SCGBQO3Y2rR3fP66Edwns/VvsmQEcMuac3MeymVQqiZlCNqDO8ShnuE6TNGllim0M8UG9Ovmgr9sGFKax4Gw95mawjeiMDX7M2ntb/5XSY/K8JcWfzZn/ofEtUnFiVkVFG8BTiRcOwp3S5SMPnM3jilXomW7g5GRilE2r4s/EwbD3Bv2NvfGFI9fZezd1bylJBPAmnOWMZtHtZajX3LFkaAI652U12JQTwclCDbgU+m7tXFoY+F5+v/ZMQZrkcZQXixv+FzgtSzP/aKCJaJWjhWFPhWHmC6KL7D942MeyHAWty+8pRGKfw2JmtB/mR8wTFtqkY9PDBZVWL029LU7QnX0GTlOL961AhwG8KwBbvf9bVt0ZEEMsZ57A8iuRIuxNx7LrTuao0+rq6Y+zBRb1o4kdYSXB5IBc/26PSgp3dwue2W5rCe3gphOfao5g4fGucbAypA316pbnveQ=
 script:
-  - xvfb-run wct --plugin sauce
-  - xvfb-run gulp accessibility
+- xvfb-run wct --plugin sauce
+- xvfb-run gulp accessibility
