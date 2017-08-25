@@ -10,8 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uva-footer/uva-footer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
-
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 
@@ -215,10 +215,10 @@ Example:
         vertical-align="bottom"
         horizontal-align="left">
           <div class="dropdown-content">
-            <div class="copyright">© 2016 by the Rector and Visitors of the University of Virginia</div>
+            <div class="copyright">© {{_currentYear}} by the Rector and Visitors of the University of Virginia</div>
           </div>
       </iron-dropdown>
-      <a href="" on-tap="_copyrightDropup" aria-label="Copyright 2016 by the Rector and Visitors of the University of Virginia">Copyright</a>
+      <a href="" on-tap="_copyrightDropup" aria-label="Copyright {{_currentYear}} by the Rector and Visitors of the University of Virginia">Copyright</a>
     </div>
     <div class="fdl" hidden$="[[_hasCustomBottomBar()]]">
       <iron-dropdown id="fdlpdrop"
@@ -259,6 +259,7 @@ Example:
 
     </div>
   </div>
+
   </template>
 
   <script>
@@ -276,7 +277,14 @@ Example:
         largeScreen: {
           type: Boolean,
           value: true
+        },
+        _currentYear: {
+          type: String,
+          value: ''
         }
+      },
+      ready: function(){
+        this._currentYear = new Date().getFullYear();
       },
       _copyrightDropup: function(evt){
         this.$.copydrop.open();
@@ -296,6 +304,7 @@ Example:
       _hasCustomBottomBar: function(){
         return (this.queryAllEffectiveChildren('[bottom-bar]').length > 0);
       }
+
     });
   </script>
 </dom-module>
