@@ -135,6 +135,14 @@ Example:
       padding: 10px !important;
       border-radius: 3px;
     }
+    .hidden {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
 
     /* tablet */
     @media (min-width: 601px) and (max-width: 992px) {
@@ -218,7 +226,7 @@ Example:
             <div class="copyright">© {{_currentYear}} by the Rector and Visitors of the University of Virginia</div>
           </div>
       </iron-dropdown>
-      <a href="" on-tap="_copyrightDropup" aria-label="Copyright {{_currentYear}} by the Rector and Visitors of the University of Virginia">Copyright</a>
+      <a href="" on-tap="_copyrightDropup" aria-label="Copyright {{_currentYear}} by the Rector and Visitors of the University of Virginia">Copyright<div class="hidden" aria-live="polite"> {{_currentYear}} by the Rector and Visitors of the University of Virginia</div></a>
     </div>
     <div class="fdl" hidden$="[[_hasCustomBottomBar()]]">
       <iron-dropdown id="fdlpdrop"
