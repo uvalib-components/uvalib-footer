@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
 
 <!--
 An element providing a footer for library web pages and apps.
@@ -161,55 +162,63 @@ Example:
   <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}">
     <div class="column-1 column">
       <h3>Contact Us</h3>
-      <ul>
-        <li>(434) 924-3021</li>
-        <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
-        <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
-      </ul>
-      <div class="social-links" small$="{{smallScreen}}">
-        <uvalib-button href="https://www.instagram.com/uvalibrary/" icon="instagram" alt="UVA Library Instagram" aria-label="U V A Library Instagram"></uvalib-button>
-        <uvalib-button href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" icon="facebook-square" alt="UVA Library Facebook" aria-label="U V A Library Facebook"></uvalib-button>
-        <uvalib-button href="https://twitter.com/UVaLibrary" icon="twitter-square" alt="UVA Library Twitter" aria-label="U V A Library Twitter"></uvalib-button>
-      </div>
-      <address>
-        Alderman Library<br />
-        160 McCormick Road<br />
-        Charlottesville, VA 22903
-      </address>
+      <iron-collapse id="contact-us" opened="{{!smallScreen}}">
+        <ul>
+          <li>(434) 924-3021</li>
+          <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
+          <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
+        </ul>
+        <div class="social-links" small$="{{smallScreen}}">
+          <uvalib-button href="https://www.instagram.com/uvalibrary/" icon="instagram" alt="UVA Library Instagram" aria-label="U V A Library Instagram"></uvalib-button>
+          <uvalib-button href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" icon="facebook-square" alt="UVA Library Facebook" aria-label="U V A Library Facebook"></uvalib-button>
+          <uvalib-button href="https://twitter.com/UVaLibrary" icon="twitter-square" alt="UVA Library Twitter" aria-label="U V A Library Twitter"></uvalib-button>
+        </div>
+        <address>
+          Alderman Library<br />
+          160 McCormick Road<br />
+          Charlottesville, VA 22903
+        </address>
+      </iron-collapse>
     </div>
     <div class="column-2 column">
       <h3>About the Library</h3>
-      <ul>
-        <li><a href="http://cal.lib.virginia.edu/hours/">Hours</a></li>
-        <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
-        <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
-        <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
-        <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
-      </ul>
-      <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+      <iron-collapse id="about" opened$="{{!smallScreen}}">
+        <ul>
+          <li><a href="http://cal.lib.virginia.edu/hours/">Hours</a></li>
+          <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+          <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+          <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+          <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
+        </ul>
+        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+      </iron-collapse>
     </div>
     <div class="column-3 column">
       <h3>Help &amp; Assistance</h3>
-      <ul>
-        <li><a href="http://answers.lib.virginia.edu/" aria-label="F A Qs">FAQs</a></li>
-        <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
-        <li><a href="http://its.virginia.edu/accounts/createacct.html" aria-label="I T S Computing Accounts">ITS Computing Accounts</a></li>
-        <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
-        <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
-        <li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
-      </ul>
+      <iron-collapse id="help" opened$="{{!smallScreen}}">
+        <ul>
+          <li><a href="http://answers.lib.virginia.edu/" aria-label="F A Qs">FAQs</a></li>
+          <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+          <li><a href="http://its.virginia.edu/accounts/createacct.html" aria-label="I T S Computing Accounts">ITS Computing Accounts</a></li>
+          <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
+          <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+          <li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
+        </ul>
+      </iron-collapse>
     </div>
     <div class="column-4 column">
       <h3>Related Resources</h3>
-      <ul>
-        <li><a href="http://www.virginia.edu" aria-label="U V A Home">UVA Home</a></li>
-        <li><a href="http://its.virginia.edu/home.php" aria-label="I T S">ITS</a></li>
-        <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
-        <li><a href="https://collab.itc.virginia.edu/portal" aria-label="U V A Collab">UVaCollab</a></li>
-        <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
-        <li><a href="https://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
-        <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Opt-out</a></li>
-      </ul>
+      <iron-collapse id="related" opened$="{{!smallScreen}}">
+        <ul>
+          <li><a href="http://www.virginia.edu" aria-label="U V A Home">UVA Home</a></li>
+          <li><a href="http://its.virginia.edu/home.php" aria-label="I T S">ITS</a></li>
+          <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
+          <li><a href="https://collab.itc.virginia.edu/portal" aria-label="U V A Collab">UVaCollab</a></li>
+          <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
+          <li><a href="https://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
+          <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Opt-out</a></li>
+        </ul>
+      </iron-collapse>
     </div>
   </uva-footer>
 

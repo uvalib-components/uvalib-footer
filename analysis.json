@@ -1,0 +1,364 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "An element providing a footer for library web pages and apps.\nThis element is not responsive by default and must be notified via its boolean attributes\nsmall-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.\n\nExample:\n\n    <uvalib-footer></uvalib-footer>\n    <uvalib-footer small-screen></uvalib-footer>",
+      "summary": "",
+      "path": "uvalib-footer.html",
+      "properties": [
+        {
+          "name": "smallScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 285,
+              "column": 8
+            },
+            "end": {
+              "line": 288,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "mediumScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 289,
+              "column": 8
+            },
+            "end": {
+              "line": 292,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "largeScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 293,
+              "column": 8
+            },
+            "end": {
+              "line": 296,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "true"
+        },
+        {
+          "name": "_currentYear",
+          "type": "string",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 297,
+              "column": 8
+            },
+            "end": {
+              "line": 300,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"\""
+        }
+      ],
+      "methods": [
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 302,
+              "column": 6
+            },
+            "end": {
+              "line": 304,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_copyrightDropup",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 305,
+              "column": 6
+            },
+            "end": {
+              "line": 309,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_fdlpDropup",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 310,
+              "column": 6
+            },
+            "end": {
+              "line": 314,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_fdlpDropdown",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 315,
+              "column": 6
+            },
+            "end": {
+              "line": 319,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_hasCustomBottomBar",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 320,
+              "column": 6
+            },
+            "end": {
+              "line": 322,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 282,
+          "column": 12
+        },
+        "end": {
+          "line": 324,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "small-screen",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 285,
+              "column": 8
+            },
+            "end": {
+              "line": 288,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "medium-screen",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 289,
+              "column": 8
+            },
+            "end": {
+              "line": 292,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "large-screen",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 293,
+              "column": 8
+            },
+            "end": {
+              "line": 296,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "uvalib-footer"
+    },
+    {
+      "description": "An element providing a standalone responsive and themed footer for library web pages and apps.\nIf you want more flexability in theaming and setting responsive breakpoints, use the uvalib-footer element instead.\n\nExample:\n\n    <uvalib-footer-responsive></uvalib-footer-responsive>\n\nThe responsive Footer can host a custom bottom bar.\nUse the boolean attribute `bottom-bar` to to mark a block as a custom replacement for the standard bottom bar.\n\nExample:\n\n    <uvalib-footer-responsive>\n      <div bottom-bar><a href=\"http://google.com\">Here is a link to Google</a></div>\n    </uvalib-footer-responsive>",
+      "summary": "",
+      "path": "uvalib-footer-responsive.html",
+      "properties": [
+        {
+          "name": "_smallScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 57,
+              "column": 8
+            },
+            "end": {
+              "line": 60,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_mediumScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 61,
+              "column": 8
+            },
+            "end": {
+              "line": 64,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_largeScreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 65,
+              "column": 8
+            },
+            "end": {
+              "line": 68,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/libra.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 54,
+          "column": 12
+        },
+        "end": {
+          "line": 72,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "uvalib-footer-responsive"
+    }
+  ]
+}
