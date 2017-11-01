@@ -33,6 +33,17 @@
     "app-layout": "1 - 2",
     "iron-icon": "^1.0.0",
     "iron-iconset-svg": "^1.0.0",
-    "iron-location": "1 - 2"
+    "iron-location": "1 - 2",
+    "web-component-tester": "^5.0.1",
+    "uva-icon-link": "master",
+    "iron-ajax": "1 - 2",
+    "iron-icons": "1 - 2",
+    "iron-list": "^1.0.0",
+    "paper-icon-button": "1 - 2",
+    "marked-element": "1 - 2",
+    "paper-button": "^1.0.0",
+    "paper-card": "^1.0.0",
+    "test-fixture": "^1.0.0",
+    "uva-elements": "master"
   }
 }
