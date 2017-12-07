@@ -8,215 +8,269 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../uva-footer/uva-footer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel='import' href='../polymer/lib/utils/flattened-nodes-observer.html'>
+<!-- Polymer 2 doesn't support queryEffectiveChildren and someone has a solution that involves accessing legacy Polymer DOM - https://github.com/Polymer/polymer/issues/4953 -->
+<link rel='import' href='../polymer/lib/legacy/polymer.dom.html'>
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 
-<!--
-An element providing a footer for library web pages and apps.
-This element is not responsive by default and must be notified via its boolean attributes
-small-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.
-
-Example:
-
-    <uvalib-footer></uvalib-footer>
-    <uvalib-footer small-screen></uvalib-footer>
-
-@demo demo/index.html
-@hero hero.svg
--->
-
 <dom-module id="uvalib-footer">
   <template>
-  <style is="custom-style" include="uvalib-theme">
-    :host {
-      text-align: left;
-    }
-    a {
-      color: var(--color-light-blue);
-      margin-bottom: 5px;
-    }
-    uvalib-liame {
-      color: var(--color-light-blue);
-    }
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    ul li {
-      padding: 0;
-      padding-bottom: 8px;
-      font-size: 1.1em;
-      color: var(--color-light-blue);
-    }
-    h3 {
-      font-family: var(--font-primary);
-      font-weight: var(--font-weight-book);
-      text-transform: none;
-      color: var(--color-white);
-      margin-bottom: 25px;
-      font-style: normal;
-      font-size: 18px;
-      margin-top: 0;
-    }
-    uva-footer {
-      font-family: var(--font-primary);
-      background-color: var(--color-primary-blue);
-      height: 390px;
-      --uva-footer-tablet-height: 610px;
-      --uva-footer-mobile-height: 1155px;
-      --uva-footer-columns: {
-        position: relative;
-        top: -23px;
-      };
-      color: var(--color-light-blue);
-    }
-    uva-footer[medium-screen] {
-      height: 675px !important;
-    }
-    uva-footer[small-screen] {
-      height: 1315px !important;
-    }
-    #give-button {
-      margin-top: 20px;
-    }
-    .social-links {
-      @apply(--layout-horizontal);
-    }
-    .social-links[small] {
-      @apply(--layout-center-justified);
-    }
-    address {
-      color: var(--color-white);
-      font-style: normal;
-      line-height: 1.4;
-    }
-    uvalib-button {
-      color: var(--color-white);
-      --uvalib-button-bkgrd-color: var(--color-primary-orange);
-    }
-    #bottom-bar a, #bottom-bar uvalib-liame, a, uvalib-liame {
-      text-decoration: none;
-    }
-    #bottom-bar {
-      width: 100%;
-      height: 80px;
-      color: var(--color-white);
-      background-color: var(--color-secondary-blue);
-    }
-    #bottom-bar ::content {
-      @apply(--layout-horizontal);
-    }
-    #bottom-bar uvalib-liame, #bottom-bar a {
-      color: var(--color-white);
-      padding: 0 10px 0 10px;
-      font-size: 1.1em;
-    }
-    #bottom-bar div.links {
-      float: left;
-      padding: 30px 0 0 28px;
-    }
-    #bottom-bar div.fdl {
-      float: right;
-      height: 80px;
-    }
-    div.fdl svg {
-      height: 50%;
-      padding-top: 20px;
-      padding-right: 20px;
-    }
-    .copyright {
-      background-color: var(--color-white);
-      color: var(--color-text-gray);
-      padding: 10px !important;
-      border-radius: 3px;
-    }
-    .hidden {
-      position: absolute;
-      left: -10000px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    /* tablet */
-    @media (min-width: 601px) and (max-width: 992px) {
-      .column {
-        padding-bottom: 10px;
+    <custom-style>
+    <style include="uvalib-theme">
+      :host {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        --uvalib-footer-background-color: var(--color-primary-blue);
+        --uvalib-footer-color: var(--color-light-blue);
+        background-color: var(--uvalib-footer-background-color);
+        color: var(--uvalib-footer-color);
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight-medium);
+        @apply --layout-vertical;
+        @apply --layout-center;
+        @apply --uvalib-footer;
+        text-align: left;
+        --uvalib-footer-desktop-height: 460px;
+        --uvalib-footer-tablet-height: 710px;
+        --uvalib-footer-mobile-height: 1315px;
+        --uvalib-footer-columns: {
+          position: relative;
+          top: -23px;
+        };
       }
-    }
-    /* mobile */
-    @media (max-width: 600px) {
-      .column {
-        padding-bottom: 10px;
+      #top {
+        @apply --layout-flex;
+        width: 95%;
+        max-width: 1200px;
       }
-    }
-  </style>
+      .copyright {
+        text-align:  center;
+        font-size: 14px;
+        padding-top: 20px;
+        background-color: var(--color-white);
+        color: var(--color-text-gray);
+        padding: 10px !important;
+        border-radius: 3px;
+      }
+      a {
+        color: var(--color-light-blue);
+        margin-bottom: 5px;
+      }
+      uvalib-liame {
+        color: var(--color-light-blue);
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul li {
+        padding: 0;
+        padding-bottom: 8px;
+        font-size: 1.1em;
+        color: var(--color-light-blue);
+      }
+      h3 {
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight-book);
+        text-transform: none;
+        color: var(--color-white);
+        margin-bottom: 25px;
+        font-style: normal;
+        font-size: 18px;
+        margin-top: 0;
+      }
+      #give-button {
+        margin-top: 20px;
+      }
+      uvalib-button {
+        color: var(--color-white);
+        --uvalib-button-bkgrd-color: var(--color-primary-orange);
+      }
+      .social-links {
+        @apply --layout-horizontal;
+      }
+      .social-links[small] {
+        @apply --layout-center-justified;
+      }
+      address {
+        color: var(--color-white);
+        font-style: normal;
+        line-height: 1.4;
+      }
+      #bottom-bar {
+        width: 100%;
+        height: 80px;
+        color: var(--color-white);
+        background-color: var(--color-secondary-blue);
+        @apply --layout-center-justified;
+      }
+      #bottom-bar a, #bottom-bar uvalib-liame, a, uvalib-liame {
+        text-decoration: none;
+      }
+      #bottom-bar ::slotted {
+        @apply --layout-horizontal;
+      }
+      #bottom-bar uvalib-liame, #bottom-bar a {
+        color: var(--color-white);
+        padding: 0 10px 0 10px;
+        font-size: 1.1em;
+      }
+      #bottom-bar div.links {
+        float: left;
+        padding: 30px 0 0 28px;
+      }
+      #bottom-bar div.fdl {
+        float: right;
+        height: 80px;
+      }
+      .columns {
+        @apply --uvalib-footer-columns;
+      }
+      div.fdl svg {
+        height: 50%;
+        padding-top: 20px;
+        padding-right: 20px;
+      }
 
-  <uva-footer drop-logo drop-copyright small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}">
-    <div class="column-1 column">
-      <h3>Contact Us</h3>
-      <ul>
-        <li>(434) 924-3021</li>
-        <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
-        <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
-      </ul>
-      <div class="social-links" small$="{{smallScreen}}">
-        <uvalib-button href="https://www.instagram.com/uvalibrary/" icon="instagram" alt="UVA Library Instagram" aria-label="U V A Library Instagram"></uvalib-button>
-        <uvalib-button href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" icon="facebook-square" alt="UVA Library Facebook" aria-label="U V A Library Facebook"></uvalib-button>
-        <uvalib-button href="https://twitter.com/UVaLibrary" icon="twitter-square" alt="UVA Library Twitter" aria-label="U V A Library Twitter"></uvalib-button>
+      /* desktop */
+      @media (min-width: 993px) {
+        :host {
+          padding: 50px 0 0 0;
+          height: var(--uvalib-footer-desktop-height) !important;
+        }
+        #top {
+          @apply --layout-horizontal;
+          padding-left: 90px;
+          padding-bottom: 10px;
+        }
+        #top > .section {
+          @apply --layout-flex-2;
+          @apply --layout-horizontal;
+        }
+        .section > div {
+          @apply --layout-flex;
+        }
+      }
+      /* tablet */
+      @media (min-width: 601px) and (max-width: 992px) {
+        :host {
+          padding: 20px 0 0 0;
+          height: var(--uvalib-footer-tablet-height) !important;
+        }
+        #top {
+          @apply --layout-horizontal;
+          padding-left: 90px;
+          padding-bottom: 10px;
+        }
+        #top > .section {
+          @apply --layout-flex-2;
+          @apply --layout-vertical;
+        }
+        .section > div {
+          padding-bottom: 20px;
+        }
+        .column {
+          padding-bottom: 10px;
+        }
+      }
+      /* mobile */
+      @media (max-width: 600px) {
+        :host {
+          padding: 30px 0 0 0;
+          height: var(--uvalib-footer-mobile-height) !important;
+        }
+        #top {
+          @apply --layout-vertical;
+          padding-bottom: 10px;
+        }
+        #top > .section {
+          @apply --layout-flex-2;
+          @apply --layout-vertical;
+        }
+        .section > div {
+          @apply --layout-flex;
+          padding-bottom: 20px;
+          @apply --layout-center;
+          text-align: center;
+        }
+        .column {
+          padding-bottom: 10px;
+        }
+      }
+    </style>
+  </custom-style>
+
+  <div role="contentinfo" id="top">
+    <div class="section">
+      <div class="column-1 column">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>(434) 924-3021</li>
+          <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
+          <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
+        </ul>
+        <div class="social-links" small$="{{smallScreen}}">
+          <uvalib-button href="https://www.instagram.com/uvalibrary/" icon="instagram" alt="UVA Library Instagram" aria-label="U V A Library Instagram"></uvalib-button>
+          <uvalib-button href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" icon="facebook-square" alt="UVA Library Facebook" aria-label="U V A Library Facebook"></uvalib-button>
+          <uvalib-button href="https://twitter.com/UVaLibrary" icon="twitter-square" alt="UVA Library Twitter" aria-label="U V A Library Twitter"></uvalib-button>
+        </div>
+        <address>
+          Alderman Library<br />
+          160 McCormick Road<br />
+          Charlottesville, VA 22903
+        </address>
       </div>
-      <address>
-        Alderman Library<br />
-        160 McCormick Road<br />
-        Charlottesville, VA 22903
-      </address>
+      <div class="column-2 column">
+        <h3>About the Library</h3>
+        <ul>
+          <li><a href="http://cal.lib.virginia.edu/hours/">Hours</a></li>
+          <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+          <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
+          <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
+          <li><a href="http://aldermanrenewal.library.virginia.edu/">Alderman Renovation</a></li>
+          <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
+        </ul>
+        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support" tabindex="0">Give to the Library</uvalib-button>
+      </div>
     </div>
-    <div class="column-2 column">
-      <h3>About the Library</h3>
-      <ul>
-        <li><a href="http://cal.lib.virginia.edu/hours/">Hours</a></li>
-        <li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
-        <li><a href="http://www.library.virginia.edu/jobs/">Jobs</a></li>
-        <li><a href="http://www.library.virginia.edu/press/">Press</a></li>
-        <li><a href="http://aldermanrenewal.library.virginia.edu/">Alderman Renovation</a></li>
-        <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
-      </ul>
-      <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
+    <div class="section">
+      <div class="column-3 column">
+        <h3>Help &amp; Assistance</h3>
+        <ul>
+          <li><a href="http://answers.lib.virginia.edu/" aria-label="F A Qs">FAQs</a></li>
+          <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
+          <li><a href="http://its.virginia.edu/accounts/createacct.html" aria-label="I T S Computing Accounts">ITS Computing Accounts</a></li>
+          <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
+          <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
+          <li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
+        </ul>
+      </div>
+      <div class="column-4 column">
+        <h3>Related Resources</h3>
+        <ul>
+          <li><a href="http://www.virginia.edu" aria-label="U V A Home">UVA Home</a></li>
+          <li><a href="http://its.virginia.edu/home.php" aria-label="I T S">ITS</a></li>
+          <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
+          <li><a href="https://collab.itc.virginia.edu/portal" aria-label="U V A Collab">UVaCollab</a></li>
+          <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
+          <li><a href="https://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
+          <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Opt-out</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="column-3 column">
-      <h3>Help &amp; Assistance</h3>
-      <ul>
-        <li><a href="http://answers.lib.virginia.edu/" aria-label="F A Qs">FAQs</a></li>
-        <li><a href="http://www.library.virginia.edu/services/off-grounds-access/">Off-Grounds Access</a></li>
-        <li><a href="http://its.virginia.edu/accounts/createacct.html" aria-label="I T S Computing Accounts">ITS Computing Accounts</a></li>
-        <li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility</a></li>
-        <li><a href="http://www.library.virginia.edu/emergency/">Emergency Information</a></li>
-        <li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
-      </ul>
-    </div>
-    <div class="column-4 column">
-      <h3>Related Resources</h3>
-      <ul>
-        <li><a href="http://www.virginia.edu" aria-label="U V A Home">UVA Home</a></li>
-        <li><a href="http://its.virginia.edu/home.php" aria-label="I T S">ITS</a></li>
-        <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
-        <li><a href="https://collab.itc.virginia.edu/portal" aria-label="U V A Collab">UVaCollab</a></li>
-        <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
-        <li><a href="https://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
-        <li><a href="http://analytics.lib.virginia.edu/index.php?module=CoreAdminHome&action=optOut&language=en">Tracking Opt-out</a></li>
-      </ul>
-    </div>
-  </uva-footer>
+  </div>
 
   <div id="bottom-bar" class="lib3">
 
-    <content select="[bottom-bar]"></content>
+    <slot name="bottom-bar"></slot>
     <div class="links" hidden$="[[_hasCustomBottomBar()]]">
       <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
       <iron-dropdown id="copydrop"
@@ -224,10 +278,10 @@ Example:
         vertical-align="bottom"
         horizontal-align="left">
           <div class="dropdown-content">
-            <div class="copyright">© {{_currentYear}} by the Rector and Visitors of the University of Virginia</div>
+            <div id="copyright-info" class="copyright"><span role="img" arial-label="copyright">©</span> {{_currentYear}} by the Rector and Visitors of the University of Virginia</div>
           </div>
       </iron-dropdown>
-      <a href="" on-tap="_copyrightDropup" aria-label="Copyright {{_currentYear}} by the Rector and Visitors of the University of Virginia">Copyright<div class="hidden" aria-live="polite"> {{_currentYear}} by the Rector and Visitors of the University of Virginia</div></a>
+      <a href="" on-tap="_copyrightDropup" aria-labelledby="copyright-info">Copyright</a>
     </div>
     <div class="fdl" hidden$="[[_hasCustomBottomBar()]]">
       <iron-dropdown id="fdlpdrop"
@@ -272,48 +326,91 @@ Example:
   </template>
 
   <script>
-    Polymer({
-      is: 'uvalib-footer',
-      properties: {
-        smallScreen: {
-          type: Boolean,
-          value: false
-        },
-        mediumScreen: {
-          type: Boolean,
-          value: false
-        },
-        largeScreen: {
-          type: Boolean,
-          value: true
-        },
-        _currentYear: {
-          type: String,
-          value: ''
-        }
-      },
-      ready: function(){
+    /**
+     * `uvalib-footer`
+     * An element providing a footer for library web pages and apps.
+     * This element is not responsive by default and must be notified via its boolean attributes
+     * small-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.
+     *
+     * ### Styling
+     *
+     * `<uvalib-footer>` provides the following custome properties and mixins for styling:
+     *
+     * Custom property | Description | Default
+     * ----------------|-------------|----------
+     *`--uvalib-footer-background-color` | Background color for footer | uvalib-theme color primary-blue
+     *`--uvalib-footer-color` | Text color for footer | uvalib-theme color white
+     *`--uvalib-footer-desktop-height` | Footer height for desktop display | 390px
+     *`--uvalib-footer-tablet-height` | Footer height for tablet display | 675px
+     *`--uvalib-footer-mobile-height` | Footer height for mobile display | 1315px
+     *`--uvalib-footer-columns` | Mixin applied to the columns | `{position: relative; top: -23px;}`
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibFooter extends Polymer.Element {
+      static get is() { return 'uvalib-footer'; }
+      static get properties() {
+        return {
+          smallScreen: {
+            type: Boolean,
+            notify: true,
+            value: false,
+            reflectToAttribue: true
+          },
+          mediumScreen: {
+            type: Boolean,
+            notify: true,
+            value: false,
+            reflectToAttribue: true
+          },
+          largeScreen: {
+            type: Boolean,
+            notify: true,
+            value: false,
+            reflectToAttribue: true
+          },
+          _currentYear: {
+            type: String,
+            value: ''
+          }
+        };
+      }
+
+      constructor() {
+        super();
         this._currentYear = new Date().getFullYear();
-      },
-      _copyrightDropup: function(evt){
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      _copyrightDropup(evt) {
         this.$.copydrop.open();
         evt.preventDefault();
         return false;
-      },
-      _fdlpDropup: function(evt){
+      }
+
+      _fdlpDropup(evt) {
         this.$.fdlpdrop.open();
         evt.preventDefault();
         return false;
-      },
-      _fdlpDropdown: function(evt){
+      }
+
+      _fdlpDropdown(evt) {
         this.$.fdlpdrop.close();
         evt.preventDefault();
         return false;
-      },
-      _hasCustomBottomBar: function(){
-        return (this.queryAllEffectiveChildren('[bottom-bar]').length > 0);
       }
 
-    });
+      _hasCustomBottomBar() {
+        var nodes = Polymer.FlattenedNodesObserver.getFlattenedNodes(this);
+        return (nodes.filter((node) => node.nodeType === Node.ELEMENT_NODE && Polymer.dom.matchesSelector(node, '[name="bottom-bar"]')).length > 0);
+      }
+    }
+
+    customElements.define(UvalibFooter.is, UvalibFooter);
   </script>
 </dom-module>

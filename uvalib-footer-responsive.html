@@ -8,68 +8,65 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../uva-brand-style/uva-layout-behavior.html">
-<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
-
 <link rel="import" href="uvalib-footer.html">
-
-<!--
-An element providing a standalone responsive and themed footer for library web pages and apps.
-If you want more flexability in theaming and setting responsive breakpoints, use the uvalib-footer element instead.
-
-Example:
-
-    <uvalib-footer-responsive></uvalib-footer-responsive>
-
-The responsive Footer can host a custom bottom bar.
-Use the boolean attribute `bottom-bar` to to mark a block as a custom replacement for the standard bottom bar.
-
-Example:
-
-    <uvalib-footer-responsive>
-      <div bottom-bar><a href="http://google.com">Here is a link to Google</a></div>
-    </uvalib-footer-responsive>
-
-@demo demo/libra.html
-@hero hero.svg
--->
 
 <dom-module id="uvalib-footer-responsive">
   <template>
-    <style is="custom-style" include="uvalib-theme">
+    <custom-style>
+      <style include="uvalib-theme">
 
-    </style>
+      </style>
+    </custom-style>
 
     <iron-media-query query="[[smallScreenQuery]]" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="[[mediumScreenQuery]]" query-matches="{{_mediumScreen}}"></iron-media-query>
     <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
 
     <uvalib-footer small-screen="[[_smallScreen]]" medium-screen="[[_mediumScreen]]" large-screen="[[_largeScreen]]">
-      <content></content>
+      <slot></slot>
     </uvalib-footer>
   </template>
 
   <script>
-    Polymer({
-      is: 'uvalib-footer-responsive',
-      properties: {
-        _smallScreen: {
-          type: Boolean,
-          value: false
-        },
-        _mediumScreen: {
-          type: Boolean,
-          value: false
-        },
-        _largeScreen: {
-          type: Boolean,
-          value: false
-        }
-      },
-      behaviors: [uvabehaviors.layout],
+  /**
+   * `uvalib-footer-response`
+   * An element providing a standalone responsive and themed footer for library web pages and apps.
+   * If you want more flexability in theaming and setting responsive breakpoints, use the uvalib-footer element instead.
+   *
+   * Example:
+   *
+   *    <uvalib-footer-responsive></uvalib-footer-responsive>
+   *
+   * The responsive Footer can host a custom bottom bar.
+   * Use the name attribute `bottom-bar` to mark a block as a custom replacement for the standard bottom bar.
+   *
+   * Example:
+   *
+   *    <uvalib-footer-responsive>
+   *      <div slot="bottom-bar"><a href="http://google.com">Here is a link to Google</a></div>
+   *    </uvalib-footer-responsive>
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/libra.html
+   */
+  class UvalibFooterResponsive extends UvalibFooter {
+    static get is() { return 'uvalib-footer-responsive'; }
+    static get properties() {
+      return super.properties();
+    }
+    constructor() {
+      super();
+    }
 
-    });
+    connectedCallback() {
+      super.connectedCallback();
+    }
+
+  }
+
+  customElements.define(UvalibFooterResponsive.is, UvalibFooterResponsive);
   </script>
 </dom-module>
