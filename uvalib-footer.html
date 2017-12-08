@@ -12,12 +12,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel='import' href='../polymer/lib/utils/flattened-nodes-observer.html'>
 <!-- Polymer 2 doesn't support queryEffectiveChildren and someone has a solution that involves accessing legacy Polymer DOM - https://github.com/Polymer/polymer/issues/4953 -->
 <link rel='import' href='../polymer/lib/legacy/polymer.dom.html'>
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
 
 <dom-module id="uvalib-footer">
   <template>
@@ -218,9 +220,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
         </ul>
         <div class="social-links" small$="{{smallScreen}}">
-          <uvalib-button href="https://www.instagram.com/uvalibrary/" icon="instagram" alt="UVA Library Instagram" aria-label="U V A Library Instagram"></uvalib-button>
-          <uvalib-button href="https://www.facebook.com/University-of-Virginia-Library-136530559704906/" icon="facebook-square" alt="UVA Library Facebook" aria-label="U V A Library Facebook"></uvalib-button>
-          <uvalib-button href="https://twitter.com/UVaLibrary" icon="twitter-square" alt="UVA Library Twitter" aria-label="U V A Library Twitter"></uvalib-button>
+          <uvalib-instagram-link style="color:white; height:40px; width:40px" alt="Library Instagram Account"></uvalib-instagram-link>
+          <uvalib-facebook-link style="color:white; height:40px; width:40px" alt="Library Facebook Account"></uvalib-facebook-link>
+          <uvalib-twitter-link style="color:white; height:40px; width:40px" alt="Library Twitter Account"></uvalib-twitter-link>
         </div>
         <address>
           Alderman Library<br />
@@ -238,7 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <li><a href="http://aldermanrenewal.library.virginia.edu/">Alderman Renovation</a></li>
           <li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
         </ul>
-        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support" tabindex="0">Give to the Library</uvalib-button>
+        <uvalib-button id="give-button" href="http://www.library.virginia.edu/support">Give to the Library</uvalib-button>
       </div>
     </div>
     <div class="section">
