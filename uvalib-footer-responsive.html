@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
 
     <uvalib-footer small-screen="[[_smallScreen]]" medium-screen="[[_mediumScreen]]" large-screen="[[_largeScreen]]">
-      <slot></slot>
+      <slot id="bottom-bar"></slot>
     </uvalib-footer>
   </template>
 
@@ -55,7 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   class UvalibFooterResponsive extends UvalibFooter {
     static get is() { return 'uvalib-footer-responsive'; }
     static get properties() {
-      return super.properties();
     }
     constructor() {
       super();

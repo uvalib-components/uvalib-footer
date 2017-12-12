@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
+    <title>uvalib-footer test</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
@@ -24,42 +25,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- You can use the document as a place to set up your fixtures. -->
     <test-fixture id="uvalib-footer-fixture">
       <template>
+        <uvalib-footer></uvalib-footer>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="uvalib-footer-bottom-fixture">
+      <template>
         <uvalib-footer>
-          <h4>Other Sites</h4>
-          <ul>
-            <li class="line_rv"><a href="https://collab.itc.virginia.edu/portal">UVaCollab</a></li>
-            <li><a href="https://sisuva.admin.virginia.edu/psp/epprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST">SIS</a></li>
-            <li><a href="http://its.virginia.edu/home.php">ITS</a></li>
-            <li><a href="http://www.virginia.edu/cavalieradvantage/">Cavalier Advantage</a></li>
-            <li><a href="http://www.virginia.edu/">UVA Home</a></li>
-            <li><a href="http://staffweb.lib.virginia.edu/">Library Staff Site</a></li>
-          </ul>
+          <div slot="bottom-bar">
+            <p>
+              <a href="mailto:jlk4p@virginia.edu">Mail Jack</a>
+            </p>
+          </div>
         </uvalib-footer>
       </template>
     </test-fixture>
 
     <script>
-      suite('uvalib-footer', function() {
+      suite('uvalib-footer', () => {
 
-        var myEl;
-
-        setup(function() {
-          myEl = fixture('uvalib-footer-fixture');
+        test('instantiating the element works', () => {
+          const myEl = fixture('uvalib-footer-fixture');
+          assert.equal(myEl.constructor.is, 'uvalib-footer');
         });
 
-        test('instantiating the element works', function() {
-          assert.equal(myEl.is, 'uvalib-footer');
+        test('instantiating the element with bottom bar works', () => {
+          const myEl = fixture('uvalib-footer-bottom-fixture');
+          assert.equal(myEl.constructor.is, 'uvalib-footer');
         });
-
-        test('distributed children', function() {
-          var els = myEl.getContentChildren();
-          assert.equal(els.length, 1, 'one distributed node');
-          assert.equal(els[0], myEl.querySelector('h4'), 'content distributed correctly');
-        });
-
       });
 
       a11ySuite('uvalib-footer-fixture');
+      a11ySuite('uvalib-footer-bottom-fixture');
     </script>
 
   </body>

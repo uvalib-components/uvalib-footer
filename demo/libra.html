@@ -1,42 +1,21 @@
-<!doctype html>
-<!--[if lt IE 7 ]> <html class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html class="no-js ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<!DOCTYPE html>
+<html lang="en" prefix="og:http://ogp.me/ns#">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="OmT+g+0Jn2ZdmyqJPr0mYdQnqqwcpZyrixZPZOW7WG8XcfQCDNPXMRg6k9Y9LmCa7EmHJs3mhLREVdeUfyPnDg==" />
+<meta charset="utf-8" />
 
-    <title>Add Your Work - University of Virginia Library - Libra </title>
-    <link href="http://libraprod.lib.virginia.edu/catalog/opensearch.xml" title="Libra" type="application/opensearchdescription+xml" rel="search"/>
+<!-- added for use on small devices like phones -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link href="http://libraprod.lib.virginia.edu/plugin_assets/blacklight/stylesheets/yui.css?1416423617" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/plugin_assets/blacklight/stylesheets/jquery/ui-lightness/jquery-ui-1.8.1.custom.css?1416423617" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/plugin_assets/blacklight/stylesheets/application.css?1416423617" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/javascripts/tiptip/tipTip.css?1416414772" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/stylesheets/redmond/jquery-ui-1.8.5.custom.css?1416414772" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/stylesheets/styles.css?1416414772" media="all" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/stylesheets/hydrangea.css?1416414772" media="all" rel="stylesheet" type="text/css" /><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js" type="text/javascript"></script>
-<script src="http://libraprod.lib.virginia.edu/javascripts/tiptip/jquery.tipTip.minified.js?1416414772" type="text/javascript"></script>
-<script src="http://libraprod.lib.virginia.edu/javascripts/application.js?1416414772" type="text/javascript"></script>
-<script src="http://libraprod.lib.virginia.edu/plugin_assets/blacklight/javascripts/blacklight.js?1416423617" type="text/javascript"></script>
-<script src="http://libraprod.lib.virginia.edu/plugin_assets/blacklight/javascripts/application.js?1416423617" type="text/javascript"></script>
-    <link href='http://fonts.googleapis.com/css?family=Cardo:700|Pontano+Sans' rel='stylesheet' type='text/css'>
-    <link href="http://libraprod.lib.virginia.edu/stylesheets/uva/styles.css?1416414772" media="screen" rel="stylesheet" type="text/css" />
-<link href="http://libraprod.lib.virginia.edu/stylesheets/uva/libra.css?1416414772" media="screen" rel="stylesheet" type="text/css" />
-		<link href="http://libraprod.lib.virginia.edu/stylesheets/uva/print.css?1416414772" media="print" rel="stylesheet" type="text/css" />
-		<!--[if IE]>
-    	<link href="http://libraprod.lib.virginia.edu/stylesheets/uva/ie-styles.css?1416414772" media="screen" rel="stylesheet" type="text/css" />
-		<![endif]-->
+<title>Index Dashboard // Libra OC</title>
 
+<!-- application css -->
+<link rel="stylesheet" media="screen" href="http://libraopen.lib.virginia.edu/assets/application-8cf7ad08301ecac9bf765bfbc856f55615c988ed8868fe7968e48440c98ce7b4.css" />
 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('input#q').focus();
-			});
-		</script>
+<!-- application js -->
+<script src="http://libraopen.lib.virginia.edu/assets/application-b2b9d12495b9d11357df3ed2a37f4f9132419387d731ab058c6cec90307cc570.js"></script>
 
 <!-- Shim for any lack of web component support and specify shadow dom usage -->
     <script>
@@ -53,171 +32,242 @@
       })();
     </script>
 <!-- End Shim -->
-<!-- Import the footer component -->
-    <link rel="import" href="../uvalib-footer-responsive.html" async>
-<!-- End Import -->
-<!-- Add a little style to the custom bottom-bar -->
-    <style>
-      #federal_lib_logo, #bottom_text, #hydra_logo {
-        display: inline-block;
-        padding: 0 10px 0 10px;
-      }
-      #bottom_text {
-        flex: 1 1 auto;
-        padding: 0;
-      }
-      #footey_notices {
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-    </style>
-<!-- end custom bottom bar style -->
+<link rel="import" href="../uvalib-footer-responsive.html">
 
-    <link rel="shortcut icon" href="http://libraprod.lib.virginia.edu/images/favicon.ico" type="image/x-icon" />
+
 
   </head>
 
-  <body class="catalog-page new-page">
-      <div id="libra_container">
-
-		<div id="uva_lib_banner">
-		  <div id="container1" class="lib_banner container_24">
-			  <div id="uva_lib_logo" class="grid_14 alpha"><a href="http://www.library.virginia.edu/"><img alt="University of Virginia Library" height="15" src="http://libraprod.lib.virginia.edu/images/uva/uva_lib_logo.png?1416414772" width="200" /></a></div>
-    		<div id="container1_login">
-    		  <div id="globalUtilNav">
-              <div class="NetbadgeLogin">
-                <ul class="login">
-
-    		            <li class="button"><span><a href="http://libraprod.lib.virginia.edu/login">Sign In</a></span></li>
-
-    		        </ul>
-    		    </div>
-    	    </div>
-        </div>
-      </div>
-    </div>
-		<div class="app_banner_container">
-	    <div class="app_banner container_24">
-			  <h1 class="virgo-logo-heading">
-				  <a href="http://libraprod.lib.virginia.edu/" id="libra_logo_link">Libra</a>
-				</h1>
-				<h2 class="search-scope">Online Archive of University of Virginia Scholarship</h2>
-
-          <ul class="util_links">
-            <li class="first"><a href="http://library.virginia.edu/libra/" class="learn_more">Learn More</a></li>
-            <li><a href="http://libraprod.lib.virginia.edu/new">Add Your Work</a></li>
-          </ul>
-
-			</div>
-		</div>
-
-	  <div id="doc4">
-
-			<div id="hd">
-				<span id='results_text'>Search Results</span>
-			</div>
-
-	    <div id="bd" class="no-search">
-
-      	<div id="main" class="clearfix container_24">
-
-
-
-      	  <div id="sidebar" class="grid_6 alpha omega">
-
-          </div>
-
-          <div id="main_content" role="main" class="grid_18 alpha omega">
-
-
-            <div id="choose_work">
-	<h1 class="choose_head">Add Your Work: Choose a Type of Work</h1>
-		<div class="work_col work_available">
-			<h2 id="oa_works">Open Access Works <a class="work-more-link" href="http://library.virginia.edu/libra/open-access">Learn more...</a></h2>
-			<div class="work_list">
-        <h3><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_article&amp;redirect_params%5Bcontroller%5D=assets">Article</a><img src="http://libraprod.lib.virginia.edu/images/help.png" class="more-help" alt="help icon" title="Work published in a periodical such as a journal, newspaper, or magazine."/></h3>
-        <h3><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_article_preprint&amp;redirect_params%5Bcontroller%5D=assets">Preprint</a><img src="http://libraprod.lib.virginia.edu/images/help.png" class="more-help" alt="help icon" title="Work accepted for publication but not yet published in a periodical such as a journal, newspaper, or magazine."/></h3>
-        <h3 class="sub_type_container"><a href="#">Book</a><img src="http://libraprod.lib.virginia.edu/images/help.png" class="more-help" alt="help icon" title="An entire book, book chapter, or part of an edited collection."/></h3>
-        <div class="book_work_selection sub_work_selection">
-          <p class="sub_work_selection_heading">Select one:</p>
-          <div class="book_work_type sub_work_type first">
-            <h4><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_book&amp;redirect_params%5Bcontroller%5D=assets">Book</a></h4>
-            <p class="sub_work_description">An entire book by one or more authors</p>
-          </div>
-          <div class="book_work_type sub_work_type">
-            <h4><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_book_chapter&amp;redirect_params%5Bcontroller%5D=assets">Book Chapter</a></h4>
-            <p class="sub_work_description">A single chapter of a book wholly by one or more authors.</p>
-          </div>
-          <div class="book_work_type sub_work_type last">
-            <h4><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_book_part&amp;redirect_params%5Bcontroller%5D=assets">Chapter in an Edited Book</a></h4>
-            <p class="sub_work_description">A chapter of an edited collection with various authors.</p>
-          </div>
-        </div>
-        <h3><a href="http://libraprod.lib.virginia.edu/user_sessions/new?redirect_params%5Baction%5D=new&amp;redirect_params%5Bcontent_type%5D=hydrangea_conference_paper&amp;redirect_params%5Bcontroller%5D=assets">Conference Paper</a><img src="http://libraprod.lib.virginia.edu/images/help.png" class="more-help" alt="help icon" title="A paper or poster presented at a conference."/></h3>
-			</div>
-		</div>
-		<div class="work_col work_unavailable">
-			<h2 id="etd_works">Theses &amp; Dissertations <a class="work-more-link" href="http://library.virginia.edu/libra/etds">Learn more...</a></h2>
-      <div class="work_list">
-
-				<p class="work_desc">
-
-					Please <a href="http://libraprod.lib.virginia.edu/login">sign in</a> to determine whether you may submit a thesis or dissertation to Libra.  If you have any questions, please send us <a href="http://libraprod.lib.virginia.edu/feedback">feedback</a>.
-
-
-				</p></div>
-
-		</div>
-		<div class="work_col work_available">
-			<h2 id="data_works">Datasets <a class="work-more-link" href="http://library.virginia.edu/libra/datasets">Learn more...</a></h2>
-      <div class="work_list">
-        <h3><a href="https://dataverse.lib.virginia.edu/">Dataset</a><img src="http://libraprod.lib.virginia.edu/images/help.png" class="more-help" alt="help icon" title="Click here to begin your deposit to Libra Data, UVA’s data repository. When you click, you will be redirected to Libra Data."/></h3>
-    </div>
-
-		</div>
+  <body>
+    <a href="#skip_to_content" class="sr-only">Skip to Content</a>
+    <div id="uva_lib_banner">
+  <div id="container1" class="lib_banner">
+    <a href="http://www.library.virginia.edu/askalibrarian/" class="ask-a-librarian"><i class="fa fa-question-circle"></i> Ask a Librarian</a>
+    <div id="uva_lib_logo" class="grid_14 alpha">
+      <a href="http://library.virginia.edu/">
+        <img alt="University of Virginia Library" src="http://libraopen.lib.virginia.edu/assets/uva-horizontal-logo-53b30b149ee3cefef682714557ca496415cdeab1eb0fe332d39161ad5e0bcd9f.svg" />
+</a>    </div>
+  </div>
 </div>
-           </div>
 
-        </div>
+<nav class="navbar navbar-default container-fluid">
+  <div class="navbar-wapper">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img alt="LIBRA Logo" src="http://libraopen.lib.virginia.edu/assets/LibraOpenBlue-d23b2d643ba164570bc356a3d2c0d5acdc8cdc9c61c17bfbedccdd42d0fbaa2f.svg" />
+</a>      <span class="search-scope">Online Archive of University of Virginia Scholarship</span>
+    </div>
+      <div id="navbar" class="navbar-collapse collapse navbar-right">
+        <ul class="nav navbar-nav">
+            <li>
+              <a href="/dashboard">Dashboard</a>
+            </li>
+            <li>
+              <a href="http://libraopen.lib.virginia.edu/users/jlk4p@virginia-dot-edu">John Lawrence (Jack) Kelly</a>
+            </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+  </div>
+</nav>
 
-	    </div>
+      <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="searchbar-right navbar-right col-sm-7 col-md-6">
+        <form id="search-form-header" role="search" action="http://libraopen.lib.virginia.edu/dashboard/works" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
 
-	  </div>
+  <div class="input-group">
 
-<!-- Our footer with your custom bottom bar, the bottom-bar attribute is needed or the child content will be ignored -->
-    <uvalib-footer-responsive>
-      <div id="footey_notices" slot="bottom-bar">
-        <div id="federal_lib_logo"><img alt="Federal Library Depository logo" height="33" src="http://libraprod.lib.virginia.edu/images/uva/federal_lib_logo.png?1416414772" width="37" /></div>
-        <div id="bottom_text">
-            <div id="federal_lib">This library is a Congressionally designated depository for <a href="http://guides.lib.virginia.edu/findinggovinfo/" target="_blank">U.S. Government documents</a>.
-            Public access to the Government documents is guaranteed by public law.</div>
-        </div>
-        <div id="hydra_logo"><img alt="Hydra logo" height="50" src="http://libraprod.lib.virginia.edu/images/powered_by_hydra.png?1416414772" width="80" /></div>
+    <label class="sr-only" for="search-field-header">Search Sufia</label>
+    <input type="text" name="q" id="search-field-header" class="q form-control" placeholder="Search my works" />
+
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary" id="search-submit-header">
+        <span class="glyphicon glyphicon-search"></span> Go
+      </button>
+
+      <!-- No search scope options -->
+    </div><!-- /.input-group-btn -->
+
+  </div><!-- /.input-group -->
+</form>
       </div>
-    </uvalib-footer-responsive>
-<!-- end of footer -->
+    </div>
+  </div>
+</nav><!-- /.navbar -->
 
 
-    </div>  <!-- end #libra_container -->
 
-    <script type="text/javascript" src="//use.typekit.com/dcu6kro.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-    <!-- Piwik -->
+    <div id="content-wrapper" class="container" role="main">
+      <a name="skip_to_content"></a>
 
+        <div class="col-xs-12 col-sm-9 col-sm-push-3 main-content">
+
+            <div class="row">
+              <div class="col-xs-12 main-header">
+
+    <div class="col-md-12">
+  <h1>My Dashboard</h1>
+</div>
+
+    <div class="col-xs-12 heading-row">
+  <div class="row">
+      <div class="create-work-btn">
+      <a class="btn btn-primary btn-lg item-option contextual-quick-classify new-libra-work" role="menuitem" href="http://libraopen.lib.virginia.edu/concern/libra_works/new">
+                 <span class="glyphicon glyphicon-plus"></span>
+                 Create Work
+</a>  </div>
+
+  </div>
+</div>
+
+
+              </div>
+            </div>
+
+
+
+<div class="panel panel-default" id="activity">
+  <div class="panel-heading dashboard-panel">
+    <h3 class="panel-title ">My Works</h3>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+<table class="table table-striped dashboard">
+  <caption class="sr-only">Listing of items you have deposited in Libra OC</caption>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th class="sorts-dash"><i id="system_create_dtsi" class=""></i>Date Uploaded</th>
+      <th>ORCID Status</th>
+      <th>Visibility</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+  </div>
+</div>
+
+<div class="panel panel-default" id="activity">
+  <div class="panel-heading dashboard-panel">
+    <h3 class="panel-title ">User Activity</h3>
+  </div>
+  <div class="panel-body">
+    User has no recent activity
+  </div>
+</div>
+
+
+
+
+
+        </div>
+        <div id="sidebar" class="col-xs-12 col-sm-3 col-sm-pull-9 sidebar">
+  <div class="panel panel-default panel-user">
+  <div class="panel-heading">
+
+    <h3>
+        John Lawrence (Jack) Kelly<br />
+      jlk4p@virginia.edu
+    </h3>
+  </div>
+
+  <div class="list-group">
+
+
+
+
+    <div class="list-group-item">
+      <dl id="user_info">
+
+  <dd>
+    <a id="connect-orcid-button" rel="nofollow" href="https://orcid.org/oauth/authorize?client_id=APP-YXUW1T8S07K0ZZUA&amp;response_type=code&amp;scope=/activities/update%20/read-limited&amp;redirect_uri=https://libraopen.lib.virginia.edu/orcid/landing"><img src="http://libraopen.lib.virginia.edu/assets/orcid-cb273c1ff10d304ce1b6108a172bfd1660561e7fd8133b083cd66ee0f4a0a944.png" alt="Orcid" /> Create or Connect Your ORCID ID</a><br /><a target="_blank" href="https://orcid.org/faq-page">Learn more about ORCID</a>
+  </dd>
+  <br/>
+
+
+
+  <dt><i class="fa fa-envelope"></i> Email</dt>
+  <dd><a href="mailto:jlk4p@virginia.edu">jlk4p@virginia.edu</a></dd>
+
+
+
+    <dt>Title</dt>
+    <dd>Staff</dd>
+
+
+    <dt>Department</dt>
+    <dd>University of Virginia Library</dd>
+
+    <dt>Office</dt>
+    <dd>PO Box 400112</dd>
+
+
+
+    <dt><i class="glyphicon glyphicon-earphone"></i> Telephone</dt>
+    <dd><a href="wtai://wp/mc;+1 434-924-7119">+1 434-924-7119</a></dd>
+
+</dl>
+
+    </div>
+  </div>
+
+
+  <div class="panel-footer clearfix">
+      <a class="btn btn-default" href="http://libraopen.lib.virginia.edu/users/jlk4p@virginia-dot-edu">View Profile</a>
+
+      <a class="btn btn-default pull-right" href="http://libraopen.lib.virginia.edu/users/jlk4p@virginia-dot-edu/edit">
+        <i class="glyphicon glyphicon-edit"></i> Edit Profile
+</a>  </div>
+</div>
+
+</div>
+    </div><!-- /#content-wrapper -->
       <script type="text/javascript">
-      var pkBaseURL = (("https:" == document.location.protocol) ? "https://analytics.lib.virginia.edu/" : "http://analytics.lib.virginia.edu/");
-      document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-      </script><script type="text/javascript">
-      try {
-      var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 6);
-      piwikTracker.trackPageView();
-      piwikTracker.enableLinkTracking();
-      } catch( err ) {}
-      </script><noscript><p><img src="http://analytics.lib.virginia.edu/piwik.php?idsite=6" style="border:0" alt="" /></p></noscript>
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['trackAllContentImpressions']);
+    (function() {
+      var u="//analytics.lib.virginia.edu/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', 30]);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <noscript><p><img src="//analytics.lib.virginia.edu/piwik.php?idsite=30" style="border:0;" alt="" /></p></noscript>
 
-    <!-- End Piwik -->
+<uvalib-footer-responsive>
+  <div class="footer-extended" slot="bottom-bar">
+    <div class="footer-extended-left">
+      <a href="http://www.library.virginia.edu/libra/terms-of-use/" class="footer-link">Libra Terms</a> &nbsp; | &nbsp;
+      <a href="mailto:libra@virginia.edu" class="footer-link">Libra Feedback</a>
+    </div>
+    <div class="footer-extended-right">
+        <span class="build-version">Version: build-341</span>
+       <img alt="Hydra Community Badge" src="http://libraopen.lib.virginia.edu/assets/hydra-df621100d14d209a52ec4d645e81a6c84fcbd503bfafa1c6d6d6937984d81c98.png" />
+    </div>
+  </div>
+</uvalib-footer-responsive>
+
+    <div id="ajax-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal menu" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
   </body>
 </html>
