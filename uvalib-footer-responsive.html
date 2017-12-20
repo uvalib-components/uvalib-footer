@@ -12,26 +12,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="uvalib-footer.html">
 
+
+
 <dom-module id="uvalib-footer-responsive">
-  <template>
-    <custom-style>
-      <style include="uvalib-theme">
-
-      </style>
-    </custom-style>
-
-    <iron-media-query query="[[smallScreenQuery]]" query-matches="{{_smallScreen}}"></iron-media-query>
-    <iron-media-query query="[[mediumScreenQuery]]" query-matches="{{_mediumScreen}}"></iron-media-query>
-    <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
-
-    <uvalib-footer small-screen="[[_smallScreen]]" medium-screen="[[_mediumScreen]]" large-screen="[[_largeScreen]]">
-      <slot id="bottom-bar"></slot>
-    </uvalib-footer>
-  </template>
+  <iron-media-query query="[[smallScreenQuery]]" query-matches="{{_smallScreen}}"></iron-media-query>
+  <iron-media-query query="[[mediumScreenQuery]]" query-matches="{{_mediumScreen}}"></iron-media-query>
+  <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
 
   <script>
   /**
-   * `uvalib-footer-response`
+   * `uvalib-footer-responsive`
    * An element providing a standalone responsive and themed footer for library web pages and apps.
    * If you want more flexability in theaming and setting responsive breakpoints, use the uvalib-footer element instead.
    *
@@ -56,6 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     static get is() { return 'uvalib-footer-responsive'; }
     static get properties() {
     }
+
     constructor() {
       super();
     }

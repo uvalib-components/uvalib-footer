@@ -13,7 +13,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 <link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
@@ -267,8 +266,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
   </div>
 
-  <slot name="bottom-bar">
-    <div class="bottom-bar lib3">
+  <div class="bottom-bar lib3">
+    <slot name="bottom-bar">
 
       <div class="links">
         <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
@@ -320,8 +319,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </a>
 
       </div>
-    </div>
-  </slot>
+    </slot>
+  </div>
 
   </template>
 
@@ -348,6 +347,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @customElement
      * @polymer
      * @demo demo/index.html
+     * @demo demo/index2.html
+     * @demo demo/libra.html
      */
     class UvalibFooter extends Polymer.Element {
       static get is() { return 'uvalib-footer'; }
@@ -357,19 +358,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Boolean,
             notify: true,
             value: false,
-            reflectToAttribue: true
+            reflectToAttribute: true
           },
           mediumScreen: {
             type: Boolean,
             notify: true,
             value: false,
-            reflectToAttribue: true
+            reflectToAttribute: true
           },
           largeScreen: {
             type: Boolean,
             notify: true,
             value: false,
-            reflectToAttribue: true
+            reflectToAttribute: true
           },
           _currentYear: {
             type: String,
