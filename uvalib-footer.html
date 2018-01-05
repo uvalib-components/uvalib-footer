@@ -8,14 +8,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uva-helper-libs/polyfills/object.assign.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
-<link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 <link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
+
 
 <dom-module id="uvalib-footer">
   <template>
@@ -43,6 +44,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           top: -23px;
         };
       }
+      :host([small-screen]) {
+        padding: 30px 0 0 0;
+        height: var(--uvalib-footer-mobile-height) !important;
+      }
+      :host([medium-screen]) {
+        padding: 20px 0 0 0;
+        height: var(--uvalib-footer-tablet-height) !important;
+      }
+      :host([large-screen]) {
+        padding: 50px 0 0 0;
+        height: var(--uvalib-footer-desktop-height) !important;
+      }
+
       #top {
         @apply --layout-flex;
         width: 95%;
@@ -113,6 +127,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .bottom-bar ::slotted {
         @apply --layout-horizontal;
       }
+      .bottom-bar ::slotted(.footer-extended) {
+        background-color: initial !important;
+        height: 100% !important;
+      }
       .bottom-bar uvalib-liame, .bottom-bar a {
         color: var(--color-white);
         padding: 0 10px 0 10px;
@@ -136,73 +154,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       /* desktop */
-      @media (min-width: 993px) {
-        :host {
-          padding: 50px 0 0 0;
-          height: var(--uvalib-footer-desktop-height) !important;
-        }
-        #top {
+      :host([large-screen]) #top {
           @apply --layout-horizontal;
           padding-left: 90px;
           padding-bottom: 10px;
-        }
-        #top > .section {
+      }
+      :host([large-screen]) #top > .section {
           @apply --layout-flex-2;
           @apply --layout-horizontal;
-        }
-        .section > div {
+      }
+      :host([large-screen]) .section > div {
           @apply --layout-flex;
-        }
       }
+
       /* tablet */
-      @media (min-width: 601px) and (max-width: 992px) {
-        :host {
-          padding: 20px 0 0 0;
-          height: var(--uvalib-footer-tablet-height) !important;
-        }
-        #top {
+      :host([medium-screen]) #top {
           @apply --layout-horizontal;
           padding-left: 90px;
           padding-bottom: 10px;
-        }
-        #top > .section {
-          @apply --layout-flex-2;
-          @apply --layout-vertical;
-        }
-        .section > div {
-          padding-bottom: 20px;
-        }
-        .column {
-          padding-bottom: 10px;
-        }
       }
-      /* mobile */
-      @media (max-width: 600px) {
-        :host {
-          padding: 30px 0 0 0;
-          height: var(--uvalib-footer-mobile-height) !important;
-        }
-        #top {
-          @apply --layout-vertical;
-          padding-bottom: 10px;
-        }
-        #top > .section {
+      :host([medium-screen]) #top > .section {
           @apply --layout-flex-2;
           @apply --layout-vertical;
-        }
-        .section > div {
+      }
+      :host([medium-screen]) .section > div {
+          padding-bottom: 20px;
+      }
+      :host([medium-screen]) .column {
+          padding-bottom: 10px;
+      }
+
+      /* mobile */
+      :host([small-screen]) #top {
+          @apply --layout-vertical;
+          padding-bottom: 10px;
+      }
+      :host([small-screen]) #top > .section {
+          @apply --layout-flex-2;
+          @apply --layout-vertical;
+      }
+      :host([small-screen]) .section > div {
           @apply --layout-flex;
           padding-bottom: 20px;
           @apply --layout-center;
           text-align: center;
-        }
-        .column {
-          padding-bottom: 10px;
-        }
-        .social-links {
-          @apply --layout-center-justified;
-        }
       }
+      :host([small-screen]) .column {
+          padding-bottom: 10px;
+      }
+      :host([small-screen]) .social-links {
+          @apply --layout-center-justified;
+      }
+
     </style>
   </custom-style>
 
@@ -350,33 +353,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @demo demo/index2.html
      * @demo demo/libra.html
      */
-    class UvalibFooter extends Polymer.Element {
+    class UvalibFooter extends UvalibUiElement {
       static get is() { return 'uvalib-footer'; }
       static get properties() {
-        return {
-          smallScreen: {
-            type: Boolean,
-            notify: true,
-            value: false,
-            reflectToAttribute: true
-          },
-          mediumScreen: {
-            type: Boolean,
-            notify: true,
-            value: false,
-            reflectToAttribute: true
-          },
-          largeScreen: {
-            type: Boolean,
-            notify: true,
-            value: false,
-            reflectToAttribute: true
-          },
-          _currentYear: {
-            type: String,
-            value: ''
-          }
-        };
+        return Object.assign(super.properties,
+            {
+              _currentYear: {
+                type: String,
+                value: ''
+              }
+            }
+        );
+      }
+
+      //Concat the this elements template with the parents (for responsive media queries)
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-footer', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
       }
 
       constructor() {
