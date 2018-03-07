@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <h3>Contact Us</h3>
         <ul>
           <li>(434) 924-3021</li>
-          <li><uvalib-liame rid="yrarbil"></uvalib-liame></li>
+          <li><uvalib-liame id="liame" rid="yrarbil"></uvalib-liame></li>
           <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
         </ul>
         <div class="social-links">
@@ -88,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <slot name="bottom-bar">
 
       <div class="links">
-        <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
+        <uvalib-liame rid="kcabdeef-etis" tabindex="-1">Feedback</uvalib-liame> |
         <iron-dropdown id="copydrop"
           auto-fit-on-attach no-overlap
           vertical-align="bottom"
@@ -176,6 +176,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               _currentYear: {
                 type: String,
                 value: ''
+              },
+              tabindex: {
+                type: Number,
+                value: -1
               }
             }
         );
@@ -196,6 +200,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       connectedCallback() {
         super.connectedCallback();
+      }
+
+      changeFocusToFirstItem() {
+        this.$.liame.focus();
       }
 
       _copyrightDropup(evt) {
