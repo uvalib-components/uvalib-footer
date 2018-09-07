@@ -21,7 +21,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="uvalib-footer">
   <template>
     <custom-style>
-      <style include="uvalib-theme uvalib-footer-style"></style>
+    <style include="uvalib-theme uvalib-footer-style">
+        :host {
+          --uvalib-liame-link-color: var(--color-light-blue) !important;
+        }
+      </style>
     </custom-style>
 
   <div role="contentinfo" id="top">
