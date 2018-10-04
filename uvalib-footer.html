@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <dom-module id="uvalib-footer">
-  <template>
+    <template>
     <custom-style>
     <style include="uvalib-theme uvalib-footer-style">
         :host {
@@ -93,7 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <slot name="bottom-bar">
 
       <div class="links">
-        <uvalib-liame rid="kcabdeef-etis" tabindex="-1">Feedback</uvalib-liame> |
+        <uvalib-liame rid="kcabdeef-etis">Feedback</uvalib-liame> |
         <iron-dropdown id="copydrop"
           auto-fit-on-attach no-overlap
           vertical-align="bottom"
@@ -114,9 +114,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
         </iron-dropdown>
 
-        <a href="https://guides.lib.virginia.edu/findinggovinfo" id="fdl">
-          <svg alt="This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law." on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown" width="50px" viewBox="0 0 76 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <title>This library is a Congressionally designated depository for U.S. Government documents. Public access to the Government documents is guaranteed by public law.</title>
+        <a href="https://guides.lib.virginia.edu/findinggovinfo" id="fdl" >
+          <svg alt="Federal Depository Library Program logo" on-mouseover="_fdlpDropup" on-mouseout="_fdlpDropdown" width="50px" viewBox="0 0 76 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>Federal Depository Library Program</title>
               <desc>Created with Sketch.</desc>
               <defs></defs>
               <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -147,89 +147,89 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
 
-  <script>
-    /**
-     * `uvalib-footer`
-     * An element providing a footer for library web pages and apps.
-     * This element is not responsive by default and must be notified via its boolean attributes
-     * small-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.
-     *
-     * ### Styling
-     *
-     * `<uvalib-footer>` provides the following custome properties and mixins for styling:
-     *
-     * Custom property | Description | Default
-     * ----------------|-------------|----------
-     *`--uvalib-footer-background-color` | Background color for footer | uvalib-theme color primary-blue
-     *`--uvalib-footer-color` | Text color for footer | uvalib-theme color white
-     *`--uvalib-footer-desktop-height` | Footer height for desktop display | 390px
-     *`--uvalib-footer-tablet-height` | Footer height for tablet display | 675px
-     *`--uvalib-footer-mobile-height` | Footer height for mobile display | 1315px
-     *`--uvalib-footer-columns` | Mixin applied to the columns | `{position: relative; top: -23px;}`
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     * @demo demo/index2.html Extended Footer
-     * @demo demo/libra.html Libra Footer
-     */
-    class UvalibFooter extends UvalibUiElement {
-      static get is() { return 'uvalib-footer'; }
-      static get properties() {
-        return Object.assign(super.properties,
-            {
-              _currentYear: {
-                type: String,
-                value: ''
-              },
-              tabindex: {
-                type: Number,
-                value: -1
-              }
+    <script>
+        /**
+         * `uvalib-footer`
+         * An element providing a footer for library web pages and apps.
+         * This element is not responsive by default and must be notified via its boolean attributes
+         * small-screen, medium-screen, and large-screen if you want it to appear properly on smaller screens.
+         *
+         * ### Styling
+         *
+         * `<uvalib-footer>` provides the following custome properties and mixins for styling:
+         *
+         * Custom property | Description | Default
+         * ----------------|-------------|----------
+         *`--uvalib-footer-background-color` | Background color for footer | uvalib-theme color primary-blue
+         *`--uvalib-footer-color` | Text color for footer | uvalib-theme color white
+         *`--uvalib-footer-desktop-height` | Footer height for desktop display | 390px
+         *`--uvalib-footer-tablet-height` | Footer height for tablet display | 675px
+         *`--uvalib-footer-mobile-height` | Footer height for mobile display | 1315px
+         *`--uvalib-footer-columns` | Mixin applied to the columns | `{position: relative; top: -23px;}`
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         * @demo demo/index2.html Extended Footer
+         * @demo demo/libra.html Libra Footer
+         */
+        class UvalibFooter extends UvalibUiElement {
+            static get is() {
+                return 'uvalib-footer';
             }
-        );
-      }
+            static get properties() {
+                return Object.assign(super.properties, {
+                    _currentYear: {
+                        type: String,
+                        value: ''
+                    },
+                    tabindex: {
+                        type: Number,
+                        value: -1
+                    }
+                });
+            }
 
-      //Concat the this elements template with the parents (for responsive media queries)
-      static get template() {
-        var parentTemplate = UvalibUiElement.template.cloneNode(true);
-        var childTemplate = Polymer.DomModule.import('uvalib-footer', 'template');
-        parentTemplate.content.insertBefore(childTemplate.content,null);
-        return parentTemplate;
-      }
+            //Concat the this elements template with the parents (for responsive media queries)
+            static get template() {
+                var parentTemplate = UvalibUiElement.template.cloneNode(true);
+                var childTemplate = Polymer.DomModule.import('uvalib-footer', 'template');
+                parentTemplate.content.insertBefore(childTemplate.content, null);
+                return parentTemplate;
+            }
 
-      constructor() {
-        super();
-        this._currentYear = new Date().getFullYear();
-      }
+            constructor() {
+                super();
+                this._currentYear = new Date().getFullYear();
+            }
 
-      connectedCallback() {
-        super.connectedCallback();
-      }
+            connectedCallback() {
+                super.connectedCallback();
+            }
 
-      changeFocusToFirstItem() {
-        this.$.liame.focus();
-      }
+            changeFocusToFirstItem() {
+                this.$.liame.focus();
+            }
 
-      _copyrightDropup(evt) {
-        this.$.copydrop.open();
-        evt.preventDefault();
-        return false;
-      }
+            _copyrightDropup(evt) {
+                this.$.copydrop.open();
+                evt.preventDefault();
+                return false;
+            }
 
-      _fdlpDropup(evt) {
-        this.$.fdlpdrop.open();
-        evt.preventDefault();
-        return false;
-      }
+            _fdlpDropup(evt) {
+                this.$.fdlpdrop.open();
+                evt.preventDefault();
+                return false;
+            }
 
-      _fdlpDropdown(evt) {
-        this.$.fdlpdrop.close();
-        evt.preventDefault();
-        return false;
-      }
-    }
+            _fdlpDropdown(evt) {
+                this.$.fdlpdrop.close();
+                evt.preventDefault();
+                return false;
+            }
+        }
 
-    customElements.define(UvalibFooter.is, UvalibFooter);
-  </script>
+        customElements.define(UvalibFooter.is, UvalibFooter);
+    </script>
 </dom-module>
