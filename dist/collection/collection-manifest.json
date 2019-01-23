@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "tag": "uvalib-footer",
+      "dependencies": [],
+      "componentClass": "UvalibFooter",
+      "componentPath": "components/uvalibfooter/uvalib-footer.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/uvalibfooter/uvalib-footer.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "_currentYear",
+          "type": "String",
+          "attr": "_current-year"
+        }
+      ],
+      "shadow": true
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.16.2",
+    "typescriptVersion": "3.2.2"
+  },
+  "bundles": []
+}
