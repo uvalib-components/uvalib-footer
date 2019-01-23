@@ -1,19 +1,24 @@
 {
   "name": "uvalib-footer",
-  "version": "1.0.0",
-  "description": "Footer for library pages.",
-  "main": "uvalib-footer.html",
-  "scripts": {},
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-accessibility": "^3.0.1",
-    "gulp-rename": "^1.2.2",
-    "run-sequence": "^1.2.2"
+  "version": "0.0.1",
+  "description": "Stencil Component Starter",
+  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "unpkg": "dist/ionic.js",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/uvalib-components/uvalib-footer"
-  }
+  "dependencies": {},
+  "devDependencies": {
+    "@stencil/core": "~0.16.2"
+  },
+  "license": "MIT"
 }
