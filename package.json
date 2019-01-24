@@ -1,9 +1,9 @@
 {
-  "name": "lit-element-build-rollup",
+  "name": "uvalib-footer",
   "version": "1.0.0",
-  "description": "Build config for lit-element with Babel and Rollup",
+  "description": "Footer component for UVA Library web content",
   "main": "index.js",
-  "repository": "PolymerLabs/lit-element-build-rollup",
+  "repository": "uvalib-components/uvalib-footer",
   "scripts": {
     "copyindex": "cp src/index.html build",
     "copywc": "cp -r node_modules/@webcomponents/webcomponentsjs/bundles build && cp node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js build",

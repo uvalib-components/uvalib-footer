@@ -1,1 +1,1 @@
-import './my-element.js';
+import './uvalib-footer.js';
