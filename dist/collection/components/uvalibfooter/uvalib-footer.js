@@ -1,5 +1,9 @@
+//import { format } from '../../utils/utils';
 export class UvalibFooter {
     constructor() {
+        /**
+         *
+         */
         this._currentYear = new Date().getFullYear().toString();
     }
     render() {
