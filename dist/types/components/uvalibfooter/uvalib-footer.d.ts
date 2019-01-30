@@ -1,4 +1,5 @@
 import '../../stencil.core';
+import "@material/mwc-button";
 export declare class UvalibFooter {
     /**
      *

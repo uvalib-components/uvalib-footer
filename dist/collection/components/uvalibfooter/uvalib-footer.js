@@ -1,9 +1,6 @@
-//import { format } from '../../utils/utils';
+import "@material/mwc-button";
 export class UvalibFooter {
     constructor() {
-        /**
-         *
-         */
         this._currentYear = new Date().getFullYear().toString();
     }
     render() {
@@ -18,10 +15,7 @@ export class UvalibFooter {
                                 h("a", { href: "mailto:library@virginia.edu" }, "library@virginia.edu")),
                             h("li", null,
                                 h("a", { href: "https://www.library.virginia.edu/askalibrarian/" }, "Ask a Librarian"))),
-                        h("div", { class: "social-links" },
-                            h("uvalib-instagram-link", { style: "color:white; height:40px; width:40px", alt: "Library Instagram Account" }),
-                            h("uvalib-facebook-link", { style: "color:white; height:40px; width:40px", alt: "Library Facebook Account" }),
-                            h("uvalib-twitter-link", { style: "color:white; height:40px; width:40px", alt: "Library Twitter Account" })),
+                        h("div", { class: "social-links" }),
                         h("address", null,
                             "Alderman Library",
                             h("br", null),
@@ -45,7 +39,7 @@ export class UvalibFooter {
                                 h("a", { href: "https://www.library.virginia.edu/jobs/fellowships/" }, "Fellowship Opportunities")),
                             h("li", null,
                                 h("a", { href: "https://www.library.virginia.edu/support-library", tabindex: "-1" },
-                                    h("paper-button", { id: "give-button" }, "Give to the Library")))))),
+                                    h("mwc-button", { id: "give-button" }, "Give to the Library")))))),
                 h("div", { class: "section" },
                     h("div", { class: "column-3 column" },
                         h("h3", null, "Help & Assistance"),

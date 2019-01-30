@@ -1,0 +1,15 @@
+{
+  "tags": [
+    {
+      "label": "uvalib-footer",
+      "description": "",
+      "attributes": [
+        {
+          "label": "_current-year",
+          "description": "",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

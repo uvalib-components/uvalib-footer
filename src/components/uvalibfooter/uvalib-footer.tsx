@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-//import { format } from '../../utils/utils';
+import "@material/mwc-button";
 
 @Component({
   tag: 'uvalib-footer',
@@ -25,9 +25,7 @@ export class UvalibFooter {
               <li><a href="https://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
             </ul>
             <div class="social-links">
-              <uvalib-instagram-link style="color:white; height:40px; width:40px" alt="Library Instagram Account"></uvalib-instagram-link>
-              <uvalib-facebook-link style="color:white; height:40px; width:40px" alt="Library Facebook Account"></uvalib-facebook-link>
-              <uvalib-twitter-link style="color:white; height:40px; width:40px" alt="Library Twitter Account"></uvalib-twitter-link>
+              
             </div>
             <address>
               Alderman Library<br />
@@ -44,7 +42,7 @@ export class UvalibFooter {
               <li><a href="https://www.library.virginia.edu/press/">Press</a></li>
               <li><a href="https://aldermanrenewal.library.virginia.edu/">Alderman Renovation</a></li>
               <li><a href="https://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
-              <li><a href="https://www.library.virginia.edu/support-library" tabindex="-1"><paper-button id="give-button">Give to the Library</paper-button></a></li>
+              <li><a href="https://www.library.virginia.edu/support-library" tabindex="-1"><mwc-button id="give-button">Give to the Library</mwc-button></a></li>
             </ul>
           </div>
         </div>
