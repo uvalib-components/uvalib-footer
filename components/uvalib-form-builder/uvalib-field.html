@@ -1,0 +1,142 @@
+<link rel="import" href="../uva-helper-libs/lodash.html">
+
+<script>
+    /**
+     * The Mixin for a form field.
+     * Contains properties and methods associated with displaying form inputs.
+     *
+     * @polymerMixin
+     */
+    UvalibField = Polymer.dedupingMixin(function(superClass) {
+      return class extends superClass {
+        constructor() {
+          super();
+        }
+        static get properties() {
+          return {
+            tabindex: {
+              type: Number,
+              value: 0
+            },
+            /**
+             * The form field element.
+             */
+            element: {
+              type: Object,
+              notify: true
+            },
+            value: {
+              type: String,
+              notify: true,
+              reflectToAttribute: true
+            },
+            invalidValues: {
+              type: Boolean,
+              value: false,
+              notify: true
+            },
+            _ariaInvalid: {
+              type: String,
+              computed: "_isInvalidValue(invalidValues,element)"
+            },
+            _hideMessage: {
+              type: Boolean,
+              computed: "_hideErrorMessage(invalidValues,element)"
+            },
+            _ariaDescribedBy: {
+              type: String,
+              computed: "_ariaInvalidLabel(invalidValues,element)"
+            },
+            _syntaxInvalid: {
+              type: Boolean,
+              computed: "_isInvalidSyntax(invalidValues,element)"
+            }
+          };
+        }
+
+        focus() {
+          this.shadowRoot.querySelector('input, select, textarea').focus();
+        }
+
+        _ariaInvalidLabel(invalidValues,element) {
+          return (invalidValues && !element.valid) ? element.webform_key+"-error" : "";
+        }
+
+        _isInvalidValue(invalidValues,element) {
+          return (invalidValues && !element.valid) ? 'true' : 'false';
+        }
+        _hideErrorMessage(invalidValues,element) {
+          return (invalidValues && !element.valid) ? false : true;
+        }
+
+        _isInvalidSyntax(invalidValues,element) {
+          return invalidValues && !element.valid && (element.syntax_issue);
+        }
+
+        _changedValue(e) {
+          if (this.$.radioGroup) {
+            // loop through the radio buttons and see which one was selected and
+            // updated the state and value for the element
+            for (var key in this.element.options) {
+              var val = this._optionStripped(this.element.options[key]);
+              this.$.radioGroup.querySelector('#'+val).checked = false;
+              if (e.target.id == val) {
+                this.value = this.element.options[key];
+                this.$.radioGroup.querySelector('#'+val).checked = true;
+              }
+            }
+          } else if (this.$.checkboxGroup) {
+            // @TODO This may require debugging once we have a form with a group of related checkboxes.
+            // loop through checkboxes to determine which was modified and adjust
+            // its state as well as its part of the element value
+            for (var key in this.element.options) {
+              var val = this._optionStripped(this.element.options[key]);
+              if (e.target.id == val) {
+                if (e.target.checked) {
+                  this.$.checkboxGroup.querySelector('#'+val).checked = true;
+                  this.value[key] = this.element.options[key];
+                } else {
+                  this.$.checkboxGroup.querySelector('#'+val).checked = false;
+                  delete this.value[key];
+                }
+              }
+            }
+          } else if (this.element.type == "checkbox") {
+            // for a checkbox determine the current state and adjust it and the elements value
+            if (e.target.checked) {
+              this.shadowRoot.querySelector('#'+this.element.webform_key).checked = true;
+              this.value = 1;
+            } else {
+              this.shadowRoot.querySelector('#'+this.element.webform_key).checked = false;
+              this.value = 0;
+            }
+          } else {
+            // trim leading and trailing whitespace from the content entered
+            this.value = this.shadowRoot.querySelector('#'+this.element.webform_key).value.trim();
+            this.shadowRoot.querySelector('#'+this.element.webform_key).value = this.value;
+          }
+          //console.log(this.value);
+          this.dispatchEvent(new CustomEvent('changedValue', {detail: {field_id: this.element.webform_key}, bubbles: true, composed: true}));
+        }
+
+        _optionStripped(option) {
+          let opt = option.replace(/[^A-Za-z0-9]/g,"");
+          return (opt.charAt(0).match(/[0-9]/)) ? 'a'+opt : opt;
+        }
+
+        _hasDescription(el) {
+          return (el.description && el.description.markup && el.description.markup!='');
+        }
+
+        _isRequired(el) {
+          // if the input field is actually being hidden then we shouldn't require a value for it
+          return (el.required || el._required);
+        }
+
+        _ariaRequired(el) {
+          return (this._isRequired(el)) ? 'true' : 'false';
+        }
+
+      }
+    });
+  </script>

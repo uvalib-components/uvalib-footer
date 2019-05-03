@@ -1,0 +1,165 @@
+<script>
+    /**
+     * The Mixin for a form.
+     * Contains properties and methods associated with a form.
+     *
+     * @polymerMixin
+     */
+    UvalibForm = Polymer.dedupingMixin(function(superClass) {
+        return class extends superClass {
+            constructor() {
+                super();
+            }
+            static get properties() {
+                return {
+                    /**
+                     * User name, email address, department, etc. for use in pre-populating some information.
+                     */
+                    userInfo: {
+                        type: Object,
+                        notify: true,
+                        value: function() {
+                            return {
+                                computing_id: '',
+                                name: '',
+                                email: '',
+                                phone: '',
+                                affiliation: '',
+                                department_school: ''
+                            };
+                        }
+                    },
+                    _refresh: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            ready() {
+                this.addEventListener('changedValue', this._valueChanged);
+                this.addEventListener('clickedButton', this._buttonClicked);
+                super.ready();
+            }
+
+            _focus(field) {
+              console.log('_focus');
+              this.$$('#'+field).focus(field);
+            }
+
+            _valueChanged(e) {
+                //console.log(e.detail.field_id);
+                this._refresh = !this._refresh;
+            }
+
+            // Loop through the section object key values and just examine the ones with
+            // fld, mkup, fldset, ???
+            _getSectionFields(el) {
+                let fields = Array();
+                for (var key in el) {
+                    if (key.match(/^fld\_|fldset\_|mkup\_|actions/)) {
+                        fields.push(el[key]);
+                        if (el[key].type && el[key].type == 'textfield') {
+                            el[key].type = 'text';
+                        }
+                    }
+                }
+                //console.log(fields);
+                return fields;
+            }
+
+            _isButton(el) {
+                return (el.type && el.type == "webform_actions");
+            }
+
+            _isCheckbox(el) {
+                return (el.type && el.type == "checkbox");
+            }
+
+            _isCheckboxes(el) {
+                return (el.type && el.type == "checkboxes");
+            }
+
+            _isField(el) {
+                return (el.type && (el.type == "hidden" || el.type == "email" || el.type == "tel" || el.type == "text" || el.type == "select" || el.type == "textarea" || el.type == "radios" || el.type == "container" || el.type == "checkbox" || el.type == "fieldset" || el.type == "webform_actions"));
+            }
+
+            _isHidden(el) {
+                return (el.type && el.type == "hidden");
+            }
+
+            _isInput(el) {
+                return (el.type && (el.type == "email" || el.type == "tel" || el.type == "text"));
+            }
+
+            _isMarkup(el) {
+                return (el.type && el.type == "webform_markup");
+            }
+
+            _isRadios(el) {
+                return (el.type && el.type == "radios");
+            }
+
+            _isSelect(el) {
+                return (el.type && el.type == "select");
+            }
+
+            _isSection(el) {
+                return (el.type && el.type == "webform_section");
+            }
+
+            _isTextarea(el) {
+                return (el.type && el.type == "textarea");
+            }
+
+            _isSectionSelect(el) {
+                return (el.type && el.type == "container");
+            }
+
+            _showField(item, refresh) {
+                //console.log('_showField');
+                if (!item.states) {
+                  return true;
+                } else if (item.states && item.states.visible && item.states.invisible) {
+                  return (this._testState(item.states.invisible)) ? false : this._testState(item.states.visible);
+                } else if (item.states && item.states.invisible) {
+                  return !this._testState(item.states.invisible);
+                } else if (item.states && item.states.visible) {
+                  return this._testState(item.states.visible);
+                } else if (item.states && item.states.required) {
+                  return this._testState(item.states.required);
+                }
+            }
+
+            _testState(state) {
+              //console.log("state test:");
+              //console.log(state);
+              if (Array.isArray(state)) {
+                  for (var i = 0; i < state.length; i = i + 2) {
+                      if (this._testField(state[i])) return true;
+                  }
+                  return false;
+              } else {
+                  return this._testField(state);
+              }
+            }
+
+            _testField(state) {
+              //console.log('field test:');
+              var test = true;
+              // very error prone test - assuming much
+              for (var key in state) {
+                  var id = key.replace(/.*"(.*)".*/, "$1"),
+                      val = state[key].value;
+                  if (!this.shadowRoot.querySelector('#' + id) || this.shadowRoot.querySelector('#' + id).value != val) {
+                      test = false;
+                      break;
+                  }
+                  // @TODO We should probably test to see if the input field is marked as hidden and have the test fail in that condition as well
+              }
+              return test;
+            }
+
+        }
+    });
+</script>

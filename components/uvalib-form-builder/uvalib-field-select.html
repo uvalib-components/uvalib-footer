@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-select">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      </style>
+    </custom-style>
+
+      <div class="form-field">
+        <label class="field-label" for$="[[element.webform_key]]">[[element.title]]<template is="dom-if" if="[[_isRequired(element)]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></label>
+        <template is="dom-if" if="[[_hasDescription(element)]]">
+          <div class="descriptive-text" inner-h-t-m-l="[[element.description.markup]]"></div>
+        </template>
+        <select id$="[[element.webform_key]]" name$="[[element.name]]" required$="[[_isRequired(element)]]" aria-required$="[[_ariaRequired(element)]]" value$="{{element.value::change}}" on-change="_changedValue" aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}">
+          <template is="dom-repeat" items="{{_getOptions(element)}}" as="option">
+            <template is="dom-if" if="[[_isValidOption(option)]]">
+              <template is="dom-if" if="[[_selectedValue(element,option)]]"><option selected value$="[[_optionValue(option)]]">[[option]]</option></template>
+              <template is="dom-if" if="[[!_selectedValue(element,option)]]"><option value$="[[_optionValue(option)]]">[[option]]</option></template>
+            </template>
+          </template>
+        </select>
+        <div id="[[_ariaDescribedBy]]" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}">[[element.required_error]]</div>
+      </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-select`
+     * Component that generates a selection list form input.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-select.html
+     */
+    class UvalibFieldSelect extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-select'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+        });
+      }
+
+      _getOptions(obj) {
+        return _.values(obj.options);
+      }
+
+      /**
+       * Make sure that a select list with "choose one" or "select one" has an empty string value.
+       * This makes sure that submitting the form doesn't see the prompt option as an allowed value
+       * for a required input field.
+       */
+      _optionValue(opt) {
+        var selectorPromptRegExp = /(choose|select) one/i;
+        if (selectorPromptRegExp.test(opt)) {
+          this.element.value = ""; // set value of input to empty to insure not valid during submission
+          return "";
+        } else {
+          return opt;
+        }
+      }
+
+      _isValidOption(value) {
+        // '- Select -' is a default assigned by the Drupal webform module. So we want to ignore this when generating our forms.
+        return (value != '- Select -') ? true : false;
+      }
+
+      _selectedValue(el,option) {
+        return (el.default_value && el.default_value==option);
+      }
+
+    }
+
+    window.customElements.define(UvalibFieldSelect.is, UvalibFieldSelect);
+  </script>
+</dom-module>

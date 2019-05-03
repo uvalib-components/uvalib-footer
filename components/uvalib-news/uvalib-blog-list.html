@@ -1,0 +1,102 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uva-models/uva-library.html">
+
+<dom-module id="uvalib-blog-list">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme">
+        :host {
+          display: block;
+          font-size: var(--uvalib-card-font-size, --uvalib-main-font-size-unit);
+        }
+        .news-item, .title { line-height: 1.15 !important;}
+        .source {
+          @apply --h5;
+          @apply --uvalib-news-source;
+          /* margin-bottom: var(--uvalib-spacing-unit); */
+          color: var(--uvalib-news-item-source-color, var(--uvalib-main-rotunda-orange));
+        }
+        .title {
+          @apply --h4;
+          @apply --uvalib-news-title;
+        }
+        .preview p {
+          margin-top: 0;
+          margin-bottom: calc(var(--uvalib-spacing-unit)*2);
+          @apply --uvalib-news-copy;
+        }
+      </style>
+    </custom-style>
+    <uva-library path="newsblog" items="{{news}}" sort-by="created" sort-order="desc"></uva-library>
+    <template is="dom-repeat" items="[[_filteredNews(news,limit)]]">
+      <div class="news-item">
+        <template is="dom-if" if="{{item.source}}">
+          <div class="source">Source: [[item.source]]</div>
+        </template>
+        <div class="title" tabindex="-1"><a href="{{item.link}}" inner-h-t-m-l="[[item.title]]"></a></div>
+        <div class="preview" inner-h-t-m-l="[[_truncate(item.body,previewCharacterLimit)]]"></div>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-blog-list`
+     * News
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/news-list.html
+     */
+    class UvalibBlogList extends Polymer.Element {
+      static get is() { return 'uvalib-blog-list'; }
+      static get properties() {
+        return {
+          news: Array,
+          limit: Number,
+          previewCharacterLimit: {
+            type: Number,
+            value: 200
+          },
+        };
+      }
+      _filteredNews(news) {
+        if (news && news.length) {
+          var n = (this.limit)? news.slice(0,this.limit): news;
+          return n.map( x=>{
+            x.body=x.excerpt.replace(/<div class="sharedaddy.*/,"").replace(/\&hellip\;.*<\/p>/,"&hellip;</p>");
+            return x; } );
+        }
+      }
+      _truncate(s,limit){
+        s = this._strip(s);
+        if(s.length <= limit){
+            return `<p>${s}</p>`;
+        } else {
+            var ts = "";
+            var subs = s.split('&');
+            if(subs[0].length > limit){
+                return "<p>"+ subs[0].substring(0, limit) + "&hellip;" +"</p>";
+            } else {
+                ts = ts + subs[0];
+            }
+            for(var i = 1; i < subs.length; i++){
+                var end = subs[i].indexOf(';');
+                ts = ts + '&' + subs[i];
+                if(ts.length >= limit){
+                    return "<p>"+ts.substring(0,limit) + "&hellip;"+"</p>";
+                }
+            }
+            return `<p>${ts}</p>`;
+        }
+     }
+     _strip(html){
+       var doc = new DOMParser().parseFromString(html, 'text/html');
+       return doc.body.textContent || "";
+     }
+    }
+
+    window.customElements.define(UvalibBlogList.is, UvalibBlogList);
+  </script>
+</dom-module>

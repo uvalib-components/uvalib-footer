@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-textarea">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field">
+      <label class="field-label" for$="[[element.webform_key]]">[[element.title]]<template is="dom-if" if="[[_isRequired(element)]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></label>
+      <template is="dom-if" if="[[_hasDescription(element)]]">
+        <div class="descriptive-text" inner-h-t-m-l="[[element.description.markup]]"></div>
+      </template>
+      <textarea id="[[element.webform_key]]" name$="[[element.name]]" rows$="[[element.rows]]" required$="[[_isRequired(element)]]" aria-required$="[[_ariaRequired(element)]]" value$="{{element.value::change}}" on-change="_changedValue" aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}"></textarea>
+      <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}">[[element.required_error]]</div>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-textarea`
+     * Component that generates a form textarea input field.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-textarea.html
+     */
+    class UvalibFieldTextarea extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-textarea'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+        });
+      }
+
+    }
+
+    window.customElements.define(UvalibFieldTextarea.is, UvalibFieldTextarea);
+  </script>
+</dom-module>

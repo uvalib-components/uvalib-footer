@@ -1,0 +1,43 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-button">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field button">
+      <input type="button" id$="[[element.webform_key]]" name$="[[element.submit__label]]" value$="{{element.submit__label}}" on-click="_clickedButton" />
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-button`
+     * Component that generates button.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-button.html
+     */
+    class UvalibFieldButton extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-button'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+        });
+      }
+
+      _clickedButton(e) {
+        console.log('clicked button');
+        this.dispatchEvent(new CustomEvent('clickedButton', {detail: {field_id: this.element.webform_key, name: this.element.submit__label}, bubbles: true, composed: true}));
+      }
+
+    }
+
+    window.customElements.define(UvalibFieldButton.is, UvalibFieldButton);
+  </script>
+</dom-module>

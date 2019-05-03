@@ -1,0 +1,43 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-input">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field">
+      <label class="field-label" for$="[[element.webform_key]]">[[element.title]]<template is="dom-if" if="[[_isRequired(element)]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></label>
+      <template is="dom-if" if="[[_hasDescription(element)]]">
+        <div class="descriptive-text" inner-h-t-m-l="[[element.description.markup]]"></div>
+      </template>
+      <input type$="[[element.type]]" id$="[[element.webform_key]]" name$="[[element.name]]" required$="[[_isRequired(element)]]" aria-required$="[[_ariaRequired(element)]]" value$="{{element.value::change}}" on-change="_changedValue" aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}"/>
+      <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}"><span hidden="{{_syntaxInvalid}}">[[element.required_error]]</span> <span hidden$="{{!_syntaxInvalid}}">[[element.syntax_error]]</span></div>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-input`
+     * Component that generates an text input field as well as some the custom ones for email and phone number.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-input.html
+     */
+    class UvalibFieldInput extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-input'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+        });
+      }
+    }
+
+    window.customElements.define(UvalibFieldInput.is, UvalibFieldInput);
+  </script>
+</dom-module>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-sis-input demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-sis-input.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic uvalib-sis-input demo</h3>
+      <demo-snippet>
+        <template>
+
+          <dom-bind id="app">
+            <template>
+              <uvalib-sis-input value="{{val}}" required show-alternate></uvalib-sis-input>
+              <br />
+              <ul>
+                <li>section: [[val.section]]
+                <li>enrollment: [[val.enrollment]]
+                <li>title: [[val.title]]
+                <li>course: [[val.course]]
+                <li>term: [[val.term]]
+                <li>alt course: [[val.altCourse]]
+                <li>alt section: [[val.altSection]]
+              </ul>
+            </template>
+          </dom-bind>
+
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

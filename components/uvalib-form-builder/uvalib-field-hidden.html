@@ -1,0 +1,37 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-hidden">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field">
+      <input type$="[[element.type]]" id$="[[element.webform_key]]" name$="[[element.name]]" value$="{{element.value::change}}" on-change="_changedValue"/>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-hidden`
+     * Component that generates a hidden field.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-hidden.html
+     */
+    class UvalibFieldHidden extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-hidden'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+        });
+      }
+    }
+
+    window.customElements.define(UvalibFieldHidden.is, UvalibFieldHidden);
+  </script>
+</dom-module>

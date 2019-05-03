@@ -1,0 +1,24 @@
+{
+  "name": "uvalib-form-builder",
+  "description": "Component that builds out a web form UI using a form definition via the API.",
+  "main": "uvalib-form.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.5.0",
+    "lodash": "^4.17.4",
+    "webcomponentsjs": "^1.1.1",
+    "iron-flex-layout": "^2.0.3",
+    "iron-collapse": "^2.1.0",
+    "paper-styles": "^2.0.0",
+    "iron-resizable-behavior": "^v2.0.0",
+    "iron-a11y-keys-behavior": "^2.0.1"
+  }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-form-fieldset.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib fieldset demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-form-fieldset id="fieldset" element='{"type": "fieldset", "name": "fldset_question_or_comment", "title": "Question or Comment", "fld_enter_your_question_or_comment_regarding_resources": {"type": "textarea", "title": "Enter your question or comment regarding government resources.", "required": true, "required_error": "Do not forget to share your question or comment with us.", "name": "fld_enter_your_question_or_comment_regarding_government_resourc", "rows": 5, "cols": 60}}'>
+          </uvalib-form-fieldset>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field text input demo - should not display</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-form-fieldset element='{"type": "text", "name": "fld_name", "title": "Name", "size": 40, "required": true, "required_error": "Please provide your name.", "value": ""}'></uvalib-form-fieldset>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

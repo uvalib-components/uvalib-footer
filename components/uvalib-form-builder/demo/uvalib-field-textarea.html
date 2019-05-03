@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-field-textarea.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field textarea input demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-textarea element='{"type": "textarea", "name": "fld_enter_your_question_or_comment", "title": "Enter your question or comment.", "rows": 4, "cols": 60}'></uvalib-field-textarea>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field textarea with description input demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-textarea element='{"type": "textarea", "name": "fld_description", "title": "Description", "rows": 4, "cols": 60, "description": {"markup": "Provide as much detail as possible regarding this."}}'></uvalib-field-textarea>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field text input demo - should not display</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-textarea element='{"type": "text", "name": "fld_name", "title": "Name", "size": 40, "required": true, "required_error": "Please provide your name.", "value": ""}'></uvalib-field-textarea>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

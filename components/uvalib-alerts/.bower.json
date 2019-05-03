@@ -1,0 +1,23 @@
+{
+  "name": "uvalib-alerts",
+  "description": "Manages the UX for Library Web Alerts",
+  "main": "uvalib-alerts.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "polymer": "^2.5.0",
+    "webcomponentsjs": "^v1.1.0"
+  },
+  "homepage": "https://github.com/uvalib-components/uvalib-alerts",
+  "_release": "c4132cb42e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c4132cb42e3bf5d68bc90b61f98e34fe62dcea3f"
+  },
+  "_source": "https://github.com/uvalib-components/uvalib-alerts.git",
+  "_target": "master",
+  "_originalSource": "uvalib-components/uvalib-alerts"
+}

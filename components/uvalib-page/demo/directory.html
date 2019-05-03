@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-directorypage demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+    <link rel="import" href="../../uvalib-search-box/uvalib-simple-search-box.html">
+    <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+    <link rel="import" href="../../paper-radio-button/paper-radio-button.html">
+    <link rel="import" href="../uvalib-directorypage.html">
+
+    <custom-style>
+      <style is="custom-style" include="uvalib-theme demo-pages-shared-styles iron-flex iron-flex-alignment">
+      .centered { max-width: 100%; }
+      </style>
+    </custom-style>
+
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic directory-page demo</h3>
+      <demo-snippet>
+        <template>
+          <style>
+            uvalib-simple-search-box {
+              --uvalib-search-box-border: 2px solid var(--uvalib-secondary-lt-grey);
+              --uvalib-background-search: var(--uvalib-main-jefferson-blue)
+            }
+            .tools {
+              background-color: var(--uvalib-secondary-lt-grey);
+              padding: 20px;
+            }
+          </style>
+          <dom-bind id="app">
+            <template>
+              <div class="tools">
+                <uvalib-simple-search-box search-again-option value="{{query}}"></uvalib-simple-search-box>
+                <label id="radiolabel">Show Me:</label>
+                <paper-radio-group selected="{{view}}" fallback-selection="list" aria-labelledby="radiolabel">
+                  <paper-radio-button name="list">List View</paper-radio-button>
+                  <paper-radio-button name="images">Image View</paper-radio-button>
+                </paper-radio-group>
+              </div>
+              <uvalib-directorypage query$="[[query]]" view="[[view]]"></uvalib-directorypage>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

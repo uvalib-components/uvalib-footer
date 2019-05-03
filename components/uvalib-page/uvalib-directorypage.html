@@ -1,0 +1,289 @@
+<script src="../fuse.js/dist/fuse.js"></script>
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../iron-image/iron-image.html">
+
+<dom-module id="uvalib-directorypage">
+  <template>
+  <custom-style>
+      <style include="uvalib-theme">
+        :host {
+          display: block;
+        }
+        .wrapper .list {
+          padding: var(--uvalib-spacing-unit);
+        }
+        .wrapper .images {
+          height: 300px;
+          width: 300px;
+/*          padding: 15px; */
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+          align-items: center;
+        }
+        .wrapper:not([not-small]) .list .name {
+          font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
+        }
+        .wrapper[not-small] .list  {
+          display: -ms-grid;
+          display: grid;
+          -ms-grid-columns: 1fr 1fr 1fr 1fr;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: var(--uvalib-spacing-unit);
+        }
+        div[grid] {
+          display: grid;
+          grid-gap: var(--uvalib-spacing-unit);
+          grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        }
+        .columnheader {
+          font-weight: bold;
+        }
+        [role='button'] {
+          cursor: pointer;
+        }
+        .list[stripe] {
+          background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
+        }
+        .header {
+          position: relative;
+        }
+        .header .list {
+          margin-bottom: var(--uvalib-spacing-unit);
+          padding-bottom: calc(var(--uvalib-spacing-unit)*.5);
+        }
+        .label {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: bold;
+          padding-top: calc(var(--uvalib-main-font-size-unit)*.5);
+        }
+        paper-progress {
+          position: absolute;
+          bottom: 0;
+          --paper-progress-indeterminate-cycle-duration: 4s;
+          --paper-progress-height: 3px;
+          --paper-progress-active-color: var(--uvalib-main-rotunda-orange);
+        }
+        iron-image {
+          height: 150px !important;
+          width: 150px !important;
+        }
+        .images .name {
+          padding: 10px;
+          font-weight: bold;
+        }
+        ul {
+          list-style-type: none;
+        }
+      </style>
+    </custom-style>
+
+    <uva-library last-response="{{_libraries}}"></uva-library>
+    <uva-library path="people" last-response="{{_people}}"></uva-library>
+<!--    <uva-library path="teams" last-response="{{_teams}}"></uva-library> -->
+<!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
+
+    <div class="wrapper" not-small$="[[!smallScreen]]">
+      <div class="header" aria-hidden="true" hidden$="[[_or(_imagesView,smallScreen)]]">
+         <div class="list">
+           <div style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></div>
+           <div style="-ms-grid-column:2" class="columnheader">Title</div>
+           <div style="-ms-grid-column:3" class="columnheader">Department</div>
+           <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+         </div>
+         <paper-progress value="100" valuemax="10" indeterminate$="[[!_loaded]]" disabled$="[[_loaded]]" style="width:100%;"></paper-progress>
+       </div>
+       <div role="rowgroup">
+        <div class="message" hidden$="[[!_message]]">[[_message]]</div>
+        <div id="list-container" grid$="[[_imagesView]]">
+          <dom-repeat items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
+            <template>
+              <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
+                  <iron-image preload fade class="round" sizing="cover" src="[[_getSmImg(person.field_image.url)]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                </template>
+                <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
+                  <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                </template>
+                <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                  <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                    <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                  </a>
+                </div>
+                <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
+                  <div class="label" aria-hidden hidden$="[[_or(_notSmallScreen,_imagesView)]]">Title</div>
+                  <span>[[person.jobTitle]]</span>
+                </div>
+                <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
+                  <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
+                  <span><ul>
+                    <template is="dom-repeat" items="[[person.fullTeams]]" as="team">
+                      <li>[[team.title]]</li>
+                    </template>
+                  </ul></span>
+                </div>
+                <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
+                  <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                  <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                  <br hidden$="[[!_and(person.phone,person.email)]]" />
+                  <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                </div>
+              </div>
+            </template>
+          </dom-repeat>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    let uvalibDirectoryTemplate;
+
+    /**
+     * `uvalib-hourspage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibDirectorypage extends Polymer.GestureEventListeners(UvalibUiElement) {
+      static get is() { return 'uvalib-directorypage'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          _libraries: Array,
+          _people: Array,
+          _teams: Array,
+          _teamsHashed: {
+            type: Object,
+            computed: '_computeHash(_teams)'
+          },
+          view: {
+            type: String,
+            value: "list"
+          },
+          _imagesView: {
+            type: Boolean,
+            computed: "_isImagesView(view)"
+          },
+          _listView: {
+            type: Boolean,
+            computed: "_isListView(view)"
+          },
+          _areas: Array,
+          peopleCount: {
+            type: Number,
+            computed: '_countPeople(_people)',
+            notify: true
+          },
+          nameSortReverseOrder: {
+            type: Boolean,
+            value: false
+          },
+          query: String,
+          _message: String,
+          _loaded: {
+            type: Boolean,
+            value: false
+          },
+          _notSmallScreen: {
+            type: Boolean,
+            computed: "_computeNotSmallScreen(smallScreen)"
+          }
+        });
+      }
+      static get template() {
+        if (!uvalibDirectoryTemplate) {
+            // Retrieve this element's dom-module template
+            uvalibDirectoryTemplate = Polymer.DomModule.import(this.is, 'template');
+            // Clone the contents of the superclass template
+            let superTemplateContents = UvalibUiElement.template.content.cloneNode(true);
+            // Insert the superclass contents
+            uvalibDirectoryTemplate.content.insertBefore(superTemplateContents,null);
+        }
+        return uvalibDirectoryTemplate;
+      }
+      _computePeople(_people,revorder,query) {
+        if (_people) {
+          var show = _people?
+            _people.sort(function(a, b) {
+              var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+              var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+              if (nameA < nameB) return (revorder)? 1:-1;
+              if (nameA > nameB) return (revorder)? -1:1;
+              return 0;
+            }):null;
+          if (query) {
+            var options = {
+              shouldSort: true,
+              tokenize: true,
+              matchAllTokens: true,
+              threshold: 0.0,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              minMatchCharLength: 1,
+              keys: ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName']
+            };
+            var fuse = new Fuse(show, options);
+              show = fuse.search(query)
+              if (show.length == 0)
+                this._message = "Not found; try a different spelling."
+              else
+                this._message = null;
+            } else {
+              this._message = null;
+            }
+          this._loaded = true;
+
+          return show;
+        } else {
+          return "";
+        }
+      }
+      _countPeople(_people) {
+        return (_people && _people.length>0)? _people.length + 1: 0;
+      }
+      _sortOrder(nameSortReverseOrder) {
+        return nameSortReverseOrder? "descending":"ascending"
+      }
+      _toggleOrder(e){
+        e.preventDefault();
+        this.nameSortReverseOrder = !this.nameSortReverseOrder;
+      }
+      _toggleIcon(nameSortReverseOrder){
+        return nameSortReverseOrder? "caret-up":"caret-down";
+      }
+      _computeHash(arry){
+        return (Array.isArray(arry))?
+            arry.reduce((obj,item)=>{
+              obj[item.uuid] = item;
+              return obj;
+            }, {}):{};
+      }
+      _isListView(view){
+        return view=="list";
+      }
+      _isImagesView(view){
+        return view=="images"
+      }
+      _computeNotSmallScreen(smallScreen){
+        return !smallScreen;
+      }
+      _getlistOffset(smallScreen,mediumScreen,largeScreen){
+        return 535;
+      }
+      _getSmImg(url){
+        return url.replace('.jpg','.sm.jpg');
+      }
+    }
+
+    window.customElements.define(UvalibDirectorypage.is, UvalibDirectorypage);
+  </script>
+</dom-module>

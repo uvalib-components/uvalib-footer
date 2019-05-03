@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-radios">
+    <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <fieldset id="radioGroup" class="form-field">
+      <legend class="field-label">[[element.title]]<template is="dom-if" if="[[_isRequired(element)]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></legend>
+      <template is="dom-if" if="[[_hasDescription(element)]]">
+        <div class="descriptive-text">
+          <span inner-h-t-m-l="[[element.description.markup]]"></span>
+        </div>
+      </template>
+      <template is="dom-repeat" items="{{_getOptions(element)}}" as="option">
+        <input type="radio" id$="[[_optionStripped(option)]]" name$="[[element.name]]" value$="[[option]]" on-change="_changedValue" checked$="{{_isChecked(option,element.value)}}">
+        <label for$="[[_optionStripped(option)]]">[[option]]</label><br>
+      </template>
+      <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}">[[element.required_error]]</div>
+    </fieldset>
+
+
+    </template>
+
+    <script>
+        /**
+         * `uvalib-field-radios`
+         * Component that generates radio button input field.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/uvalib-field-radios.html
+         */
+        class UvalibFieldRadios extends UvalibField(Polymer.Element) {
+            static get is() {
+                return 'uvalib-field-radios';
+            }
+            static get properties() {
+                return Object.assign(super.properties, {
+                });
+            }
+            ready() {
+              super.ready();
+            }
+
+            _isChecked(option,value) {
+              return (option == value);
+            }
+
+            _getOptions(el) {
+              let opts = Array();
+              for (var key in el.options) {
+                opts.push(el.options[key]);
+              }
+              return opts;
+            }
+        }
+
+        window.customElements.define(UvalibFieldRadios.is, UvalibFieldRadios);
+    </script>
+</dom-module>

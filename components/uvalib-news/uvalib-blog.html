@@ -1,0 +1,50 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="uvalib-news-card.html">
+
+<dom-module id="uvalib-blog">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex iron-flex-alignment">
+        :host {
+          display: block;
+        }
+      </style>
+    </custom-style>
+    <uva-library path="newsblog" items="{{news}}" sort-by="created" sort-order="desc"></uva-library>
+    <template is="dom-repeat" items="[[_filteredNews(news,limit)]]">
+      <uvalib-news-card link-text="Read More" image="[[item.image]]" news-item="[[item]]"></uvalib-news-card>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-blog`
+     * News
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/blog.html
+     */
+    class UvalibBlog extends Polymer.Element {
+      static get is() { return 'uvalib-blog'; }
+      static get properties() {
+        return {
+          news: Array,
+          limit: Number
+        };
+      }
+      _filteredNews(news) {
+        if (news && news.length) {
+          var n = (this.limit)? news.slice(0,this.limit): news;
+          return n.map( x=>{
+            x.body=x.excerpt.replace(/<div class="sharedaddy.*/,"").replace(/\&hellip\;.*<\/p>/,"&hellip;</p>");
+            return x; } );
+        }
+      }
+    }
+
+    window.customElements.define(UvalibBlog.is, UvalibBlog);
+  </script>
+</dom-module>

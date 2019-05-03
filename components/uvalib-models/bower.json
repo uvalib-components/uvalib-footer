@@ -1,0 +1,21 @@
+{
+  "name": "uvalib-models",
+  "description": "Binds to the UVA Library APIs",
+  "main": "uvalib-models.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "polymer": "^2.5.0",
+    "webcomponentsjs": "^1.1.1",
+    "iron-collapse": "^2.2.1",
+    "iron-flex-layout": "^2.0.3",
+    "iron-resizable-behavior": "^v2.0.0",
+    "paper-styles": "^2.0.0",
+    "iron-a11y-keys-behavior": "^v2.0.0"
+  }
+}

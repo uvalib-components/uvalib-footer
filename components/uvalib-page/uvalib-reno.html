@@ -1,0 +1,269 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../paper-button/paper-button.html"><!-- 7/27 -->
+<link rel="import" href="../paper-card/paper-card.html"><!-- 7/27 -->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html"><!-- 7/27 -->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../uvalib-banner/uvalib-image-header.html">
+<link rel="import" href="../uvalib-directory/uvalib-staff.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../uvalib-events-ui/uvalib-events-ui.html">
+<link rel="import" href="../uvalib-directory/uvalib-staff-card.html">
+<link rel="import" href="../uvalib-news/uvalib-news-list.html">
+<link rel="import" href="../uvalib-news/uvalib-blog-list.html">
+<link rel="import" href="../app-layout/app-box/app-box.html">
+<link rel="import" href="../google-youtube/google-youtube.html">
+<link rel="import" href="../app-layout/app-scroll-effects/app-scroll-effects.html">
+
+<dom-module id="uvalib-reno">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex iron-flex-alignment iron-flex-factors uvalib-card-style">
+        :host {
+          display: block;
+          --uvalib-card-font-size: 18px;
+        }
+
+        [hidden] {
+          display: none;
+        }
+
+        uvalib-image-header {
+          --uvalib-image-header-height: 500px;
+          --uvalib-vertical-position: flex-start;
+        }
+
+        .grid-main,
+        .grid-container,
+        .grid-container.bio-block,
+        .grid-container-right {
+          display: grid;
+          grid-gap: 4rem;
+          grid-template-columns: 1fr;
+          line-height: 1.75;
+          font-size: 18px;
+        }
+
+        .img-group ul {
+          list-style: none;
+          margin: 0;
+          padding-left: var(--uvalib-spacing-unit);
+          padding-right: var(--uvalib-spacing-unit);
+        }
+
+        .card-content p {
+          line-height: normal;
+          font-size: 18px;
+        }
+
+        .benefits {
+          background-color: var(--uvalib-secondary-medium-gray);
+          padding-left: var(--uvalib-spacing-unit);
+          padding-right: calc(var(--uvalib-spacing-unit)*2);
+          border-radius: 5px;
+        }
+        .benefits li {
+          margin-bottom: calc(var(--uvalib-spacing-unit)*1.15);
+        }
+
+        .timeline img {
+          margin-top: var(--uvalib-spacing-unit);
+          margin-bottom: var(--uvalib-spacing-unit);
+        }
+
+        .top-line {
+          padding-top: var(--uvalib-spacing-unit);
+          border-top: 2px dotted var(--uvalib-secondary-medium-gray);
+        }
+
+        :host([large-screen]) .staff-bio { margin-bottom: 30px; }
+
+        :host([large-screen]) .header-copy { display: grid; }
+
+        :host([large-screen]) .grid-container-right {
+          display: grid;
+          grid-gap: 2rem;
+          grid-template-columns: 2fr 1.5fr;
+        }
+
+        :host([large-screen]) .grid-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+          grid-gap: 1rem;
+        }
+
+        :host([large-screen]) .grid-container.bio-block {
+          grid-gap: 3rem;
+        }
+
+        :host([large-screen]) .grid-copy {
+          order: -1;
+        }
+      </style>
+    </custom-style>
+    <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
+      <h1 slot="header-title" class="all-cap">Help shape the future of the Library</h1>
+    </uvalib-image-header>
+    <div class="grid-main">
+      <div class="header-copy">
+        <div></div>
+        <div>
+          <p class="bigFirstLetter">The renovation of Alderman Library marks the third chapter in the University’s history. The first chapter began when the Rotunda, UVA’s first Library, was constructed as the focus of Grounds&mdash;a notable
+              departure from the customary practice of centering universities around religious buildings. The second chapter began when Alderman was built in 1938 with a much larger and more current collection, and UVA began to function as a research
+              university.</p>
+          <p>The renovation will bring the Library up to current standards of safety, accessibility, and service. But more importantly, it is essential to restore Alderman to the position it enjoyed when it opened&mdash;a contemporary library with
+              modern amenities suited to the needs of its users.</p>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="full-width" hidden$="[[smallScreen]]">
+        <a href="https://news.library.virginia.edu/2018/11/14/cutaway-view-of-renovated-alderman-shows-vision-for-future-library/"><img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/collage3.jpg" alt="Artist's renderings of proposed new building facade." /></a>
+      </div>
+
+      <div class="img-group" hidden$="[[!smallScreen]]">
+        <ul>
+          <li><img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="Artist's rendering of proposed new building east-facing facade, with stairs and cafe tables." /></li>
+          <li><a href="https://news.library.virginia.edu/2018/11/14/cutaway-view-of-renovated-alderman-shows-vision-for-future-library/"><img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/cutaway.jpg" alt="Artist's rendering of the new library in a cut-a-way view, exposing the inside floorplans." /></a></li>
+          <li><img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/Passage.jpg" alt="Artist's rendering of proposed new stairwell between Alderman and Clemons." /></li>
+        </ul>
+      </div>
+
+      <div class="grid-container bio-block">
+        <div class="grid-container">
+          <div class="staff-bio">
+            <p>The role of the Library is experiencing a transformation at UVA, and the Alderman renovation is a key part of that change. Help us cement Alderman’s place as a hub of discovery and learning by making a gift. There are multiple opportunities to make both immediate-use and endowed gifts.</p>
+            <p class="top-line">To learn more about giving to the renovation, contact Robin Mitchell.</p>
+            <uvalib-staff-card computing-id="rlm4kf" preferred-name="Robin Mitchell" preferred-email="Robin.Mitchell@virginia.edu"></uvalib-staff-card>
+          </div>
+          <div class="grid-container video">
+            <google-youtube
+              video-id="e4HYEBbN9aQ"
+              fluid="1"
+              rel="0"
+              start="5"
+              autoplay="0">
+            </google-youtube>
+          </div>
+        </div>
+        <div class="benefits">
+          <h3 class="all-cap">Benefits of the Renovation</h3>
+          <ul>
+            <li>Renewal of building systems with all new (much-needed) infrastructure</li>
+            <li>An updated and expanded south entrance and a new highly-accessible north entrance</li>
+            <li>Better utilization of space to improve wayfinding and offer a variety of environments for study, research, and social interaction</li>
+            <li>Restoration and optimization of historic Alderman characteristics such as the McGregor Room</li>
+            <li>A much-improved environment for students and faculty in the humanities and social sciences to work with extensive and growing print collections</li>
+            <li>Better facilities for the ongoing conservation and preservation of the print collections</li>
+            <li>Ample lighting to improve the interior and make optimal use of existing light wells</li>
+            <li>Adaptability to meet the broadest range of future needs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="timeline layout vertical center center">
+          <h2>Renovation Timeline</h2>
+          <img class="img-responsive" alt="A timeline with milestones, described fully by following the link below" src="https://static.lib.virginia.edu/files/renovation-images/ConstructionTimeline-fall18-web.png" />
+          <a href="/renovation/project-timeline">View Timeline Details</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <paper-card heading="Your Alderman Story" image="https://static.lib.virginia.edu/files/renovation-images/ald-story.jpg" alt="Photo looking down a row of books on either side. A man is using a laptop at a study carasel.">
+          <div class="card-content">
+            <p>If you’re a student, staff or faculty member, visiting scholar, or community user&mdash;current or former&mdash;we want to hear from you!</p>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="/renovation/my-alderman-story">
+              <paper-button>Tell your story</paper-button>
+            </a>
+          </div>
+        </paper-card>
+        <paper-card heading="A Rich Journey" image="https://static.lib.virginia.edu/files/renovation-images/history.jpg" alt="A vintage photo from Alderman's early days when there was a central front desk. Three men are at the desk talking with librarians.">
+          <div class="card-content">
+            <p>The history of UVA can be divided into three chapters, each marked by the construction of a library.</p>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="/renovation/history-of-the-project">
+              <paper-button>Read history</paper-button>
+            </a>
+          </div>
+        </paper-card>
+
+        <paper-card heading="Documentation" image="https://static.lib.virginia.edu/files/renovation-images/proj-doc.jpg" alt="A vintage blueprint showing the plan view for Memorial Hall.">
+          <div class="card-content">
+            <p>Design documents, planning studies, committee information, and beyond.</p>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="/renovation/project-planning-documents">
+              <paper-button>Learn more</paper-button>
+            </a>
+          </div>
+        </paper-card>
+
+        <paper-card heading="In the News" style="max-width:100%">
+          <div class="card-content">
+            <uvalib-news-list limit="3" association="renovation"></uvalib-news-list>
+          </div>
+          <!-- <div class="card-actions">
+            <a tabindex="-1" href="http://news.library.virginia.edu">
+              <paper-button>see more</paper-button>
+            </a>
+          </div> -->
+        </paper-card>
+
+        <paper-card heading="Updates">
+          <div class="card-content">
+              <uvalib-blog-list limit="3" category="renovations"></uvalib-blog-list>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="https://news.library.virginia.edu/category/renovations/">
+              <paper-button>view all</paper-button>
+            </a>
+          </div>
+        </paper-card>
+
+      </div>
+
+      <div class="text-center">
+        <p>If you have questions, concerns, or ideas about the Alderman renovation, email University Librarian John Unsworth (<a href="mailto:Unsworth@virginia.edu?subject=Alderman renovation">Unsworth@virginia.edu</a>) using the subject line “Alderman renovation”.  He will read and reply to all email with that subject line.</p>
+      </div>
+
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-reno`
+     * UVA Library rmc template component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/reno.html
+     */
+    class UvalibTemplateRMC extends UvalibUiElement {
+      static get is() {
+        return 'uvalib-reno';
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-reno', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content, null);
+        return parentTemplate;
+      }
+      static get properties(){
+        return Object.assign(super.properties,{
+          backgroundImage: {
+            type: String,
+            value: null,
+            observer: '_setImage'
+          }
+        });
+      }
+    }
+    window.customElements.define(UvalibTemplateRMC.is, UvalibTemplateRMC);
+  </script>
+</dom-module>

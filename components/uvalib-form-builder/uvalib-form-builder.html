@@ -1,0 +1,542 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uva-helper-libs/lodash.html">
+<link rel="import" href="../uvalib-account/uvalib-account-user.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-form.html">
+<link rel="import" href="uvalib-form-style.html">
+<link rel="import" href="uvalib-field-html-markup.html">
+<link rel="import" href="uvalib-field-select.html">
+<link rel="import" href="uvalib-field-input.html">
+<link rel="import" href="uvalib-field-hidden.html">
+<link rel="import" href="uvalib-field-textarea.html">
+<link rel="import" href="uvalib-field-checkbox.html">
+<link rel="import" href="uvalib-field-checkboxes.html">
+<link rel="import" href="uvalib-field-radios.html">
+<link rel="import" href="uvalib-field-button.html">
+<link rel="import" href="../uvalib-sis-input/uvalib-sis-input.html">
+
+<dom-module id="uvalib-form-builder">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <uva-library path="web/forms" items="{{formPage}}" filter="{{_formFilter}}"></uva-library>
+
+    <uvalib-account-user id="user" auto="[[_authenticated]]" contact-info="{{userInfo}}"></uvalib-account-user>
+
+    <form method="post">
+      <input type="hidden" name="authenticated" value="[[_authenticated]]" />
+
+      <div class="errors" hidden$="[[!_invalidValues]]" aria-live$="[[_alertLevel]]">
+        <div id="submissionProblems">A problem has occurred. 
+          <div class="errorCount" hidden$="[[_firebaseProblem]]">Please address the following <span inner-h-t-m-l="[[_errors.length]]"></span> <span inner-h-t-m-l="[[_errorString(_errors.length)]]"></span> and re-submit the form.</div>
+        </div>
+        <!--  insert error messages here after submit validation -->
+        <nav id="errorList" aria-labelledby="submissionProblems" tabindex="0">
+          <ul>
+            <template is="dom-repeat" items="[[_errors]]">
+              <li><a href="#[[item.id]]" on-click="_handleAnchor">[[item.text]]</a></li>
+            </template>
+          </ul>
+        </nav>
+      </div>
+
+      <template is="dom-repeat" items="{{_elements}}" as="elem">
+        <template is="dom-if" if="[[_isSection(elem)]]">
+          <div class="section" hidden$="{{!_showField(elem,_refresh)}}">
+            <h2>[[elem.title]]</h2>
+              <template is="dom-repeat" items="{{_getSectionFields(elem)}}" as="fs_elem">
+                <template is="dom-if" if="[[_isMarkup(fs_elem)]]">
+                  <uvalib-field-html-markup id="[[fs_elem.webform_key]]" element="{{fs_elem}}" hidden$="{{!_showField(fs_elem,_refresh)}}"></uvalib-field-html-markup>
+                </template>
+                <template is="dom-if" if="[[_isField(fs_elem)]]">
+                  <template is="dom-if" if="[[_isHidden(fs_elem)]]">
+                    <uvalib-field-hidden id="[[fs_elem.webform_key]]" element="{{fs_elem}}" invalid-values="{{_invalidValues}}"></uvalib-field-hidden>
+                  </template>
+                  <template is="dom-if" if="[[_isSelect(fs_elem)]]">
+                    <uvalib-field-select id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-select>
+                  </template>
+                  <template is="dom-if" if="[[_isRadios(fs_elem)]]">
+                    <uvalib-field-radios id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-radios>
+                  </template>
+                  <template is="dom-if" if="[[_isInput(fs_elem)]]">
+                    <uvalib-field-input id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-input>
+                  </template>
+                  <template is="dom-if" if="[[_isCheckbox(fs_elem)]]">
+                    <uvalib-field-checkbox id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-checkbox>
+                  </template>
+                  <template is="dom-if" if="[[_isCheckboxes(fs_elem)]]">
+                    <uvalib-field-checkboxes id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-checkboxes>
+                  </template>
+                  <template is="dom-if" if="[[_isTextarea(fs_elem)]]">
+                    <uvalib-field-textarea id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-textarea>
+                  </template>
+                  <template is="dom-if" if="[[_isButton(fs_elem)]]">
+                    <uvalib-field-button id="[[fs_elem.webform_key]]" element="{{fs_elem}}" hidden$="{{!_showField(fs_elem,_refresh)}}"></uvalib-field-button>
+                  </template>
+                  <template is="dom-if" if="[[_isSectionSelect(fs_elem)]]">
+                    <uvalib-sis-input counter="[[_counter]] "id="[[fs_elem.webform_key]]" element="{{fs_elem}}" value="{{fs_elem.value}}" hidden$="{{!_showField(fs_elem,_refresh)}}"></uvalib-sis-input>
+                  </template>
+                </template>
+    </template>
+    </div>
+    </template>
+    <template is="dom-if" if="[[_isMarkup(elem)]]">
+          <uvalib-field-html-markup id="[[elem.webform_key]]" element="{{elem}}" hidden$="{{!_showField(elem,_refresh)}}"></uvalib-field-html-markup>
+        </template>
+        <template is="dom-if" if="[[_isField(elem)]]">
+          <template is="dom-if" if="[[_isHidden(elem)]]">
+            <uvalib-field-hidden id="[[elem.webform_key]]" element="{{elem}}" invalid-values="{{_invalidValues}}"></uvalib-field-hidden>
+          </template>
+          <template is="dom-if" if="[[_isSelect(elem)]]">
+            <uvalib-field-select id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-select>
+          </template>
+          <template is="dom-if" if="[[_isRadios(elem)]]">
+            <uvalib-field-radios id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-radios>
+          </template>
+          <template is="dom-if" if="[[_isInput(elem)]]">
+            <uvalib-field-input id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-input>
+          </template>
+          <template is="dom-if" if="[[_isCheckbox(elem)]]">
+            <uvalib-field-checkbox id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-checkbox>
+          </template>
+          <template is="dom-if" if="[[_isCheckboxes(elem)]]">
+            <uvalib-field-checkboxes id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-checkboxes>
+          </template>
+          <template is="dom-if" if="[[_isTextarea(elem)]]">
+            <uvalib-field-textarea id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}" invalid-values="{{_invalidValues}}"></uvalib-field-textarea>
+          </template>
+          <template is="dom-if" if="[[_isButton(elem)]]">
+            <uvalib-field-button id="[[elem.webform_key]]" element="{{elem}}" hidden$="{{!_showField(elem,_refresh)}}"></uvalib-field-button>
+          </template>
+          <template is="dom-if" if="[[_isSectionSelect(fs_elem)]]">
+            <uvalib-sis-input counter="[[_counter]]" id="[[elem.webform_key]]" element="{{elem}}" value="{{elem.value}}" hidden$="{{!_showField(elem,_refresh)}}"></uvalib-sis-input>
+          </template>
+    </template>
+    </template>
+    </form>
+
+  </template>
+
+    <script>
+        /**
+         * `uvalib-form-builder`
+         * Component that builds out a web form UI using a form definition via the API.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         * @demo demo/purchase-request.html
+         * @demo demo/uvalib-field-checkbox.html
+         * @demo demo/uvalib-field-input.html
+         * @demo demo/uvalib-field-select.html
+         * @demo demo/uvalib-field-textarea.html
+         * @demo demo/uvalib-form-fieldset.html
+         */
+        class UvalibFormBuilder extends UvalibForm(Polymer.Element) {
+            static get is() {
+                return 'uvalib-form-builder';
+            }
+            static get properties() {
+                return Object.assign(super.properties, {
+                    /**
+                     * Used to indicate which workflow the server should use when processing the request submitted.
+                     */
+                    formId: {
+                        type: String
+                    },
+                    /**
+                     * An array containing the form page returned for the specified form id.
+                     */
+                    formPage: {
+                        type: Array,
+                        notify: true
+                    },
+                    /**
+                     * Filter for the uva library api call to select only the form id requested.
+                     */
+                    _formFilter: {
+                        type: Object,
+                        computed: '_filter(formId)'
+                    },
+                    /**
+                     * The form elements.
+                     */
+                    _elements: {
+                        type: Array,
+                        notify: true,
+                        reflectToAttribute: true,
+                        computed: '_parsePageForm(formPage,userInfo)'
+                    },
+                    /**
+                     * Authenticated form indicator.
+                     */
+                    _authenticated: {
+                        type: Boolean,
+                        computed: '_isFormAuthenticated(_elements)'
+                    },
+                    /**
+                     * Form confirmation page path.
+                     */
+                    _confirmationPagePath: {
+                        type: String,
+                        computed: '_getConfirmationPagePath(_elements)'
+                    },
+                    /**
+                     * list of field ids containing errors, each with an appropriate message.
+                     */
+                    _errors: {
+                      type: Array,
+                      value: function(){return []},
+                      notify: true
+                    },
+                    /**
+                     * Indicator there are fields with missing or invalid data.
+                     */
+                    _invalidValues: {
+                      type: Boolean,
+                      computed: '_errorsFound(_errors)',
+                      notify: true
+                    },
+                    /**
+                     * Appropriate aria-live attribute value in the event of a form submission error.
+                     */
+                    _alertLevel: {
+                      type: String,
+                      computed: '_ariaLiveAlert(_errors)'
+                    },
+                    _counter: {
+                      type: Number,
+                      value:0,
+                      notify: true
+                    },
+                    _firebaseProblem: {
+                      type: Boolean,
+                      value: false,
+                      notify: true
+                    }
+                });
+            }
+
+            _errorString(count) {
+              return (count == 1) ? 'error' : 'errors';
+            }
+
+            /**
+             * Handle click event for getting customer between an error link and the corresponding input field.
+             */
+            _handleAnchor(e) {
+              e.preventDefault();
+              let target = e.currentTarget.getAttribute('href');
+              this.shadowRoot.querySelector(target).scrollIntoView();
+              this.shadowRoot.querySelector(target).focus();
+            }
+
+            /**
+             * Indicator that errors were discovered when client side validation performed.
+             * @return Boolean
+             */
+            _errorsFound(_errors) {
+              return (_errors.length > 0) ? true : false;
+            }
+
+            /**
+             * If errors exist then the aria-live attribute for the error content should be set to assertive.
+             * @return String
+             */
+            _ariaLiveAlert(_errors) {
+              return (_errors.length > 0) ? 'assertive' : '';
+            }
+
+            /**
+             * Validate that any required field is not empty.
+             */
+            _validateRequired(key,fldObj) {
+              if (fldObj.validated!=null) {
+                if (fldObj.validated) {
+                  fldObj.valid = true;
+                } else {
+                  fldObj.valid = false;
+                  this.push('_errors',{"id": key, text: 'The '+fldObj.title+' field is empty - this is required and must be filled in.' });
+                }
+                fldObj.showMessages = true;
+              } else if (fldObj.value && fldObj.value !== "") {
+                fldObj.valid = true;
+                // check if the field type is a select and make sure the value is not choose one or select one
+                if (fldObj.type == 'select') {
+                  var selectorPromptRegExp = /(choose|select) one/i;
+                  if (selectorPromptRegExp.test(fldObj.value)) {
+                    fldObj.valid = false;
+                    this.push('_errors',{"id": key, text: 'The '+fldObj.title+' field option is invalid - a selection must be made from the list.' });
+                  }
+                }
+              } else {
+                // Check to see if the field is visible before indicating an empty required field is invalid.
+                if (!this._showField(fldObj)) {
+                  fldObj.valid = true;
+                } else {
+                  fldObj.valid = false;
+  //                console.log(key+': '+fldObj.valid);
+                  this.push('_errors',{"id": key, text: 'The '+fldObj.title+' field is empty - this is required and must be filled in.' });
+                }
+              }
+            }
+
+            /**
+             * Test that an email input type field contains a string that represents a validly formatted email address.
+             */
+            _validateEmail(key,fldObj) {
+              var emailRegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              var error_msg = ' does not look like an email address, please check the value you entered.';
+              // Check to see if the field is visible before indicating an empty required field is invalid.
+              if (!this._showField(fldObj)) {
+                fldObj.valid = true;
+                fldObj.syntax_issue = false;
+              } else {
+                if (!emailRegExp.test(fldObj.value)) {
+                  fldObj.syntax_issue = true;
+                  // when testing for a syntax error append the error to an existing error if appropriate; otherwise add it to the error list.
+                  if (this._errors[key]) {
+                    this._errors[key].text += ' And it'+error_msg;
+                  } else {
+                    fldObj.valid = false;
+                    this.push('_errors',{"id": key, text: 'The '+fldObj.title+' field input'+error_msg });
+                  }
+                } else {
+                  fldObj.valid = true;
+                  fldObj.syntax_issue = false;
+                }
+              }
+            }
+
+            /**
+             * Test that a telephone number input type field contains a string that represents a validly formatted telephone number.
+             */
+            _validatePhone(key,fldObj) {
+              var phoneRegExp = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
+              var error_msg = ' does not look like a phone number, please check the value you entered.';
+              if (!this._showField(fldObj)) {
+                fldObj.valid = true;
+                fldObj.syntax_issue = false;
+              } else {
+                if (!phoneRegExp.test(fldObj.value)) {
+                  fldObj.syntax_issue = true;
+                  // when testing for a syntax error append the error to an existing error if appropriate; otherwise add it to the error list.
+                  if (this._errors[key]) {
+                    this._errors[key].text += ' And it'+error_msg;
+                  } else {
+                    fldObj.valid = false;
+                    this.push('_errors',{"id": key, text: 'The '+fldObj.title+' field input'+error_msg });
+                  }
+                } else {
+                  fldObj.valid = true;
+                  fldObj.syntax_issue = false;
+                }
+              }
+            }
+
+            /**
+             * Validate input fields found in a form section.
+             */
+            _validateSection(fldIndex) {
+              for (var key in this._elements[fldIndex]) {
+                if (key.match(/^fld_/)) {
+                  if (this._elements[fldIndex][key]._required || this._elements[fldIndex][key].required) {
+                    this._validateRequired(key,this._elements[fldIndex][key]);
+                  }
+                  if ((this._elements[fldIndex][key].type == 'email') && this._elements[fldIndex][key].value != '') {
+                    this._validateEmail(key,this._elements[fldIndex][key]);
+                  }
+                  if ((this._elements[fldIndex][key].type == 'tel') && this._elements[fldIndex][key].value != '') {
+                    this._validatePhone(key,this._elements[fldIndex][key]);
+                  }
+                } else if (key.match(/^fldset_/)) {
+                  // @TODO Revisit when we use <fieldset>
+                }
+              }
+            }
+
+            /**
+             * Actions to be performed when a button is clicked.
+             */
+            _buttonClicked(e) {
+              if (e.detail.name == 'Submit') {
+                this._errors = [];
+                this._errorList = "";
+                // Loop through form fields to make sure required items have values
+                for (var i=0; i<this._elements.length; i++) {
+                  // only validate an input field if it is showing on the screen...
+                  if (this._showField(this._elements[i])) {
+                    let field = this._elements[i].webform_key;
+                    if (field.match(/^sect_/)) {
+                      this._validateSection(i);
+                    } else if (field.match(/^fld_/)) {
+                      if (this._elements[i]._required || this._elements[i].required) {
+                        this._validateRequired(field,this._elements[i]);
+                      }
+                      if ((this._elements[i].type == 'email') && this._elements[i].valid) {
+                        this._validateEmail(field,this._elements[i]);
+                      }
+                    } else if (field.match(/^fldset_/)) {
+                      // @TODO Revisit when we use <fieldset>
+                    }
+                  }
+                }
+                // need to refresh errors to make sure they get reflected
+                this._errors = JSON.parse(JSON.stringify(this._errors));
+
+                // if invalid input then reset the array
+                if (this._errors.length > 0) {
+                  this._elements = JSON.parse(JSON.stringify(this._elements));
+                  this.shadowRoot.querySelector('#errorList').focus();
+                } else {
+                  // otherwise save the results
+                  this.$.user.saveRequest(this._elements)
+                    .then(results => {
+                      if (results.requestPathWrite) {
+                        // redirect to the confirmation form
+                        // @TODO Can we remove the domain reference when this is live in production?
+                        window.location.replace("https://library.virginia.edu"+this._confirmationPagePath);
+                      } else {
+                        console.log(results.message); // This may not be a useful message to display to patrons but we can always view Firebase logs to see technical errors.
+                        this._firebaseProblem = true;
+                        this.push('_errors',{"id": 'btn_submit', text: 'Unable to submit your request at this time. Please wait a minute and try again.' });
+                        this._errors = JSON.parse(JSON.stringify(this._errors));
+                        this.shadowRoot.querySelector('#errorList').focus();
+                      }
+                    })
+                    .catch(error => {
+                      console.log(error);
+                    });
+                }
+                this._counter = this._counter+1;
+                //console.log(this._elements);
+              }
+            }
+
+            /**
+             * Filter API web forms to get the one needed.
+             * @return Object
+             */
+            _filter(id) {
+                return {
+                    'target_id': id
+                };
+            }
+
+            /**
+             * Check authenticated field value to determine if form requires NetBadge.
+             * @return Boolean
+             */
+            _isFormAuthenticated(els) {
+                let auth = _.find(els, {
+                    title: 'authenticated'
+                });
+                return (auth && auth.value && auth.value == "yes") ? true : false;
+            }
+
+            /**
+             * Get the path for the confirmation page.
+             * @return String
+             */
+            _getConfirmationPagePath(els) {
+                let path = _.find(els, {
+                    title: 'confirmation page path'
+                });
+                return (path && path.value)? path.value: null;
+            }
+
+            /**
+             * Set the value of a field depending on its type.
+             */
+            _preprocessField(fldObj,user) {
+              let setVal;
+              fldObj.valid = true;
+              // for text field make sure the type matches up with the HTML input expected
+              if (fldObj.type && fldObj.type == 'textfield') {
+                  fldObj.type = 'text';
+              }
+              // if the field should be auto-filled then do so...
+              if (fldObj.data_auto_fill) {
+                if (fldObj.data_source == 'userInfo') {
+                  // if the field is a select, radio or checkbox then we need to set the value differently;
+                  // otherwise the field's value is set to the user property value.
+                  switch (fldObj.type) {
+                    case 'select':
+                      // look for an option that contains some portion of the value it should be
+                      // @TODO this may require review depending on values that ITS has for patrons in new LDAP
+                      setVal = new RegExp(user[fldObj.data_source_field].toLowerCase());
+                      for (let opt in fldObj.options) {
+                        let setVal2 = new RegExp(fldObj.options[opt].toLowerCase());
+                        if (setVal.test(fldObj.options[opt].toLowerCase()) || setVal2.test(user[fldObj.data_source_field].toLowerCase())) {
+                          fldObj.default_value = fldObj.value = fldObj.options[opt];
+                        }
+                      }
+                      // if after this there is no value/choose one/select one and there is an Other... option in select
+                      // then set value to Other...
+                      if (((fldObj.value == '') || (fldObj.value == 'Choose one') || (fldObj.value == 'Select one')) && _.has(fldObj.options, 'Other...')) {
+                        fldObj.default_value = fldObj.value = 'Other...';
+                      }
+                      break;
+                    case 'radios':
+                      // look for an option that contains some portion of the value it should be
+                      // @TODO this may require review depending on values that ITS has for patrons in new LDAP
+                      setVal = new RegExp(user[fldObj.data_source_field].toLowerCase());
+                      for (let opt in fldObj.options) {
+                        let setVal2 = new RegExp(fldObj.options[opt].toLowerCase());
+                        if (setVal.test(fldObj.options[opt].toLowerCase()) || setVal2.test(user[fldObj.data_source_field].toLowerCase())) {
+                          fldObj.default_value = fldObj.options[opt];
+                          fldObj.value = fldObj.options[opt];
+                        }
+                      }
+                      break;
+                    case 'checkbox':
+                      fldObj.checked = (user[fldObj.data_source_field]) ? true : false;
+                      break;
+                    case 'button':
+                      break;
+                    case 'text':
+                    case 'textarea':
+                    case 'tel':
+                    case 'email':
+                    case 'hidden':
+                      fldObj.value = user[fldObj.data_source_field];
+                  }
+                }
+              }
+            }
+
+            /**
+             * Returns web form definition for the form page object.
+             * @return Array
+             */
+            _parsePageForm(frmPg) {
+                var fields = Array();
+                if (frmPg) {
+                    var form = JSON.parse(frmPg[0].webform);
+                    for (var key in form) {
+                        if (key.match(/^sect_/)) {
+                          for (var skey in form[key]) {
+                            if (skey.match(/^fld_|fldset_/)) {
+                              this._preprocessField(form[key][skey],this.userInfo);
+                            }
+                          }
+                        }
+                        if (key.match(/^sect\_|fld\_|fldset\_|mkup\_|btn\_|authenticated|confirmation/)) {
+                            fields.push(form[key]);
+                            this._preprocessField(form[key],this.userInfo);
+                        }
+                    }
+                }
+                //console.log(fields);
+                return fields;
+            }
+
+        }
+
+        window.customElements.define(UvalibFormBuilder.is, UvalibFormBuilder);
+    </script>
+</dom-module>

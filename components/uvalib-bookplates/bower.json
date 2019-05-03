@@ -1,0 +1,17 @@
+{
+  "name": "uvalib-bookplates",
+  "main": "uvalib-bookplate-browse.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.5",
+    "webcomponentsjs": "^1.1.1",
+    "polymer": "^2.2.0",
+    "iron-collapse": "^2.1.0",
+    "iron-flex-layout": "^2.0.3",
+    "iron-a11y-keys-behavior": "^v2.0.0",
+    "paper-styles": "^2.0.0",
+    "iron-resizable-behavior": "^v2.0.0"
+  }
+}

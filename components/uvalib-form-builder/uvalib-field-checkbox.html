@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-checkbox">
+    <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field">
+      <template is="dom-if" if="[[_hasDescription(element)]]">
+        <div class="field-label">
+          <span inner-h-t-m-l="[[element.description.markup]]"></span>
+          <template is="dom-if" if="[[_isRequired(element)]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!_isChecked(element)]]">
+        <input type$="[[element.type]]" id$="[[element.webform_key]]" name$="[[element.name]]" required$="[[_isRequired(element)]]" aria-required$="[[_ariaRequired(element)]]" value="1" on-change="_changedValue" aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}"/>
+      </template>
+      <template is="dom-if" if="[[_isChecked(element)]]">
+        <input type$="[[element.type]]" id$="[[element.webform_key]]" name$="[[element.name]]" required$="[[_isRequired(element)]]" aria-required$="[[_ariaRequired(element)]]" value="1" on-change="_changedValue" checked aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}"/>
+      </template>
+      <label for$="[[element.webform_key]]">[[element.title]]</label>
+      <div id="[[_ariaDescribedBy]]" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}">[[element.required_error]]</div>
+    </div>
+    </template>
+
+    <script>
+        /**
+         * `uvalib-field-checkbox`
+         * Component that generates a checkbox input field.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/uvalib-field-checkbox.html
+         */
+        class UvalibFieldCheckbox extends UvalibField(Polymer.Element) {
+            static get is() {
+                return 'uvalib-field-checkbox';
+            }
+            static get properties() {
+                return Object.assign(super.properties, {});
+            }
+
+            _isChecked(el) {
+                return (el.value && (el.value != 0 && el.value != ""));
+            }
+
+        }
+
+        window.customElements.define(UvalibFieldCheckbox.is, UvalibFieldCheckbox);
+    </script>
+</dom-module>

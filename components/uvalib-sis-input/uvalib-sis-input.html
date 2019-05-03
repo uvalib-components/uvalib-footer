@@ -1,0 +1,257 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-form-builder/uvalib-field.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-form-builder/uvalib-form-style.html">
+
+<dom-module id="uvalib-sis-input">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+      :host {
+        display: block;
+      }
+      paper-fab {
+        position: absolute;
+        top: -40px;
+        right: -15px;
+        z-index: 10;
+      }
+
+    </style></custom-style>
+
+    <iron-ajax auto url="[[courseURL]]" last-response="{{courseData}}"></iron-ajax>
+
+    <paper-dialog with-backdrop>
+      <paper-fab icon="times" title="close" dialog-dismiss></paper-fab>
+      <h2>Select a course section:</h2>
+      <paper-dialog-scrollable>
+        <paper-listbox autofocus selected="{{section}}" attr-for-selected="sec-id" on-selected-changed="_closeDialog">
+          <template is="dom-repeat" items="[[_sections]]">
+            <paper-item sec-id="[[item.classSection]]">
+              Section [[item.classSection]], [[item.meetingDays]], [[item.meetingStartTime]]-[[item.meetingEndTime]] ([[item.instructor]])
+            </paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+      </div>
+    </paper-dialog>
+
+    <div class="form-field">
+      <label class="field-label" for="term">Term<template is="dom-if" if="[[required]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></label>
+      <div id="termSelect">
+        <select id="term" value="{{term::change}}">
+          <option value="Fall" selected>Fall</option>
+          <option value="January">January</option>
+          <option value="Spring">Spring</option>
+          <option value="Summer I">Summer I</option>
+          <option value="Summer II">Summer II</option>
+          <option value="Summer III">Summer III</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="courseSelect">
+      <div id="courseInput" class="form-field">
+        <label class="field-label" for="course">Course, e.g. MDST 3840<template is="dom-if" if="[[required]]"><span class="required" aria-hidden="true">*</span><span class="hidden">required</span></template></label>
+        <iron-input bind-value="{{course}}">
+          <input id="course">
+        </iron-input>
+        <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="[[_hideMessage(counter)]]"><span hidden="{{_syntaxInvalid}}">[[element.required_error]]</span> <span hidden$="{{!_syntaxInvalid}}">[[element.syntax_error]]</span></div>
+      </div>
+      <div id="sectionInput" class="form-field">
+        <label class="field-label" for="section">Course section, e.g. 100</label>
+        <iron-input bind-value="{{section}}">
+          <input id="section">
+        </iron-input>
+      </div>
+    </div>
+
+    <template is="dom-if" if="[[showAlternate]]">
+    <div id="altCourseSelect">
+      <div id="altCourseInput" class="form-field">
+        <label class="field-label" for="altCourse">Alternate course, e.g. DRAM 3840</label>
+        <iron-input bind-value="{{altCourse}}">
+          <input id="altCourse">
+        </iron-input>
+      </div>
+      <div id="altSectionInput" class="form-field">
+        <label class="field-label" for="altSection">Alternate course section, e.g. 101</label>
+        <iron-input bind-value="{{altSection}}">
+          <input id="altSection">
+        </iron-input>
+      </div>
+    </div>
+    </template>
+
+    <div id="courseTitleInput" class="form-field">
+      <label class="field-label" for="courseTitle">Course title</label>
+      <iron-input bind-value="{{courseTitle}}">
+        <input id="courseTitle">
+      </iron-input>
+    </div>
+
+    <div id="courseEnrollmentInput" class="form-field">
+      <label class="field-label" for="courseEnrollment">Enrollment</label>
+      <iron-input bind-value="{{courseEnrollment}}">
+        <input id="courseEnrollment">
+      </iron-input>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-sis-input`
+     *
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibSisInput extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-sis-input'; }
+      static get properties() {
+        return {
+          counter: Number,
+          invalidValues: {
+            type: Boolean,
+            notify: true,
+            computed: '_isInvalid(term,course)'
+          },
+          required: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
+          element: {
+            type: Object,
+            notify: true,
+            observer: '_elementChanged',
+            value: null
+          },
+          term: {
+            type: String,
+            value: 'Fall'
+          },
+          _sections: Array,
+          course: String,
+          courseURL: {
+            type: String,
+            computed: 'mkurl(term,course)'
+          },
+          courseTitle: String,
+          courseEnrollment: String,
+          courseData: {
+            type: Object,
+            observer: '_courseDataChanged'
+          },
+          section: {
+            type: String,
+            observer: '_sectionChanged'
+          },
+          showAlternate: {
+            type: Boolean,
+            value: false
+          },
+          altCourse: String,
+          altSection: String,
+          value: {
+            type: Object,
+            computed: '_makeValue(section,courseEnrollment,courseTitle,course,term,altCourse,altSection)',
+            reflectToAttribute: true,
+            notify: true
+          }
+        };
+      }
+      ready(){
+        super.ready();
+        this._initializeTerm();
+        console.log('sis is ready!!!');
+      }
+      _initializeTerm() {
+        // Use the current month to autoselect a default term/semester
+      	var today = new Date();
+      	// January thru April should have term set to Spring
+      	if ((0 <= today.getMonth()) && (today.getMonth() <= 3)) {
+          this.term = 'Spring';
+      	// May should have term set to Summer I
+      	} else if (today.getMonth() == 4) {
+          this.term = 'Summer I';
+      	// June thru November should have term set to Fall
+      	} else if ((5 <= today.getMonth()) && (today.getMonth() <= 10)) {
+          this.term = 'Fall';
+      	// December should have term set to Spring; NOT January
+      	} else if (today.getMonth() == 11) {
+          this.term = 'Spring';
+      	}
+      }
+      _hideMessage(){
+        return this.element.valid;
+      }
+      focus() {
+        this.shadowRoot.querySelector('input').focus();
+      }
+      _isInvalid(){
+        const isit = !(this.term && this.course);
+        this.element.validated = !(isit);
+        return isit;
+      }
+      _isRequired (element, required){
+        return super._isRequired(element) || this.required;
+      }
+      mkurl(term,course){
+        return (term && course)?
+          'https://api.library.virginia.edu/find_uva_course/cod.php?term='+term+'&mnemonic='+course:
+          null;
+      }
+      _makeValue(section,courseEnrollment,courseTitle,course,term,altCourse,altSection){
+        return {
+          section: section,
+          enrollment: courseEnrollment,
+          title: courseTitle,
+          course: course,
+          term: term,
+          altCourse: altCourse,
+          altSection: altSection
+        }
+      }
+      _courseDataChanged(){
+        if (this.courseData && this.courseData.classSections && this.courseData.classSections.length>0) {
+          if (!this.courseTitle) this.courseTitle = this.courseData.classSections[0].classTitle;
+          if (!this.section && this.courseData.classSections.length>1) {
+            this._sections = this.courseData.classSections;
+            this.shadowRoot.querySelector('paper-dialog').open();
+          } else {
+            this.section = this.courseData.classSections[0].classSection;
+          }
+        }
+      }
+      _sectionChanged(){
+        if (!this.courseEnrollment && this.section && this.courseData.classSections.length>0) {
+            const sec = this.courseData.classSections.find(s=>{return s.classSection == this.section});
+            if (sec && sec.enrollmentCapacity) this.courseEnrollment = sec.enrollmentCapacity;
+        }
+      }
+      _closeDialog(){
+        this.shadowRoot.querySelector('paper-dialog').close();
+        this.focus(); // set focus to current input element
+      }
+      _elementChanged(){
+        if (this.element && !this.required) this.required = this._isRequired(this.element);
+      }
+    }
+
+    window.customElements.define(UvalibSisInput.is, UvalibSisInput);
+  </script>
+</dom-module>

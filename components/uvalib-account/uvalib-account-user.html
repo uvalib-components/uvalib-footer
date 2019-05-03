@@ -1,0 +1,219 @@
+<link rel="import" href="uvalib-account-auth.html">
+<link rel="import" href="../uva-helper-libs/lil-uuid.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+
+<dom-module id="uvalib-account-user">
+  <template>
+      <firebase-document id="doc" path="[[_createPath(user)]]" data="{{_userData}}"></firebase-document>
+      <app-indexeddb-mirror key="lib-user-data" data="{{_userData}}" persisted-data="{{userData}}"></app-indexeddb-mirror>
+<!--
+      <firebase-document id="libReq" path="[[_createRequestPath(_requestUuid)]]" data="{{_requestDetails}}"></firebase-document>
+      <firebase-document id="libReqPatronCopy" path="[[_createUserRequestPath(_requestUuid,user)]]" data="{{_requestDetails}}"></firebase-document>
+-->
+      <app-indexeddb-mirror key="lib-user-request-data" data="{{_requestDetails}}" persisted-data="{{requestDetails}}"></app-indexeddb-mirror>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-account-user`
+     *
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/auth-user-info.html
+     * @demo demo/auth-user-props.html
+     */
+    class UvalibAccountUser extends UvalibAccountAuth {
+      static get is() { return 'uvalib-account-user'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          _userData: Object,
+          userData: {
+            type: Object,
+            notify: true,
+            value: function(){return {};}
+          },
+          _requestDetails: Object,
+          requestDetails: {
+            type: Object,
+            notify: true,
+            value: function(){return {};}
+          },
+          libStaff: {
+            type: Boolean,
+            notify: true,
+            computed: '_isStaff(userData)'
+          },
+          /**
+           * Contact information needed by request forms:
+           * computingID, name, email, affiliation, and department/school
+           */
+          contactInfo: {
+            type: Object,
+            notify: true,
+            computed: '_getContactInfo(userData)'
+          },
+          _requestUuid: {
+            type: String
+          }
+        });
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibAccountAuth.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-account-user', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
+      }
+      _createPath(user){
+        if (user)
+          return "/users/"+user.uid;
+        else {
+          return null;
+        }
+      }
+      _createRequestPath(_requestUuid){
+        if (_requestUuid != '')
+          return "/requests/"+_requestUuid;
+        else {
+          return null;
+        }
+      }
+      _createUserRequestPath(_requestUuid,user){
+        if (user && _requestUuid != '') {
+          return "/users/"+user.uid+"/requests/"+_requestUuid;
+        } else {
+          return null;
+        }
+      }
+      _isStaff(userData){
+        if (userData && userData.LDAP && userData.LDAP.uvaDisplayDepartment)
+          return (userData.LDAP.uvaDisplayDepartment === "University of Virginia Library"
+                  || userData.LDAP.uvaDisplayDepartment.toLowerCase().includes("univ librarian")
+                  || userData.LDAP.uvaDisplayDepartment.toLowerCase().includes("lb-"));
+      }
+      _getContactInfo(userData){
+        var contactInfo = {computing_id: '', name: '', email: '', phone: '', affiliation: '', department_school: '', processed_dept_school: ''};
+        if (userData && userData.LDAP) {
+          var prefName, prefEmail, status, deptSchool;
+          contactInfo.computing_id = this.userData.LDAP.uid;
+          contactInfo.name = userData.LDAP.givenName + ' ' + userData.LDAP.sn;
+          contactInfo.email = (userData.LDAP.preferredemailaddress) ? userData.LDAP.preferredemailaddress : userData.LDAP.mail;
+          if (userData.LDAP.edupersonprimaryaffiliation) {
+            contactInfo.affiliation = userData.LDAP.edupersonprimaryaffiliation
+          } else if (userData.LDAP.uvaPersonIAMAffiliation) {
+            contactInfo.affiliation = userData.LDAP.uvaPersonIAMAffiliation[0];
+          } else {
+            contactInfo.affiliation = userData.LDAP.edupersonaffiliation[0];
+          }
+          if (contactInfo.affiliation.includes('student')) {
+            if (userData.LDAP.uvaRegistrarSchool) {
+              contactInfo.department_school = userData.LDAP.uvaRegistrarSchool;
+              contactInfo.processed_dept_school = this._processDepartmentSchool(userData.LDAP.uvaRegistrarSchool);
+            } else if (userData.LDAP.uvaDisplayDepartment) {
+              contactInfo.department_school = this._stripInitialDeptCode(userData.LDAP.uvaDisplayDepartment);
+              contactInfo.processed_dept_school = this._processDepartmentSchool(userData.LDAP.uvaDisplayDepartment);
+            } else if (userData.LDAP.uvaOracleDeptName) {
+              contactInfo.department_school = this._stripInitialDeptCode(userData.LDAP.uvaOracleDeptName);
+              contactInfo.processed_dept_school = this._processDepartmentSchool(userData.LDAP.uvaOracleDeptName);
+            }
+            contactInfo.phone = (userData.LDAP.mobile) ? userData.LDAP.mobile : '';
+          } else {
+            if (userData.LDAP.uvaDisplayDepartment) {
+              contactInfo.department_school = this._stripInitialDeptCode(userData.LDAP.uvaDisplayDepartment);
+              contactInfo.processed_dept_school = this._processDepartmentSchool(userData.LDAP.uvaDisplayDepartment);
+            } else if (userData.LDAP.uvaOracleDeptName) {
+              contactInfo.department_school = this._stripInitialDeptCode(userData.LDAP.uvaOracleDeptName);
+              contactInfo.processed_dept_school = this._processDepartmentSchool(userData.LDAP.uvaOracleDeptName);
+            }
+            if (userData.LDAP.telephoneNumber) {
+              contactInfo.phone = userData.LDAP.telephoneNumber;
+            } else if (userData.LDAP.mobile) {
+              contactInfo.phone = userData.LDAP.mobile;
+            }
+          }
+        }
+        return contactInfo;
+      }
+      _stripInitialDeptCode(ldapValue) {
+        // Strip out that initial code at the start of the department
+        return ldapValue.replace(/^[A-Z0-9]{2}:/,'');
+      }
+      _processDepartmentSchool(ldapValue) {
+        var dept = this._stripInitialDeptCode(ldapValue);
+        // Modified to use new community LDAP values to best align to Library departments...
+        if (dept.indexOf('AR-') > -1) {
+          if (dept.indexOf('Arch History') > -1) dept = 'Architectural History';
+          if (dept.indexOf('Landscape') > -1) dept = 'Landscape Architecture';
+          if (dept.indexOf('AR-') > -1) dept = 'Architecture';
+        } else if (dept.indexOf('AS-') > -1) {
+          if (dept.indexOf('African') > -1) dept = 'African-American and African Studies';
+          if (dept.indexOf('Biol ') > -1) dept = 'Biology';
+          if ((dept.indexOf('E Asian') > -1) || (dept.indexOf('East Asian') > -1)) dept = 'East Asian';
+          if ((dept.indexOf('English') > -1) || (dept.indexOf('Writing') > -1) || (dept.indexOf('Literary History') > -1)) dept = 'English';
+          if (dept.indexOf('French') > -1) dept = 'French';
+          if (dept.indexOf('German') > -1) dept = 'German';
+          if (dept.indexOf('MidEast') > -1) dept = 'Middle Eastern and South Asian';
+          if (dept.indexOf('Physics') > -1) dept = 'Physics';
+          if ((dept.indexOf('Politics') > -1) || (dept.indexOf('Political') > -1)) dept = 'Politics';
+          if (dept.indexOf('Religion ') > -1) dept = 'Religious Studies';
+          if (dept.indexOf('Slavic') > -1) dept = 'Slavic';
+          if (dept.indexOf('Spanish') > -1) dept = 'Spanish, Italian, and Portuguese';
+          if (dept.indexOf('Women') > -1) dept = 'Women, Gender, & Sexuality';
+          if (dept.indexOf('AS-') > -1) dept = dept.replace(/^AS-/,''); // necessary for getting Biology, Chemistry, etc.
+        } else if (dept.indexOf('BA-') > -1) {
+          dept = 'Batten School';
+        } else if (dept.indexOf('MC-') > -1) {
+          dept = 'Commerce';
+        } else if (dept.indexOf('CU-') > -1) {
+          dept = 'Education';
+        } else if (dept.indexOf('EN-') > -1) {
+          if (dept.indexOf('Biomed ') > -1) dept = 'Biomedical Engineering';
+          if (dept.indexOf('Chem ') > -1) dept = 'Chemical Engineering';
+          if (dept.indexOf('Environment') > -1) dept = 'Civil and Environmental Engineering';
+          if (dept.indexOf('Comp Science') > -1) dept = 'Computer Science';
+          if (dept.indexOf('Elec/Comp') > -1) dept = 'Electrical and Computer Engineering';
+          if (dept.indexOf('Mat Sci') > -1) dept = 'Materials Science and Engineering';
+          if (dept.indexOf('Mech/Aero') > -1) dept = 'Mechanical and Aerospace Engineering';
+          if (dept.indexOf('Society') > -1) dept = 'Science, Technology and Society';
+          if (dept.indexOf('EN-') > -1) dept = 'Engineering';
+        } else if (dept.indexOf('LB-') > -1) {
+          dept = 'Library';
+        }
+        //console.log(dept);
+        return dept;
+      }
+      saveRequest(formSubmission) {
+        this._requestUuid = lil.uuid();
+        this._requestDetails = {
+          "uid": (this.user && this.user.uid) ? this.user.uid : null,
+          "timestamp": {".sv": "timestamp"},
+          "submission": JSON.stringify(formSubmission)
+        };
+        var promises = [], results = {};
+        promises.push(firebase.database().ref(this._createRequestPath(this._requestUuid)).set(this._requestDetails, function(error) {return error;}));
+        if (this.user)
+          promises.push(firebase.database().ref(this._createUserRequestPath(this._requestUuid,this.user)).set(this._requestDetails, function(error) {return error;}));
+        return Promise.all(promises)
+          .then(values => {
+            results.requestPathWrite = true;
+            results.message = '';
+            for (var i=0; i<values.length; i++) {
+              if (values[i] && values[i].error) {
+                results.requestPathWrite = false;
+                results.message += ' '+values[i].error.name+': '+error.message;
+              }
+            }
+            return results;
+          })
+          .catch(error => {
+            console.log(error);
+            return error;
+          });
+      }
+    }
+
+    window.customElements.define(UvalibAccountUser.is, UvalibAccountUser);
+  </script>
+</dom-module>

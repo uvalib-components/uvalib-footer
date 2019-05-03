@@ -1,0 +1,56 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="firebase-app.html">
+
+<dom-module id="uvalib-rt-models">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+    <firebase-document id="query" app-name="uvalibapi"
+      path="[[path]]"
+      data="{{tmpData}}" zero-value="[]">
+    </firebase-document>
+    <app-indexeddb-mirror
+        key="[[path]]"
+        data="{{tmpData}}"
+        persisted-data="{{data}}">
+    </app-indexeddb-mirror>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-rt-models`
+     * Binds to the UVA Library APIs
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/rt.html
+     */
+    class UvalibRTModels extends Polymer.Element {
+      static get is() { return 'uvalib-rt-models'; }
+      static get properties() {
+        return {
+          /** The API path used in the request */
+          path: {
+            type: String,
+            value: ""
+          },
+          /** The data */
+          data: {
+            type: Object,
+            notify: true,
+            value: null
+          }
+        };
+      }
+    }
+
+    window.customElements.define(UvalibRTModels.is, UvalibRTModels);
+  </script>
+</dom-module>

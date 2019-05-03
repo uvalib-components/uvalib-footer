@@ -1,0 +1,19 @@
+{
+  "name": "uvalib-header",
+  "description": "Header element for the UVA Library web apps",
+  "main": "uvalib-header.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "polymer": "^2.5.0",
+    "webcomponentsjs": "^v1.1.0",
+    "iron-collapse": "^2.1.0",
+    "paper-styles": "^2.0.0",
+    "iron-a11y-keys-behavior": "^v2.0.0",
+    "iron-resizable-behavior": "^v2.0.0",
+    "app-layout": "1 - 2",
+    "iron-flex-layout": "^2.0.3"
+  }
+}

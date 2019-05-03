@@ -1,0 +1,110 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../share-menu/share-menu.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../uva-helper-libs/moment-timezone.html">
+<link rel="import" href="../marked-element/marked-element.html">
+
+<dom-module id="uvalib-news-card">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex iron-flex-alignment">
+        :host {
+          display: block;
+        }
+        .card-news-item {
+/*          padding: var(--uvalib-spacing-unit); */
+          max-width: 540px;
+          margin-left: var(--uvalib-spacing-unit);
+          margin-right: var(--uvalib-spacing-unit);
+          margin-top: var(--uvalib-spacing-unit);
+          margin-bottom: var(--uvalib-spacing-unit);
+          border-radius: 5px;
+/*          @apply --uvalib-news-item; */
+          color: var(--uvalib-news-item-color, inherit);
+        }
+        .card-news-source {
+          @apply --h5;
+          @apply --uvalib-news-source;
+          margin-top: var(--uvalib-spacing-unit);
+          margin-bottom: var(--uvalib-spacing-unit);
+          color: var(--uvalib-news-item-source-color, var(--uvalib-main-rotunda-orange));
+        }
+        .card-news-title {
+          @apply --h4;
+          @apply --uvalib-news-title;
+        }
+        .card-news-copy {
+          @apply --uvalib-news-copy;
+        }
+        .card-news-link {
+          width: 120px;
+          padding-top: calc(var(--uvalib-spacing-unit)*2);
+          text-transform: uppercase;
+          @apply --uvalib-news-link;
+        }
+        paper-button {
+          background: white !important;
+          color: var(--uvalib-link-color);
+        }
+        paper-button span:hover {
+          text-decoration: underline;
+        }
+        .created {
+          @apply --h6;
+          font-style: italic;
+          opacity: .6;
+          padding-top: 10px;
+        }
+      </style>
+    </custom-style>
+
+    <paper-card class="card-news-item" image="[[image]]">
+      <div class="card-content">
+        <div class="layout vertical justified">
+          <div class="card-news-source" hidden$="[[!newsItem.source]]">[[newsItem.source]]</div>
+          <div class="card-news-title" hidden$="[[!newsItem.title]]">[[newsItem.title]]</div>
+          <div class="card-news-copy" hidden$="[[!newsItem.body]]">
+            <marked-element markdown="[[newsItem.body]]">
+              <div slot="markdown-html" class="markdown-html custom"></div>
+            </marked-element>
+          </div>
+          <div class="card-news-link" hidden$="[[!newsItem.link]]"><a href="[[newsItem.link]]" aria-label$="[[newsItem.title]]" tabindex="-1">[[linkText]]</a></div>
+          <div class="created">Posted on [[_prettyCreated(newsItem.created)]]</div>
+        </div>
+      </div>
+    </paper-card>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-news-card`
+     * News Card
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibNewsCard extends UvalibUiElement {
+      static get is() { return 'uvalib-news-card'; }
+      static get properties() {
+        return {
+          newsItem: Object,
+          image: String,
+          linkText: {
+            type:String,
+            value: "Go to article"
+          }
+        };
+      }
+      _prettyCreated(created){
+        return moment.unix(created).format('LL');
+      }
+    }
+
+    window.customElements.define(UvalibNewsCard.is, UvalibNewsCard);
+  </script>
+</dom-module>

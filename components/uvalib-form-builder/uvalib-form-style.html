@@ -1,0 +1,70 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="uvalib-form-style">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    .text-block {
+
+    }
+    .section {
+      padding-top: 1rem;
+    }
+    fieldset {
+      border: none;
+    }
+    .form-field {
+      padding: 10px 0px 10px 0px;
+    }
+    fieldset legend { /* trying to make this display like label element */
+      margin: 0;
+      padding: 0;
+    }
+    .field-label {
+      display: block;
+      font-weight: bold;
+      padding-bottom: 5px;
+    }
+    .required {
+      padding-left: 5px;
+      color: var(--uvalib-main-rotunda-orange);
+    }
+    .descriptive-text {
+      display: block;
+      font-weight: normal;
+      font-style: italic;
+      padding-left: 5px;
+      padding-bottom: 2px;
+    }
+    paper-button {
+      border: 1px solid black;
+    }
+    #submissionProblems {
+      font-weight: bold;
+    }
+    .validation-message {
+      display: block;
+      padding-top: 5px;
+      color: var(--uvalib-main-rotunda-orange);
+      //border ...
+    }
+    .errors {
+      border: 3px double var(--uvalib-main-rotunda-orange);
+      padding: 0px 10px;
+    }
+    .errorCount {
+      display: inline;
+    }
+    .hidden {
+      position:absolute;
+      left:-10000px;
+      top:auto;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+    }
+    </style>
+  </template>
+</dom-module>

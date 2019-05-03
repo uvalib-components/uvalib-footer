@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../uvalib-account/uvalib-account-user.html">
+    <link rel="import" href="../uvalib-form-builder.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic NetBadge uvalib-form demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-account-user id="accountuser" signed-in="{{signedIn}}" user-data="{{userData}}" contact-info="{{contactInfo}}"></uvalib-account-user>
+          <paper-button onclick="accountuser.signInWithNetbadge()" hidden$="[[signedIn]]" raised>Sign In with Netbadge</paper-button>
+          <uvalib-form-builder form-id="purchase_requests"></uvalib-form-builder>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
